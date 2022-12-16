@@ -1734,6 +1734,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-free@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-free@npm:6.2.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-free%2F-%2F6.2.1%2Ffontawesome-free-6.2.1.tgz"
+  checksum: c77b7c8b0965e5c17f4ca45667885b6273e26af97a9e83db343fc756c159b5acd35cf420e73e1b916af1d275179290ccfb1900af48631749e30f36464f339bd3
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -6450,6 +6457,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "front-end-template@workspace:."
   dependencies:
+    "@fortawesome/fontawesome-free": ^6.2.1
     "@reduxjs/toolkit": ^1.9.1
     "@sentry/react": ^7.26.0
     "@sentry/tracing": ^7.26.0
