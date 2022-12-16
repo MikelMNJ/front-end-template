@@ -43,28 +43,25 @@ export const handleNotify = (dispatch, data) => {
 const handleOtherResponses = args => {
   const { dispatch, res, onFail } = args;
   const { status, statusText } = res;
-  const text = `: ${statusText}`
+  const text = `: ${statusText}`;
   const message = {
     message: `${status}${statusText ? text : ' Response'}.`,
     type: status < 400 ? 'info' : 'error',
   };
 
-  if (status >= 400 && onFail) onFail(res);
+  if (status >= 400) onFail?.(res);
   handleNotify(dispatch, { message });
 };
 
-export const handleInitialRes = args => {
+export const handleInitialRes = async args => {
   const { res, onSuccess, onFail, dispatch } = args;
 
-  if (res.status === 200 && onSuccess) onSuccess(res);
-  if (res.status >= 400) {
-    if (res.status !== 429) {
-      // 429 notify is being sent from back-end rate limiter, directly.
-      const resArgs = { dispatch, res, onFail };
-      handleOtherResponses(resArgs);
-    }
+  if (res.status === 200) onSuccess?.(res);
 
-    if (onFail) onFail(res);
+  if (res.status >= 300 && res.status !== 429) {
+    // 429 notify is being sent from back-end rate limiter, directly.
+    const resArgs = { dispatch, res, onFail };
+    handleOtherResponses(resArgs);
   }
 
   if (res.status !== 504) return res.json();

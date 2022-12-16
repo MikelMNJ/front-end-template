@@ -2,16 +2,15 @@
 export const sampleAPICall = args => {
   const { type, payload, callbacks } = args;
 
- return {
+  return {
     type,
-    path: "/sample",
-    method: "POST",
+    path: '/sample',
+    method: 'POST',
     body: JSON.stringify(payload),
     headers: {
-      accept: "application/json",
-      "content-type": "application/json",
+      'Content-Type': 'application/json',
     },
-    onSuccess: res => callbacks?.onSuccess?.(res),
+    onSuccess: res => callbacks?.onSuccess(res),
     onFail: res => callbacks?.onFail?.(res),
     onComplete: res => callbacks?.onComplete?.(res),
   };
