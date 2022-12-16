@@ -1,5 +1,5 @@
-import { StateManager } from 'helpers';
 import { appConstants } from 'modules';
+import StateManager from 'state-wrangler';
 import _ from 'lodash';
 
 const { actions, selectors, theme } = appConstants;

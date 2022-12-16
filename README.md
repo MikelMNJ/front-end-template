@@ -267,45 +267,14 @@ other state helpers and custom hooks (like `useDispatch()` or `useSelector()`) i
 The action creator passes an object with `{ type, payload }` to the reducer, where the reducer's *switch* statement
 reads the `action.type` and updates state accordingly.
 
-### About StateManager()
-I have made a custom class that handles state updates in an immutable manner, see `StateManager()` in *helpers/stateManager/stateManager.js* &mdash;
-If you would rather use a library such as *immutableJS* you can swap the state manager out for that. The custom
-`StateManager()`, however, may be more friendly. It is intelligent enough to know if the state key being modified is a basic type,
-such as a string or number, or more complex, like an Array or Object.  Meaning you **won't** have to call methods such as Immutable's `state.getIn()`, `state.setIn()` etc. to update something like an array.
-
-### Modifying state: basic or complex key values in state
-`state.get(STATE_KEY_TO_GET)`: Returns the value from the target key in state.<br />
-`state.add(STATE_KEY_TO_ADD, payload)`: Adds a completely new key to state with payload.<br />
-`state.update(STATE_KEY_TO_UPDATE, payload)`: Replaces existing state key with payload.<br />
-`state.remove(STATE_KEY_TO_REMOVE)`: Removes state key, completely.<br />
-
-### Modifying state: arrays
-`state.get(STATE_KEY_TO_GET, index)`: Returns the value of the index from the targeted state key array.<br />
-`state.add(STATE_KEY_TO_ADD, payload, index)`: Adds new item to state key array with payload.<br />
-`state.update(STATE_KEY_TO_UPDATE, payload, index)`: Updates specific index of state key array with payload.<br />
-`state.remove(STATE_KEY_TO_REMOVE, index)`: Removes specific index from state key array.<br />
-
-### Modifying state: objects
-`state.get(STATE_KEY_TO_GET, "keyName")`: Returns the value of the key from the targeted state key object.<br />
-`state.add(STATE_KEY_TO_ADD, payload, "keyName")`: Adds new key to state key object with payload as value.<br />
-`state.update(STATE_KEY_TO_UPDATE, payload, "keyName")`: Updates specific key of state key object with payload as value.<br />
-`state.remove(STATE_KEY_TO_REMOVE, "keyName")`: Removes specific key from state key object.<br />
-
-### Modifying multiple state values
-There are times where you may need to alter multiple state values at once, this can be done with `state.merge()`, using an array as the only argument that contains any of the above methods.
-
-```jsx
-state.merge([
-  state.update(STATE_KEY_TO_UPDATE, payload),
-  state.remove(STATE_KEY_TO_REMOVE),
-  state.add(STATE_KEY_TO_ADD, payload),
-]);
-```
+### About State Management
+I have made an npm package that handles state updates in an immutable manner, see [state-wrangler](https://github.com/MikelMNJ/state-wrangler) for
+details on how to use this. If you would rather use a library such as *immutableJS* you can swap `state-wrangler` out for that.
 
 
 The following can be found in *modules/appReducer.js*:
 ```jsx
-import StateManager from 'helpers/stateManager/stateManager';
+import StateManager from 'state-wrangler';
 import constants from './appConstants';
 import _ from 'lodash';
 
