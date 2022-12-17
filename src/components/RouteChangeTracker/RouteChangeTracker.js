@@ -11,4 +11,4 @@ const RouteChangeTracker = () => {
   }, [ location ]);
 };
 
-export default RouteChangeTracker;
+export { RouteChangeTracker };
