@@ -13,25 +13,27 @@ export const paramsToObject = params => {
   })
 
   return paramsObject;
-}
+};
 
 export const paramsToString = params => {
   let paramsArray = [];
 
-  for (let key in params) {
-    paramsArray.push(`${key}=${params[key]}`);
-  }
+  Object.keys(params).forEach(key => {
+    const paramValue = params[key];
+    paramsArray.push(`${key}=${paramValue}`);
+  });
 
   paramsArray.forEach((param, index) => {
     if (index === 0) {
       paramsArray[index] = `?${encodeURI(param)}`;
-    } else {
-      paramsArray[index] = `&${encodeURI(param)}`;
+      return;
     }
+
+    paramsArray[index] = `&${encodeURI(param)}`;
   });
 
   return paramsArray.join('');
-}
+};
 
 export const paramsFromURL = () => {
   const location = window.location.href;
@@ -40,6 +42,5 @@ export const paramsFromURL = () => {
   const workingParams = paramsToObject(params);
 
   delete workingParams.undefined;
-
   return paramsToString(workingParams);
-}
+};
