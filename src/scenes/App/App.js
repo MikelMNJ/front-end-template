@@ -6,6 +6,7 @@ import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 
 const App = props => {
   const {
+    theme,
     bannerContent,
     notifications,
     userInfo,

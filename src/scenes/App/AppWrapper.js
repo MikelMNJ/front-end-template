@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withTheme } from 'styled-components';
 import { App } from 'scenes';
 import {
   appSelectors,
@@ -26,6 +27,7 @@ const mapActionsToProps = dispatch => {
   }
 };
 
-const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(App);
+const Component = withTheme(App);
+const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component)
 
 export { AppWrapper };
