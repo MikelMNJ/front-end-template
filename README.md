@@ -141,10 +141,10 @@ const App = props => {
 
 
 # Feature Flags
-A basic feature flag object has been added in *flags.js*.  You can expand this object or integrate it into your build pipeline,
+A basic feature flag object has been added in *featureFlags.js*.  You can expand this object or integrate it into your build pipeline,
 however you see fit, to control features for different environments or deployments.
 
-The following can be found in *flags/js*:
+The following can be found in *flags.js*:
 ```jsx
 const flags = {
   features: {
@@ -152,7 +152,7 @@ const flags = {
   }
 };
 
-export default flags;
+export { flags };
 ```
 
 You can use the feature flags in the front-end by importing, declaring and conditionally rendering:
