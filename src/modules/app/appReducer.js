@@ -17,8 +17,8 @@ const appReducer = (initialState = initial, action = {}) => {
     case actions.SET_THEME:
       return state.update(selectors.STATE_KEY_THEME, payload);
 
-    case actions.SET_GLOBAL_BANNER:
-      return state.add(selectors.STATE_KEY_GLOBAL_BANNER, payload);
+    case actions.SET_BANNER_CONTENT:
+      return state.add(selectors.STATE_KEY_BANNER_CONTENT, payload);
 
     case actions.ADD_NOTIFICATION:
       const notifications = state.get(selectors.STATE_KEY_NOTIFICATIONS);

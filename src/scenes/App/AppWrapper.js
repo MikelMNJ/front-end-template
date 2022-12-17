@@ -5,7 +5,7 @@ import { App } from 'scenes';
 const mapSelectorsToProps = state => {
   return {
     theme: appSelectors.theme(state),
-    globalBanner: appSelectors.globalBanner(state),
+    bannerContent: appSelectors.bannerContent(state),
     notifications: appSelectors.notifications(state),
     sampleResponse: appSelectors.sampleResponse(state),
   };
@@ -14,7 +14,7 @@ const mapSelectorsToProps = state => {
 const mapActionsToProps = dispatch => {
   return {
     setTheme: payload => dispatch(appActions.setTheme(payload)),
-    setGlobalBanner: payload => dispatch(appActions.setGlobalBanner(payload)),
+    setBannerContent: payload => dispatch(appActions.setBannerContent(payload)),
     addNotification: payload => dispatch(appActions.addNotification(payload)),
     removeNotification: payload => dispatch(appActions.removeNotification(payload)),
     clearNotifications: () => dispatch(appActions.clearNotifications()),

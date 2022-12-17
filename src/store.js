@@ -1,29 +1,33 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { apiMiddleware } from 'middleware';
+import { makeInitialState } from 'helpers';
 
 import {
   appReducer,
 } from 'modules';
 
-const rootReducer = combineReducers({
+const reducers = {
   app: appReducer,
-});
+};
+
+const initialState = makeInitialState(reducers);
+const mainReducer = combineReducers(reducers);
+const middleware = [ apiMiddleware ];
 
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 const devTools = process.env.NODE_ENV !== 'production' && reduxDevTools;
-const middlewares = [ apiMiddleware ];
 
-const handleMiddlewares = getDefaultMiddleWare => {
+const handleMiddleware = getDefaultMiddleWare => {
   const options = { serializableCheck: false };
-  return getDefaultMiddleWare(options).concat(middlewares)
+  return getDefaultMiddleWare(options).concat(middleware)
 };
 
 const storeConfig = {
-  reducer: rootReducer,
+  reducer: mainReducer,
   devTools,
-  middleware: handleMiddlewares,
+  middleware: handleMiddleware,
 };
 
 const store = configureStore(storeConfig);
 
-export { store };
+export { store, mainReducer, initialState };
