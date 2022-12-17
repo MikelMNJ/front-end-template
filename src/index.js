@@ -5,6 +5,7 @@ import { BrowserTracing } from '@sentry/tracing';
 import { AppWrapper } from 'scenes';
 import { RouteChangeTracker } from 'components';
 import { ThemeProvider } from 'styled-components';
+import { Heartbeat } from 'xerum';
 import { theme } from 'theme';
 import { store } from 'store';
 import * as Sentry from '@sentry/react';
@@ -44,7 +45,9 @@ const MyApp = (
     <Provider store={store}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <AppWrapper />
+          <Heartbeat disabled={!inProduction}>
+            <AppWrapper />
+          </Heartbeat>
         </ThemeProvider>
 
         {useAnalytics()}
