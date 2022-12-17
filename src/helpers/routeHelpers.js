@@ -9,7 +9,7 @@ const makeRoutes = (token, redirect) => {
 
     const authElement = (
       <AuthRoute
-        auth={token}
+        token={token}
         redirect={redirect}
         from={{ pathname: path, search: paramsFromURL() }}
       />

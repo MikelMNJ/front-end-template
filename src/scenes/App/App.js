@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
+// import { Banner, Notifications } from 'xerum';
 
 const App = props => {
   const {
@@ -21,6 +22,7 @@ const App = props => {
   useEffect(() => {
     const existingToken = localStorage.getItem(tokenName);
     const payload = { token: existingToken };
+
     if (existingToken) checkToken(payload);
   }, []);
 
@@ -35,12 +37,14 @@ const App = props => {
         {makeRoutes(token)}
       </Routes>
 
-      {showBanner && bannerContent && (
-        // TODO: Replace with Banner from xerum.
-        <div className='banner' />
+      {/* {bannerContent && showBanner && (
+        <Banner center={true} text={bannerContent} callback={() => setShowBanner(false)} />
       )}
 
-      {/* Add Notifications from xerum. */}
+      <Notifications
+        notifications={notifications}
+        removeNotification={removeNotification}
+      /> */}
     </div>
   );
 };

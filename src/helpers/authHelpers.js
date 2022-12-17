@@ -1,5 +1,4 @@
-import jwt_decode from 'jwt-decode';
-import moment from 'moment';
+import { tokenValid } from 'helpers';
 import _ from 'lodash';
 
 export let sessionCheck;
@@ -21,8 +20,7 @@ export const removeToken = tokenName => {
 export const autoLogout = (token, logout, addNotification) => {
   if (token && !sessionCheck) {
     sessionCheck = setInterval(() => {
-      const expires = moment(jwt_decode(token).exp * 1000);
-      const expired = moment() > expires;
+      const expired = !tokenValid(token);
 
       if (expired) {
         clearInterval(sessionCheck);
