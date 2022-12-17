@@ -14,6 +14,7 @@ import ReactGA from 'react-ga';
 import PackageJSON from '../package.json';
 import _ from 'lodash';
 import '@fortawesome/fontawesome-free/css/all.css';
+import './index.css';
 
 const {
   NODE_ENV,

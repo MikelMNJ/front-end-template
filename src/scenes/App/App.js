@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
-// import { Banner, Notifications } from 'xerum';
+import { Banner } from 'xerum';
 
 const App = props => {
   const {
@@ -38,11 +38,16 @@ const App = props => {
         {makeRoutes(token)}
       </Routes>
 
-      {/* {bannerContent && showBanner && (
-        <Banner center={true} text={bannerContent} callback={() => setShowBanner(false)} />
+      {bannerContent && showBanner && (
+        <Banner
+          center={true}
+          sharp={true}
+          text={bannerContent}
+          callback={() => setShowBanner(false)}
+        />
       )}
 
-      <Notifications
+      {/* <Notifications
         notifications={notifications}
         removeNotification={removeNotification}
       /> */}
