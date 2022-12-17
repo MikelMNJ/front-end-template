@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { BrowserTracing } from '@sentry/tracing';
-import { App } from 'scenes/App';
+import { AppWrapper } from 'scenes';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'theme';
 import { store } from 'store';
@@ -44,7 +44,7 @@ const MyApp = (
     <Provider store={store}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <App />
+          <AppWrapper />
         </ThemeProvider>
 
         {useAnalytics()}
