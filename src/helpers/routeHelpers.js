@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import { paramsFromURL } from 'helpers';
 import { routes } from 'controllers';
-import { AuthRoute } from 'components';
+import { AuthRoute } from 'xerum';
 
 const makeRoutes = (token, redirect) => {
   return routes?.map((route, index) => {
