@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 const AuthRoute = props => {
   const { auth, redirect, from } = props;
-  const pathname = redirect || "/login";
+  const pathname = redirect || '/login';
   const state = { from };
 
   return auth

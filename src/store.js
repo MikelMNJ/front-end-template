@@ -4,10 +4,12 @@ import { makeInitialState } from 'helpers';
 
 import {
   appReducer,
+  authReducer,
 } from 'modules';
 
 const reducers = {
   app: appReducer,
+  auth: authReducer,
 };
 
 const initialState = makeInitialState(reducers);

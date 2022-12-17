@@ -5,7 +5,7 @@ import _ from 'lodash';
 const { actions, selectors, theme } = appConstants;
 
 const initial = {
-  [selectors.STATE_KEY_THEME]: theme.light,
+  [selectors.STATE_KEY_SELECTED_THEME]: theme.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
 };
 
@@ -15,7 +15,7 @@ const appReducer = (initialState = initial, action = {}) => {
 
   switch(action.type) {
     case actions.SET_THEME:
-      return state.update(selectors.STATE_KEY_THEME, payload);
+      return state.update(selectors.STATE_KEY_SELECTED_THEME, payload);
 
     case actions.SET_BANNER_CONTENT:
       return state.add(selectors.STATE_KEY_BANNER_CONTENT, payload);
@@ -32,9 +32,6 @@ const appReducer = (initialState = initial, action = {}) => {
 
     case actions.CLEAR_NOTIFICATIONS:
       return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);
-
-    case actions.SAMPLE_API_CALL:
-      return state.update(selectors.STATE_KEY_SAMPLE_RESPONSE, payload);
 
     default:
       return initialState;

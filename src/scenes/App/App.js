@@ -5,14 +5,14 @@ import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 
 const App = props => {
   const {
-    checkToken,
-    logout,
-    addNotification,
-    removeNotification,
-    notifications,
     bannerContent,
+    notifications,
     userInfo,
     tokenName,
+    addNotification,
+    removeNotification,
+    checkToken,
+    logout,
   } = props;
 
   const [ showBanner, setShowBanner ] = useState(true);

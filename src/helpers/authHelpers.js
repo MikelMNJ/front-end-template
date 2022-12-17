@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 export let sessionCheck;
 
-export const storeToken = (state, constants, payload) => {
+export const storeToken = (state, selectors, payload) => {
   if (!_.isEmpty(payload)) {
-    const tokenName = state.get(constants.STATE_KEY_TOKEN_NAME);
+    const tokenName = state.get(selectors.STATE_KEY_TOKEN_NAME);
     localStorage.setItem(tokenName, payload.token);
   }
 };

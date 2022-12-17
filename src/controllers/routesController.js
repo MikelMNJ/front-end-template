@@ -10,15 +10,15 @@ const routes = [
     element: <p>Login</p>,
   },
   {
-    path: "/create-account",
+    path: '/create-account',
     element: <p>Create account</p>,
   },
   {
-    path: "/reset-password",
+    path: '/reset-password',
     element: <p>Reset password</p>,
   },
   {
-    path: "/set-password",
+    path: '/set-password',
     element: <p>Set password</p>,
   },
   {
