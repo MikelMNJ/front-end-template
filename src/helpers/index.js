@@ -4,3 +4,4 @@ export * from './paramHelpers';
 export * from './routeHelpers';
 export * from './authHelpers';
 export * from './validatorHelpers';
+export * from './utilityHelpers';

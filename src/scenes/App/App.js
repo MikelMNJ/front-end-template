@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
-import { Banner } from 'xerum';
+import { GlobalStyle } from './styles';
+import { Banner, Button } from 'xerum';
 
 const App = props => {
   const {
     theme,
+    selectedTheme,
+    setTheme,
     bannerContent,
     notifications,
     userInfo,
@@ -32,8 +35,10 @@ const App = props => {
     return () => clearInterval(sessionCheck);
   }, [ token ]);
 
+  const handleThemeChange = () => setTheme(selectedTheme === 'light' ? 'dark' : 'light');
+
   return (
-    <div id='app'>
+    <div>
       <Routes>
         {makeRoutes(token)}
       </Routes>
@@ -47,10 +52,14 @@ const App = props => {
         />
       )}
 
+      <Button text='Toggle theme' onClick={handleThemeChange} />
+
       {/* <Notifications
         notifications={notifications}
         removeNotification={removeNotification}
       /> */}
+
+      <GlobalStyle theme={theme} selectedTheme={selectedTheme} />
     </div>
   );
 };
