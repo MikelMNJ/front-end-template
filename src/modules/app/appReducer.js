@@ -2,10 +2,10 @@ import { appConstants } from 'modules';
 import StateManager from 'state-wrangler';
 import _ from 'lodash';
 
-const { actions, selectors, theme } = appConstants;
+const { actions, selectors, themes } = appConstants;
 
 const initial = {
-  [selectors.STATE_KEY_SELECTED_THEME]: theme.dark,
+  [selectors.STATE_KEY_SELECTED_THEME]: themes.dark,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
 };
 

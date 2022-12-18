@@ -1,11 +1,22 @@
 import { appConstants } from 'modules';
+import {
+  NunitoExtraLight,
+  NunitoLight,
+  NunitoRegular,
+  NunitoBold,
+  NunitoBlack,
+  OpenSansLight,
+  OpenSansRegular,
+  OpenSansBold,
+  OpenSansExtraBold,
+} from 'static';
 
-const { theme: themeConstants } = appConstants;
+const { themes } = appConstants;
 
 const colors = {
   greyWeb: '#7a7d7d',
   lightGrey: '#d0cfcf',
-  eerieBlack: '#1f1e1f',
+  raisinBlack: '#2a2829',
   bittersweet: '#f96c62',
   congoPink: '#fb9089',
   pacificBlue: '#45a7ba',
@@ -24,10 +35,10 @@ const colors = {
 };
 
 const modes = {
-  [themeConstants.light]: {
+  [themes.light]: {
     primary: colors.white,
     onPrimary: colors.greyWeb,
-    secondary: colors.eerieBlack,
+    secondary: colors.raisinBlack,
     onSecondary: colors.lightGrey,
     accent: colors.bittersweet,
     onAccent: colors.black,
@@ -46,8 +57,8 @@ const modes = {
     info: colors.info,
   },
 
-  [themeConstants.dark]: {
-    primary: colors.eerieBlack,
+  [themes.dark]: {
+    primary: colors.raisinBlack,
     onPrimary: colors.white,
     secondary: colors.lightGrey,
     onSecondary: colors.greyWeb,
@@ -71,18 +82,72 @@ const modes = {
 
 const fonts = {
   primary: {
-    thin: 'Nunito-ExtraLight, sans-serif',
-    light: 'Nunito-Light, sans-serif',
-    regular: 'Nunito-Regular, sans-serif',
-    bold: 'Nunito-Bold, sans-serif',
-    black: 'Nunito-Black, sans-serif',
+    extraLight: {
+      family: 'Nunito-ExtraLight',
+      src: NunitoExtraLight.default,
+      format: 'truetype',
+      weight: 200,
+      style: 'normal',
+    },
+    light: {
+      family: 'Nunito-Light',
+      src: NunitoLight.default,
+      format: 'truetype',
+      weight: 300,
+      style: 'normal',
+    },
+    regular: {
+      family: 'Nunito-Regular',
+      src: NunitoRegular.default,
+      format: 'truetype',
+      weight: 400,
+      style: 'normal',
+    },
+    bold: {
+      family: 'Nunito-Bold',
+      src: NunitoBold.default,
+      format: 'truetype',
+      weight: 700,
+      style: 'normal',
+    },
+    black: {
+      family: 'Nunito-Black',
+      src: NunitoBlack.default,
+      format: 'truetype',
+      weight: 900,
+      style: 'normal',
+    },
   },
+
   secondary: {
-    thin: 'OpenSans-Light, sans-serif',
-    light: 'OpenSans-Light, sans-serif',
-    regular: 'OpenSans-Regular, sans-serif',
-    bold: 'OpenSans-Bold, sans-serif',
-    black: 'OpenSans-ExtraBold, sans-serif',
+    light: {
+      family: 'OpenSans-Light',
+      src: OpenSansLight.default,
+      format: 'truetype',
+      weight: 300,
+      style: 'normal',
+    },
+    regular: {
+      family: 'OpenSans-Regular',
+      src: OpenSansRegular.default,
+      format: 'truetype',
+      weight: 400,
+      style: 'normal',
+    },
+    bold: {
+      family: 'OpenSans-Bold',
+      src: OpenSansBold.default,
+      format: 'truetype',
+      weight: 700,
+      style: 'normal',
+    },
+    extraBold: {
+      family: 'OpenSans-ExtraBold',
+      src: OpenSansExtraBold.default,
+      format: 'truetype',
+      weight: 800,
+      style: 'normal',
+    },
   },
 };
 

@@ -5,6 +5,7 @@ import { BrowserTracing } from '@sentry/tracing';
 import { AppWrapper } from 'scenes';
 import { RouteChangeTracker } from 'components';
 import { ThemeProvider } from 'styled-components';
+import { FontFaces } from 'fontFaces';
 import { Heartbeat } from 'xerum';
 import { theme } from 'theme';
 import { store } from 'store';
@@ -48,6 +49,8 @@ const MyApp = (
           <Heartbeat disabled={!inProduction}>
             <AppWrapper />
           </Heartbeat>
+
+          <FontFaces theme={theme} />
         </ThemeProvider>
 
         {useAnalytics()}

@@ -14,7 +14,7 @@ const appConstants = {
     STATE_KEY_NOTIFICATIONS: 'notifications',
   },
 
-  theme: {
+  themes: {
     light: 'light',
     dark: 'dark',
   },

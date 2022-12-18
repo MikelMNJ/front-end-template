@@ -5,6 +5,9 @@ import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { appConstants } from 'modules';
 import { GlobalStyle } from './styles';
 import { Banner, Button } from 'xerum';
+import { H2, Font } from 'components';
+
+const { light, dark } = appConstants.themes;
 
 const App = props => {
   const {
@@ -36,10 +39,7 @@ const App = props => {
     return () => clearInterval(sessionCheck);
   }, [ token ]);
 
-  const handleThemeChange = () => {
-    const { light, dark } = appConstants.theme;
-    setTheme(selectedTheme === light ? dark : light);
-  };
+  const handleThemeChange = () => setTheme(selectedTheme === light ? dark : light);
 
   return (
     <div>
@@ -49,10 +49,10 @@ const App = props => {
 
       {bannerContent && showBanner && (
         <Banner
-          center={true}
-          sharp={true}
-          text={bannerContent}
-          callback={() => setShowBanner(false)}
+        center={true}
+        sharp={true}
+        text={bannerContent}
+        callback={() => setShowBanner(false)}
         />
       )}
 
@@ -61,10 +61,18 @@ const App = props => {
         selectedTheme={selectedTheme}
         text={selectedTheme}
         btnType='ghost'
-        icon={selectedTheme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
+        icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
         disabled={false}
         callback={handleThemeChange}
       />
+
+      <H2>Heading Test</H2>
+
+      <Font weight='extraLight'>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </Font>
 
       {/* <Notifications
         notifications={notifications}

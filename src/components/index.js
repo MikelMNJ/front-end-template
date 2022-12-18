@@ -1,2 +1,3 @@
 
-export * from './RouteChangeTracker/RouteChangeTracker';
+export * from './Utility';
+export * from './Typography';
