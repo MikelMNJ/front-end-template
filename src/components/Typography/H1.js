@@ -3,6 +3,7 @@ import styled, { withTheme } from 'styled-components';
 const StyledH1 = styled('h1')`
   font-weight: unset;
   font-family: ${props => props.theme.fonts.secondary.bold.family}, sans-serif;
+  font-size: 2rem;
 `;
 
 const H1 = withTheme(props => {

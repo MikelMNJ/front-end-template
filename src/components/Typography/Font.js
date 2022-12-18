@@ -25,6 +25,7 @@ const getFontFamily = props => {
 
 const StyledFont = styled('div')`
   font-family: ${props => getFontFamily(props)}, sans-serif;
+  font-size: 1.125rem;
 `;
 
 const Font = withTheme(props => {
