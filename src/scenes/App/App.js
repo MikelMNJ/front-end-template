@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
+import { appConstants } from 'modules';
 import { GlobalStyle } from './styles';
 import { Banner, Button } from 'xerum';
 
@@ -35,7 +36,10 @@ const App = props => {
     return () => clearInterval(sessionCheck);
   }, [ token ]);
 
-  const handleThemeChange = () => setTheme(selectedTheme === 'light' ? 'dark' : 'light');
+  const handleThemeChange = () => {
+    const { light, dark } = appConstants.theme;
+    setTheme(selectedTheme === light ? dark : light);
+  };
 
   return (
     <div>
@@ -52,7 +56,15 @@ const App = props => {
         />
       )}
 
-      <Button text='Toggle theme' onClick={handleThemeChange} />
+      <Button
+        theme={theme}
+        selectedTheme={selectedTheme}
+        text={selectedTheme}
+        btnType='ghost'
+        icon={selectedTheme === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
+        disabled={false}
+        callback={handleThemeChange}
+      />
 
       {/* <Notifications
         notifications={notifications}
