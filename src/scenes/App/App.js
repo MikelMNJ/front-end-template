@@ -5,7 +5,7 @@ import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { appConstants } from 'modules';
 import { GlobalStyle } from './styles';
 import { Banner, Button } from 'xerum';
-import { H2, Font } from 'components';
+import { H1, H2, H3, H4, H5, H6, Font } from 'components';
 
 const { light, dark } = appConstants.themes;
 
@@ -66,7 +66,12 @@ const App = props => {
         callback={handleThemeChange}
       />
 
+      <H1>Heading Test</H1>
       <H2>Heading Test</H2>
+      <H3>Heading Test</H3>
+      <H4>Heading Test</H4>
+      <H5>Heading Test</H5>
+      <H6>Heading Test</H6>
 
       <Font weight='extraLight'>
         <p>
