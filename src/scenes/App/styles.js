@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${props => getColor(props, 'primary')};
     color: ${props => getColor(props, 'onPrimary')};
+    font-family: sans-serif;
   }
 `;
 
