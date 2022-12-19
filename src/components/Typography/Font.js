@@ -25,14 +25,14 @@ const getFontFamily = props => {
 
 const StyledFont = styled('div')`
   font-family: ${props => getFontFamily(props)}, sans-serif;
-  font-size: 1.125rem;
+  font-size: ${props => props.size || 1.125}rem;
 `;
 
 const Font = withTheme(props => {
-  const { theme, weight, children } = props;
+  const { theme, weight, size, children } = props;
 
   return (
-    <StyledFont theme={theme} weight={weight}>
+    <StyledFont theme={theme} weight={weight} size={size}>
       {children}
     </StyledFont>
   );
