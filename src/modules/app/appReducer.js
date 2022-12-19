@@ -5,7 +5,7 @@ import _ from 'lodash';
 const { actions, selectors, themes } = appConstants;
 
 const initial = {
-  [selectors.STATE_KEY_SELECTED_THEME]: themes.dark,
+  [selectors.STATE_KEY_SELECTED_THEME]: themes.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
 };
 
