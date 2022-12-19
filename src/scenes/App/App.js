@@ -4,7 +4,7 @@ import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { appConstants } from 'modules';
 import { GlobalStyle } from './styles';
-import { Banner, Button } from 'xerum';
+import { Banner, Button, Spacer } from 'xerum';
 import { H1, H2, H3, H4, H5, H6, Font } from 'components';
 
 const { light, dark } = appConstants.themes;
@@ -49,12 +49,15 @@ const App = props => {
 
       {bannerContent && showBanner && (
         <Banner
+        theme={theme}
+        selectedTheme={selectedTheme}
         center={true}
-        sharp={true}
         text={bannerContent}
         callback={() => setShowBanner(false)}
         />
       )}
+
+      <Spacer />
 
       <Button
         theme={theme}
