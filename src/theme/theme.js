@@ -58,8 +58,8 @@ const modes = {
   [themes.dark]: {
     primary: colors.raisinBlack,
     onPrimary: colors.white,
-    secondary: colors.lightGrey,
-    onSecondary: colors.greyWeb,
+    secondary: colors.black,
+    onSecondary: colors.lightGrey,
     accent: colors.brightNavyBlue,
     onAccent: colors.darkGrey,
     accentHover: colors.carolinaBlue,
