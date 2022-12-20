@@ -2,24 +2,11 @@
 import { Fragment, useEffect } from 'react';
 import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
-import { GlobalStyle, StyledApp, MainContent } from './styles';
+import { GlobalStyles, StyledApp, MainContent } from './styles';
 import { Header, Footer } from 'scenes';
 
 const App = props => {
-  const {
-    theme,
-    selectedTheme,
-    setTheme,
-    bannerContent,
-    notifications,
-    userInfo,
-    tokenName,
-    addNotification,
-    removeNotification,
-    checkToken,
-    logout,
-  } = props;
-
+  const { userInfo, tokenName, checkToken, logout } = props;
   const token = userInfo?.token;
 
   useEffect(() => {
@@ -30,27 +17,17 @@ const App = props => {
   }, []);
 
   useEffect(() => {
-    autoLogout(token, logout, addNotification);
+    autoLogout(token, logout, props.addNotification);
     return () => clearInterval(sessionCheck);
   }, [ token ]);
 
   return (
     <Fragment>
-      <GlobalStyle theme={theme} selectedTheme={selectedTheme} />
-      {/* <Notifications
-        theme={theme}
-        selectedTheme={selectedTheme}
-        notifications={notifications}
-        removeNotification={removeNotification}
-      /> */}
+      <GlobalStyles {...props} />
+      {/* <Notifications {...props} /> */}
 
       <StyledApp>
-        <Header
-          theme={theme}
-          selectedTheme={selectedTheme}
-          setTheme={setTheme}
-          bannerContent={bannerContent}
-        />
+        <Header {...props} />
 
         <MainContent>
           <Routes>
@@ -58,7 +35,7 @@ const App = props => {
           </Routes>
         </MainContent>
 
-        <Footer theme={theme} selectedTheme={selectedTheme} />
+        <Footer {...props} />
       </StyledApp>
     </Fragment>
   );
