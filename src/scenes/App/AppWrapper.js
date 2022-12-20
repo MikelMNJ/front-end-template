@@ -26,10 +26,10 @@ const mapActionsToProps = dispatch => {
     removeNotification: payload => dispatch(appActions.removeNotification(payload)),
     checkToken: payload => dispatch(authActions.checkToken(payload)),
     logout: () => dispatch(rootActions.logout()),
-  }
+  };
 };
 
 const Component = withTheme(App);
-const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component)
+const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
 export { AppWrapper };

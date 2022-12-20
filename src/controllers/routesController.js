@@ -1,9 +1,14 @@
+import { MainWrapper } from 'scenes';
 
 const routes = [
   // Public routes
   {
     path: '*',
     element: <p>Not found</p>,
+  },
+  {
+    path: '/',
+    element: <MainWrapper />,
   },
   {
     path: '/login',
@@ -20,10 +25,6 @@ const routes = [
   {
     path: '/set-password',
     element: <p>Set password</p>,
-  },
-  {
-    path: '/',
-    element: <p>Home</p>,
   },
 
   // Private routes

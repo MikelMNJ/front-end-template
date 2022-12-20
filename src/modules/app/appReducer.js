@@ -7,7 +7,7 @@ const { actions, selectors, themes } = appConstants;
 const initial = {
   [selectors.STATE_KEY_SELECTED_THEME]: themes.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
-  [selectors.STATE_KEY_BANNER_CONTENT]: 'The library is currently in alpha. Please report any bugs or issues to the developers.',
+  [selectors.STATE_KEY_BANNER_CONTENT]: 'The project is currently in development.',
 };
 
 const appReducer = (initialState = initial, action = {}) => {
