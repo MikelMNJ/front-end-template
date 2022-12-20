@@ -21,25 +21,25 @@ export const apiRelay = args => {
   const options = { ...rest };
 
   fetch(url, options)
-  .then(res => handleInitialRes({ res, onSuccess, onFail, dispatch }))
-  .then(data => {
-    if (data) {
-      const { message, messages, error, errors, ...payload } = data;
-      handleNotify(dispatch, data);
+    .then(res => handleInitialRes({ res, onSuccess, onFail, dispatch }))
+    .then(data => {
+      if (data) {
+        const { message, messages, error, errors, ...payload } = data;
+        handleNotify(dispatch, data);
 
-      if (payload && (!error || !errors)) {
-        dispatch(actionCreator(type, payload, meta));
+        if (payload && (!error || !errors)) {
+          dispatch(actionCreator(type, payload, meta));
+        }
       }
-    }
-  })
-  .catch(error => {
-    console.error(error);
-    onFail?.(error);
-  })
-  .finally(() => {
-    onComplete?.();
-    next(action);
-  });
+    })
+    .catch(error => {
+      console.error(error);
+      onFail?.(error);
+    })
+    .finally(() => {
+      onComplete?.();
+      next(action);
+    });
 };
 
 export { apiMiddleware };
