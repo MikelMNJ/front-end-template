@@ -2,21 +2,26 @@ import styled, { withTheme } from 'styled-components';
 
 const getFontFamily = props => {
   const { weight } = props;
-  const fallback = props.theme?.fonts?.primary?.regular?.family;
+  const fontWeight = weight?.toLowerCase();
+  const fallback = props.theme?.fonts?.primary?.normal?.family;
 
-  switch (weight?.toLowerCase()) {
+  switch (fontWeight) {
     case 'thin':
-      return props.theme?.fonts?.primary?.thin?.family;
+      return props.theme?.fonts?.primary?.thin?.family || fallback;
     case 'extralight':
-      return props.theme?.fonts?.primary?.extraLight?.family;
+      return props.theme?.fonts?.primary?.extraLight?.family || fallback;
     case 'light':
-      return props.theme?.fonts?.primary?.light?.family;
+      return props.theme?.fonts?.primary?.light?.family || fallback;
+    case 'medium':
+      return props.theme?.fonts?.primary?.medium?.family || fallback;
+    case 'semibold':
+      return props.theme?.fonts?.primary?.semiBold?.family || fallback;
     case 'bold':
-      return props.theme?.fonts?.primary?.bold?.family;
+      return props.theme?.fonts?.primary?.bold?.family || fallback;
     case 'extrabold':
-      return props.theme?.fonts?.primary?.extraBold?.family;
+      return props.theme?.fonts?.primary?.extraBold?.family || fallback;
     case 'black':
-      return props.theme?.fonts?.primary?.black?.family;
+      return props.theme?.fonts?.primary?.black?.family || fallback;
 
     default:
       return fallback;
