@@ -46,3 +46,10 @@ export const StyledFooter = styled('footer')`
 export const MainContent = styled('main')`
   padding: 1rem;
 `;
+
+export const AppLogo = styled('div')`
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+`;

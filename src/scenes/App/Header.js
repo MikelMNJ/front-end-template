@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { appConstants } from 'modules';
 import { Font } from 'components';
-import { StyledHeader } from './styles';
+import { StyledHeader, AppLogo } from './styles';
 import { Button, Banner, Spacer } from 'xerum';
 import { iconValid } from 'helpers';
 
@@ -16,6 +17,7 @@ const Header = props => {
   } = props;
 
   const [ showBanner, setShowBanner ] = useState(true);
+  const navigate = useNavigate();
 
   const handleThemeChange = () => {
     setTheme(selectedTheme === light ? dark : light);
@@ -24,8 +26,13 @@ const Header = props => {
   return (
     <header>
       <StyledHeader theme={theme} selectedTheme={selectedTheme}>
-        <Font weight='bold' size={2}>
-          Front-end Template
+        <Font weight='bold' size={1.75}>
+          <AppLogo onClick={() => navigate('/')}>
+            <i className={iconValid('fa-brands fa-react')} />
+            <Spacer across={true} />
+
+            [App name]
+          </AppLogo>
         </Font>
 
         <Button
