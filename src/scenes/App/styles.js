@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background-color: ${props => getColor(props, 'primary')};
     color: ${props => getColor(props, 'onPrimary')};
-    font-family: sans-serif;
+    font-family: ${props => props.theme?.fonts?.primary?.normal?.family}, sans-serif;
     margin: 0;
   }
 `;
