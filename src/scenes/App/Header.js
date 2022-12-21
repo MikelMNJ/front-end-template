@@ -38,7 +38,7 @@ const Header = props => {
         <Button
           theme={theme}
           selectedTheme={selectedTheme}
-          text={selectedTheme}
+          noText={true}
           btnType='solid'
           icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
           disabled={false}
