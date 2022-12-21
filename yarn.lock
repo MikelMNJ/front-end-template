@@ -6493,7 +6493,7 @@ __metadata:
     react-scripts: 5.0.1
     state-wrangler: ^0.2.2
     styled-components: ^5.3.6
-    xerum: ^0.2.3
+    xerum: ^0.2.8
     yup: ^0.32.11
   languageName: unknown
   linkType: soft
@@ -13532,9 +13532,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xerum@npm:^0.2.3":
-  version: 0.2.3
-  resolution: "xerum@npm:0.2.3"
+"xerum@npm:^0.2.8":
+  version: 0.2.8
+  resolution: "xerum@npm:0.2.8"
   peerDependencies:
     "@fortawesome/fontawesome-free": ^6.2.1
     formik: ^2.2.9
@@ -13548,7 +13548,7 @@ __metadata:
     react-router-dom: ^6.4.5
     styled-components: ^5.3.6
     yup: ^0.32.11
-  checksum: 1873274a907dde8a3122803b2f80f2a0b10d04389026bc3b496e4378d8cfb940b826b7f2ce575bf04c4e7f6753c256d487cbbefa876e21388b2908f6db390739
+  checksum: 574e22b355d627c4629800922b035841c83096e08e4008569edd4abfb6fb2049bdcafdd1fd8895af82bc481ef331d07777ed09951a432c418abf336bbcbb14eb
   languageName: node
   linkType: hard
 
