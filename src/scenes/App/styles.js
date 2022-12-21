@@ -44,6 +44,5 @@ export const StyledFooter = styled('footer')`
 `;
 
 export const MainContent = styled('main')`
-  display: flex;
   padding: 1rem;
 `;
