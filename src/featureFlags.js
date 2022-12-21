@@ -4,4 +4,4 @@ const flags = {
   }
 };
 
-export default flags;
+export { flags };
