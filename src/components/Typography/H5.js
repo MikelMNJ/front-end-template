@@ -4,6 +4,7 @@ const StyledH5 = styled('h5')`
   font-weight: unset;
   font-family: ${props => props.theme?.fonts?.secondary?.bold?.family}, sans-serif;
   font-size: 0.83rem;
+  margin: 0;
 `;
 
 const H5 = withTheme(props => {
