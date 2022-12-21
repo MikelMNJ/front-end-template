@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { appConstants } from 'modules';
-import { H2 } from 'components';
+import { Font } from 'components';
 import { StyledHeader } from './styles';
-import { Button, Banner } from 'xerum';
+import { Button, Banner, Spacer } from 'xerum';
+import { iconValid } from 'helpers';
 
 const { light, dark } = appConstants.themes;
 
@@ -23,7 +24,9 @@ const Header = props => {
   return (
     <header>
       <StyledHeader theme={theme} selectedTheme={selectedTheme}>
-        <H2>Front-end Template</H2>
+        <Font weight='bold' size={2}>
+          Front-end Template
+        </Font>
 
         <Button
           theme={theme}
@@ -37,14 +40,20 @@ const Header = props => {
       </StyledHeader>
 
       {bannerContent && showBanner && (
-        <Banner
-          theme={theme}
-          selectedTheme={selectedTheme}
-          center={true}
-          sharp={true}
-          text={bannerContent}
-          callback={() => setShowBanner(false)}
-        />
+        <Font weight='bold'>
+          <Banner
+            theme={theme}
+            selectedTheme={selectedTheme}
+            center={true}
+            sharp={true}
+            callback={() => setShowBanner(false)}
+          >
+            <i className={iconValid('fa-solid fa-bell')} />
+            <Spacer size={1} across={true} />
+
+            {bannerContent}
+          </Banner>
+        </Font>
       )}
     </header>
   );

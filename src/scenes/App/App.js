@@ -6,7 +6,7 @@ import { GlobalStyles, StyledApp, MainContent } from './styles';
 import { Header, Footer } from 'scenes';
 
 const App = props => {
-  const { userInfo, tokenName, checkToken, logout } = props;
+  const { userInfo, tokenName, checkToken, logout, ...rest } = props;
   const token = userInfo?.token;
 
   useEffect(() => {
@@ -23,11 +23,11 @@ const App = props => {
 
   return (
     <Fragment>
-      <GlobalStyles {...props} />
-      {/* <Notifications {...props} /> */}
+      <GlobalStyles {...rest} />
+      {/* <Notifications {...rest} /> */}
 
       <StyledApp>
-        <Header {...props} />
+        <Header {...rest} />
 
         <MainContent>
           <Routes>
@@ -35,7 +35,7 @@ const App = props => {
           </Routes>
         </MainContent>
 
-        <Footer {...props} />
+        <Footer {...rest} />
       </StyledApp>
     </Fragment>
   );
