@@ -39,8 +39,11 @@ const Header = props => {
           theme={theme}
           selectedTheme={selectedTheme}
           noText={true}
-          btnType='solid'
+          btnType='transparent'
           icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
+          color={theme.colors.lightGrey}
+          hoverColor={theme.colors.white}
+          textColor={theme.colors.lightGrey}
           disabled={false}
           callback={handleThemeChange}
         />
