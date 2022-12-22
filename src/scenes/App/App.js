@@ -4,6 +4,7 @@ import { Routes } from 'react-router-dom';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { GlobalStyles, StyledApp, MainContent } from './styles';
 import { Header, Footer } from 'scenes';
+import { Notifications } from 'xerum';
 
 const App = props => {
   const { userInfo, tokenName, checkToken, logout, ...rest } = props;
@@ -24,7 +25,7 @@ const App = props => {
   return (
     <Fragment>
       <GlobalStyles {...rest} />
-      {/* <Notifications {...rest} /> */}
+      <Notifications {...rest} />
 
       <StyledApp>
         <Header {...rest} />
