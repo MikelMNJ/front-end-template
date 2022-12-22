@@ -2,8 +2,7 @@ import { H1, H2, H3, H4, H5, H6, P, Font } from 'components';
 import { StyledMain } from './styles';
 import { Spacer } from 'xerum';
 
-const Main = () => {
-
+const Main = props => {
   return (
     <StyledMain>
       <div>

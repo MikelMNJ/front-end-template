@@ -6,6 +6,7 @@ const appSelectors = {
   selectedTheme: state => state.app[selectors.STATE_KEY_SELECTED_THEME],
   bannerContent: state => state.app[selectors.STATE_KEY_BANNER_CONTENT],
   notifications: state => state.app[selectors.STATE_KEY_NOTIFICATIONS],
+  modalVisible: state => state.app[selectors.STATE_KEY_MODAL_VISIBLE],
 };
 
 export { appSelectors };

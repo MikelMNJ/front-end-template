@@ -34,6 +34,9 @@ const appReducer = (initialState = initial, action = {}) => {
     case actions.CLEAR_NOTIFICATIONS:
       return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);
 
+    case actions.SET_MODAL_VISIBLE:
+      return state.update(selectors.STATE_KEY_MODAL_VISIBLE, payload);
+
     default:
       return initialState;
   }
