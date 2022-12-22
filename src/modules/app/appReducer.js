@@ -7,7 +7,7 @@ const { actions, selectors, themes } = appConstants;
 const initial = {
   [selectors.STATE_KEY_SELECTED_THEME]: themes.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
-  [selectors.STATE_KEY_BANNER_CONTENT]: 'The project is currently in development.',
+  [selectors.STATE_KEY_BANNER_CONTENT]: 'Welcome to your new app!',
 };
 
 const appReducer = (initialState = initial, action = {}) => {

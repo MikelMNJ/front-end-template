@@ -55,7 +55,7 @@ const Header = props => {
             sharp={true}
             callback={() => setShowBanner(false)}
           >
-            <i className={iconValid('fa-solid fa-bell')} />
+            <i className={iconValid('fa-solid fa-face-grin-stars')} />
             <Spacer size={1} across={true} />
 
             {bannerContent}
