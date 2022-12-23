@@ -1,5 +1,8 @@
 import { getColor } from 'helpers';
+import { theme } from 'theme';
 import styled, { createGlobalStyle } from 'styled-components';
+
+const colors = theme.colors;
 
 export const GlobalStyles = createGlobalStyle`
   * {
@@ -11,6 +14,22 @@ export const GlobalStyles = createGlobalStyle`
     color: ${props => getColor(props, 'onPrimary')};
     font-family: ${props => props.theme?.fonts?.primary?.normal?.family}, sans-serif;
     margin: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 27rem;
+  }
+
+  a:link,
+  a:visited {
+    color: ${props => getColor(props, 'accent', colors.black)};
+  }
+
+  a:hover {
+    color: ${props => getColor(props, 'accentHover', colors.grey)};
   }
 `;
 

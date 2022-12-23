@@ -1,6 +1,6 @@
 import { StyledMain } from './styles';
 
-const Main = props => {
+const Main = () => {
   return (
     <StyledMain>
 

@@ -1,8 +1,14 @@
-import { MainWrapper } from 'scenes';
 import { H2 } from 'components';
 import { NotFound } from 'xerum';
 import { theme } from 'theme';
 import { appConstants } from 'modules';
+import {
+  MainWrapper,
+  LoginWrapper,
+  CreateAccountWrapper,
+  ResetPasswordWrapper,
+  SetPasswordWrapper,
+} from 'scenes';
 
 const routes = [
   // Public routes
@@ -22,19 +28,19 @@ const routes = [
   },
   {
     path: '/login',
-    element: <p>Login</p>,
+    element: <LoginWrapper />,
   },
   {
     path: '/create-account',
-    element: <p>Create account</p>,
+    element: <CreateAccountWrapper />,
   },
   {
     path: '/reset-password',
-    element: <p>Reset password</p>,
+    element: <ResetPasswordWrapper />,
   },
   {
     path: '/set-password',
-    element: <p>Set password</p>,
+    element: <SetPasswordWrapper />,
   },
 
   // Private routes
