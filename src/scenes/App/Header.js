@@ -56,6 +56,7 @@ const Header = props => {
             selectedTheme={selectedTheme}
             center={true}
             sharp={true}
+            textColor={theme.colors.white}
             callback={() => setShowBanner(false)}
           >
             <i className={iconValid('fa-solid fa-face-grin-stars')} />
