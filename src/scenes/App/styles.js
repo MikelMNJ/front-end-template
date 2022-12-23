@@ -64,6 +64,8 @@ export const StyledFooter = styled('footer')`
 
 export const MainContent = styled('main')`
   padding: 1rem;
+  width: 100%;
+  height: ${props => props.token ? '100%' : 'inherit'};
 `;
 
 export const AppLogo = styled('div')`

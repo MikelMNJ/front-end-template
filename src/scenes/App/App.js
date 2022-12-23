@@ -8,7 +8,7 @@ import { Notifications } from 'xerum';
 
 const App = props => {
   const { userInfo, tokenName, checkToken, logout, ...rest } = props;
-  const token = userInfo?.token;
+  const token = 'temp'; // userInfo?.token;
 
   useEffect(() => {
     const existingToken = localStorage.getItem(tokenName);
@@ -28,15 +28,15 @@ const App = props => {
       <Notifications {...rest} />
 
       <StyledApp>
-        <Header {...rest} />
+        {token && <Header {...rest} />}
 
-        <MainContent>
+        <MainContent token={token}>
           <Routes>
             {makeRoutes(token)}
           </Routes>
         </MainContent>
 
-        <Footer {...rest} />
+        {token && <Footer {...rest} />}
       </StyledApp>
     </Fragment>
   );
