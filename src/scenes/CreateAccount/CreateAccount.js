@@ -50,7 +50,7 @@ const CreateAccount = props => {
             <Field
               type='email'
               name='email'
-              label='Email'
+              label={<Font weight='bold'>Email</Font>}
               disabled={false}
               solidFill={false}
               form={form}
@@ -63,7 +63,7 @@ const CreateAccount = props => {
             <Field
               type='password'
               name='password'
-              label='Password'
+              label={<Font weight='bold'>Password</Font>}
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}
@@ -75,7 +75,7 @@ const CreateAccount = props => {
             <Field
               type='password'
               name='confirmPassword'
-              label='Confirm password'
+              label={<Font weight='bold'>Confirm password</Font>}
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}

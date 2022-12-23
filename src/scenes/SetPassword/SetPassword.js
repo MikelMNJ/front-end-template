@@ -43,7 +43,7 @@ const SetPassword = props => {
             <Field
               type='password'
               name='password'
-              label='New password'
+              label={<Font weight='bold'>New password</Font>}
               disabled={false}
               solidFill={false}
               form={form}
@@ -56,7 +56,7 @@ const SetPassword = props => {
             <Field
               type='password'
               name='confirmNewPassword'
-              label='Confirm new password'
+              label={<Font weight='bold'>Confirm new password</Font>}
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}

@@ -38,7 +38,7 @@ const ResetPassword = props => {
             <Field
               type='email'
               name='email'
-              label='Email'
+              label={<Font weight='bold'>Email</Font>}
               disabled={false}
               solidFill={false}
               form={form}
