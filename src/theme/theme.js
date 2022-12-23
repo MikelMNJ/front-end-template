@@ -18,6 +18,7 @@ const colors = {
   raisinBlack: '#2a2829',
   brightNavyBlue: '#0c77d4',
   carolinaBlue: '#479eeb',
+  congoPink: '#f1746e',
 
   white: '#fafafa',
   lightGrey: '#d0cfcf',
@@ -74,7 +75,7 @@ const modes = {
 
     success: colors.success,
     warning: colors.warning,
-    error: colors.error,
+    error: colors.congoPink,
     info: colors.info,
   },
 };
