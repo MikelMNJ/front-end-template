@@ -6,9 +6,13 @@ import { GlobalStyles, StyledApp, MainContent } from './styles';
 import { Header, Footer } from 'scenes';
 import { Notifications } from 'xerum';
 
+const { NODE_ENV } = process.env;
+const inDevelopment = NODE_ENV !== 'production';
+
 const App = props => {
   const { userInfo, tokenName, checkToken, logout, ...rest } = props;
-  const token = 'temp'; // userInfo?.token;
+  const token = userInfo?.token;
+  const showUI = token || inDevelopment;
 
   useEffect(() => {
     const existingToken = localStorage.getItem(tokenName);
@@ -28,15 +32,15 @@ const App = props => {
       <Notifications {...rest} />
 
       <StyledApp>
-        {token && <Header {...rest} />}
+        {showUI && <Header {...rest} />}
 
-        <MainContent token={token}>
+        <MainContent token={showUI}>
           <Routes>
             {makeRoutes(token)}
           </Routes>
         </MainContent>
 
-        {token && <Footer {...rest} />}
+        {showUI && <Footer {...rest} />}
       </StyledApp>
     </Fragment>
   );
