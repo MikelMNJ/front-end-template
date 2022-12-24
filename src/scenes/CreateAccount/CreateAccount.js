@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
@@ -31,6 +32,7 @@ const validationSchema = yup.object().shape({
 
 const CreateAccount = props => {
   const { modalContent, setModalContent, ...rest } = props;
+  const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   const darkTheme = rest.selectedTheme === dark;
   const handleSubmit = (values, { setSubmitting }) => {
@@ -55,6 +57,7 @@ const CreateAccount = props => {
               type='email'
               name='email'
               label={<Font weight='bold'>Email</Font>}
+              icon='fa-solid fa-envelope'
               disabled={false}
               solidFill={false}
               form={form}
@@ -65,9 +68,11 @@ const CreateAccount = props => {
             <Spacer />
 
             <Field
-              type='password'
+              type={passwordVisible ? 'text' : 'password'}
               name='password'
               label={<Font weight='bold'>Password</Font>}
+              icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
+              iconCallback={() => setPasswordVisible(!passwordVisible)}
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}
@@ -77,9 +82,11 @@ const CreateAccount = props => {
             <Spacer />
 
             <Field
-              type='password'
+              type={passwordVisible ? 'text' : 'password'}
               name='confirmPassword'
               label={<Font weight='bold'>Confirm password</Font>}
+              icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
+              iconCallback={() => setPasswordVisible(!passwordVisible)}
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}

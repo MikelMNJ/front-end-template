@@ -24,7 +24,7 @@
     "react-scripts": "5.0.1",
     "state-wrangler": "^0.2.2",
     "styled-components": "^5.3.6",
-    "xerum": "^0.4.16",
+    "xerum": "^0.5.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
