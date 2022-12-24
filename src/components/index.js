@@ -9,3 +9,4 @@ export * from './Typography/H4';
 export * from './Typography/H5';
 export * from './Typography/H6';
 export * from './Typography/Font';
+export * from './Typography/UL';
