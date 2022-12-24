@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 const SetPassword = props => {
-  const { modalVisible, setModalVisible, ...rest } = props;
+  const { modalContent, setModalContent, ...rest } = props;
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {

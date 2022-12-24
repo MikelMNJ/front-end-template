@@ -16,3 +16,9 @@ export * from './ResetPassword/ResetPassword';
 export * from './ResetPassword/ResetPasswordWrapper';
 export * from './SetPassword/SetPassword';
 export * from './SetPassword/SetPasswordWrapper';
+
+// Legal
+export * from './PrivacyPolicy/PrivacyPolicy';
+export * from './PrivacyPolicy/PrivacyPolicyWrapper';
+export * from './TermsOfService/TermsOfService';
+export * from './TermsOfService/TermsOfServiceWrapper';

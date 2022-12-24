@@ -6,13 +6,13 @@ import { appSelectors, appActions } from 'modules';
 const mapSelectorsToProps = state => {
   return {
     selectedTheme: appSelectors.selectedTheme(state),
-    modalVisible: appSelectors.modalVisible(state),
+    modalContent: appSelectors.modalContent(state),
   };
 };
 
 const mapActionsToProps = dispatch => {
   return {
-    setModalVisible: payload => dispatch(appActions.setModalVisible(payload)),
+    setModalContent: payload => dispatch(appActions.setModalContent(payload)),
   };
 };
 

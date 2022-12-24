@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Font } from 'components';
+import { Font, H4 } from 'components';
 import { appConstants } from 'modules';
+import { TermsOfService, PrivacyPolicy } from 'scenes';
+import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer, Modal } from 'xerum';
 import { StyledCreateAccount, Center } from './styles';
-import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer } from 'xerum';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -16,7 +17,7 @@ const defaultValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required('Email is required.'),
+  email: yup.string().email('Invalid email.').required('Email is required.'),
   password: yup.string().required('Password is required.'),
 
   confirmPassword: yup.string()
@@ -29,7 +30,7 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateAccount = props => {
-  const { modalVisible, setModalVisible, ...rest } = props;
+  const { modalContent, setModalContent, ...rest } = props;
 
   const darkTheme = rest.selectedTheme === dark;
   const handleSubmit = (values, { setSubmitting }) => {
@@ -97,7 +98,17 @@ const CreateAccount = props => {
 
             <Checkbox
               name='conditions'
-              label='I have read, and agree to, the terms and conditions.'
+              label={
+                <>
+                  I agree to the&nbsp;
+                  <Link to={null} onClick={() => setModalContent(<TermsOfService {...rest} />)}>
+                    terms and conditions
+                  </Link> and&nbsp;
+                  <Link to={null} onClick={() => setModalContent(<PrivacyPolicy {...rest} />)}>
+                    privacy policy
+                  </Link>.
+                </>
+              }
               form={form}
               checkColor={darkTheme && '#fafafa'}
               {...rest}
@@ -124,6 +135,12 @@ const CreateAccount = props => {
           </Form>
         )}
       </Formik>
+
+      {modalContent && (
+        <Modal onClose={() => setModalContent(null)} {...rest}>
+          {modalContent}
+        </Modal>
+      )}
     </StyledCreateAccount>
   );
 };

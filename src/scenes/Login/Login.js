@@ -14,12 +14,12 @@ const defaultValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required('Email is required'),
-  password: yup.string().required('Password is required'),
+  email: yup.string().required('Email is required.'),
+  password: yup.string().required('Password is required.'),
 });
 
 const Login = props => {
-  const { modalVisible, setModalVisible, ...rest } = props;
+  const { modalContent, setModalContent, ...rest } = props;
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {

@@ -13,7 +13,7 @@ const appConstants = {
     STATE_KEY_SELECTED_THEME: 'selectedTheme',
     STATE_KEY_BANNER_CONTENT: 'bannerContent',
     STATE_KEY_NOTIFICATIONS: 'notifications',
-    STATE_KEY_MODAL_VISIBLE: 'modalVisible',
+    STATE_KEY_MODAL_VISIBLE: 'modalContent',
   },
 
   themes: {

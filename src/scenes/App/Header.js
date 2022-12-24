@@ -50,8 +50,7 @@ const Header = props => {
       </StyledHeader>
 
       {bannerContent && showBanner && (
-        <Font weight='bold'>
-          <Banner
+        <Banner
             theme={theme}
             selectedTheme={selectedTheme}
             center={true}
@@ -62,9 +61,10 @@ const Header = props => {
             <i className={iconValid('fa-solid fa-face-grin-stars')} />
             <Spacer size={1} across={true} />
 
-            {bannerContent}
+            <Font weight='bold'>
+              {bannerContent}
+            </Font>
           </Banner>
-        </Font>
       )}
     </header>
   );

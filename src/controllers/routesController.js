@@ -8,7 +8,10 @@ import {
   CreateAccountWrapper,
   ResetPasswordWrapper,
   SetPasswordWrapper,
+  PrivacyPolicyWrapper,
+  TermsOfServiceWrapper,
 } from 'scenes';
+
 
 const routes = [
   // Public routes
@@ -41,6 +44,14 @@ const routes = [
   {
     path: '/set-password',
     element: <SetPasswordWrapper />,
+  },
+  {
+    path: '/privacy-policy',
+    element: <PrivacyPolicyWrapper />,
+  },
+  {
+    path: '/terms-of-service',
+    element: <TermsOfServiceWrapper />,
   },
 
   // Private routes
