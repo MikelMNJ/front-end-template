@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
+import { tokenValid } from 'helpers';
 import { TermsOfService, PrivacyPolicy } from 'scenes';
 import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer, Modal } from 'xerum';
 import { StyledCreateAccount, Center } from './styles';
@@ -31,13 +32,43 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateAccount = props => {
-  const { modalContent, setModalContent, ...rest } = props;
+  const { modalContent, setModalContent, userInfo, createUser, addNotification, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = userInfo?.token;
   const darkTheme = rest.selectedTheme === dark;
+
+  useEffect(() => {
+    const { state } = location;
+
+    if (token) {
+      const expired = !tokenValid(token);
+      const route = !_.isEmpty(state) ? state.from.pathname + state.from.search : '/';
+      if (!expired) {
+        addNotification('Account created. Welcome!');
+        navigate(route);
+      }
+    }
+  }, [ token, navigate, location ]);
+
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+    const { email, password, confirmPassword } = values;
+    const createError = { message: 'Unable to create account.', type: 'error' };
+
+    const callbacks = {
+      onFail: () => addNotification(createError),
+      onComplete: () => setSubmitting(false),
+    };
+
+    const payload = {
+      email: email.toLowerCase(),
+      password,
+      confirmPassword,
+    };
+
+    createUser(payload, callbacks);
   };
 
   return (
@@ -131,7 +162,12 @@ const CreateAccount = props => {
 
             <Button
               type='submit'
-              text={<Font weight='bold'>Create account</Font>}
+              text={
+                <Font weight='bold'>
+                  {form.isSubmitting ? 'Creating account...' : 'Create account'}
+                </Font>
+              }
+              disabled={form.isSubmitting}
               callback={form.handleSubmit}
               {...rest}
             />

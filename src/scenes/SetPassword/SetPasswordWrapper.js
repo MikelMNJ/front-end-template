@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 import { SetPassword } from 'scenes';
 import { withTheme } from 'styled-components';
-import { appSelectors, appActions } from 'modules';
+import { appSelectors, appActions, authActions } from 'modules';
 
 const mapSelectorsToProps = state => {
   return {
     selectedTheme: appSelectors.selectedTheme(state),
-    modalContent: appSelectors.modalContent(state),
   };
 };
 
 const mapActionsToProps = dispatch => {
   return {
-    setModalContent: payload => dispatch(appActions.setModalContent(payload)),
+    updateUser: (payload, callbacks) => dispatch(authActions.updateUser(payload, callbacks)),
+    addNotification: payload => dispatch(appActions.addNotification(payload)),
   };
 };
 

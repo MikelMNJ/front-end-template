@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { tokenValid } from 'helpers';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { StyledLogin, Center } from './styles';
 import { Field, FieldError, Button, Spacer } from 'xerum';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
+import _ from 'lodash';
 
 const dark = appConstants.themes.dark;
 
@@ -15,18 +17,44 @@ const defaultValues = {
 };
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required('Email is required.'),
+  email: yup.string().email('Invalid email.').required('Email is required.'),
   password: yup.string().required('Password is required.'),
 });
 
 const Login = props => {
-  const { modalContent, setModalContent, ...rest } = props;
+  const { modalContent, setModalContent, login, addNotifcation, userInfo, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = userInfo?.token;
   const darkTheme = rest.selectedTheme === dark;
 
+  useEffect(() => {
+    const { state } = location;
+
+    if (token) {
+      const expired = !tokenValid(token);
+      const route = !_.isEmpty(state) ? state.from.pathname + state.from.search : '/';
+      if (!expired) navigate(route);
+    }
+  }, [ token, navigate, location ]);
+
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+    const { email, password } = values;
+    const loginError = { message: 'Unable to log in.', type: 'error' };
+
+    const callbacks = {
+      onFail: () => addNotifcation(loginError),
+      onComplete: () => setSubmitting(false),
+    };
+
+    const payload = {
+      email: email.toLowerCase(),
+      password,
+    };
+
+    login(payload, callbacks);
   };
 
   return (
@@ -72,7 +100,12 @@ const Login = props => {
 
             <Button
               type='submit'
-              text={<Font weight='bold'>Login</Font>}
+              text={
+                <Font weight='bold'>
+                  {form.isSubmitting ? 'Logging in...' : 'Login'}
+                </Font>
+              }
+              disabled={form.isSubmitting}
               callback={form.handleSubmit}
               {...rest}
             />

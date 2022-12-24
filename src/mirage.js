@@ -9,12 +9,35 @@ const factories = {
   }),
 };
 
+const token = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxMTRjMDBhNTAxZTU0M2MzNjQ0ZGU3In0sImlhdCI6MTY3MTQxNjAwMiwiZXhwIjoxNjc0MDA4MDAyfQ.kNRGniRnD4yxya_z-6j36PYXpwuCLmxj-35JIc7LDKY' };
+
 createServer({
   models,
   factories,
   routes() {
     this.namespace = 'api/v1';
     this.passthrough();
+
+    // Mock Auth endpoints.
+    this.post('/auth', (schema, request) => {
+      return token;
+    });
+
+    this.post('/users/me', (schema, request) => {
+      return token;
+    });
+
+    this.post('/emails/pw-reset', (schema, request) => {
+      return {};
+    });
+
+    this.put('/users', (schema, request) => {
+      return token;
+    });
+
+    this.post('/users', (schema, request) => {
+      return token;
+    });
 
     // GET: Get all users
     this.get('/mock/users', (schema, request) => {

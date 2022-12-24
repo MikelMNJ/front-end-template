@@ -33,6 +33,7 @@ const authReducer = (initialState = initial, action = {}) => {
 
     case actions.LOG_IN:
       storeToken(state, selectors, payload);
+      console.log(payload);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     default:

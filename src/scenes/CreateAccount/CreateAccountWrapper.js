@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import { CreateAccount } from 'scenes';
 import { withTheme } from 'styled-components';
-import { appSelectors, appActions } from 'modules';
+import { appSelectors, appActions, authSelectors, authActions } from 'modules';
 
 const mapSelectorsToProps = state => {
   return {
+    userInfo: authSelectors.userInfo(state),
     selectedTheme: appSelectors.selectedTheme(state),
     modalContent: appSelectors.modalContent(state),
   };
@@ -12,7 +13,9 @@ const mapSelectorsToProps = state => {
 
 const mapActionsToProps = dispatch => {
   return {
+    addNotification: payload => dispatch(appActions.addNotification(payload)),
     setModalContent: payload => dispatch(appActions.setModalContent(payload)),
+    createUser: (payload, callbacks) => dispatch(authActions.createUser(payload, callbacks)),
   };
 };
 

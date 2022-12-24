@@ -56,7 +56,7 @@ const handleOtherResponses = args => {
 export const handleInitialRes = async args => {
   const { res, onSuccess, onFail, dispatch } = args;
 
-  if (res.status === 200) onSuccess?.(res);
+  if (res.status >= 200 && res.status < 300) onSuccess?.(res);
 
   if (res.status >= 300 && res.status !== 429) {
     // 429 notify is being sent from back-end rate limiter, directly.

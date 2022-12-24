@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { ResetPassword } from 'scenes';
 import { withTheme } from 'styled-components';
-import { appSelectors, appActions } from 'modules';
+import { appSelectors, appActions, authActions } from 'modules';
 
 const mapSelectorsToProps = state => {
   return {
@@ -12,7 +12,9 @@ const mapSelectorsToProps = state => {
 
 const mapActionsToProps = dispatch => {
   return {
+    addNotification: payload => dispatch(appActions.addNotification(payload)),
     setModalContent: payload => dispatch(appActions.setModalContent(payload)),
+    sendResetEmail: (payload, callbacks) => dispatch(authActions.sendResetEmail(payload, callbacks)),
   };
 };
 

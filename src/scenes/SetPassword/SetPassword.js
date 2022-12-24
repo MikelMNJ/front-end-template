@@ -1,13 +1,17 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
+import { tokenValid } from 'helpers';
 import { StyledSetPassword, Center } from './styles';
 import { Field, FieldError, Button, Spacer } from 'xerum';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
+const { REACT_APP_NAME: appName } = process.env;
 const dark = appConstants.themes.dark;
+const tokenParam = 'token';
+const autoLogin = false;
 
 const defaultValues = {
   password: '',
@@ -23,13 +27,51 @@ const validationSchema = yup.object().shape({
 });
 
 const SetPassword = props => {
-  const { modalContent, setModalContent, ...rest } = props;
+  const { updateUser, addNotification, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
+  const [ searchParams, setSearchParams ] = useSearchParams();
+
+  const navigate = useNavigate();
+  const resetToken = searchParams.get(tokenParam);
+  const expired = !tokenValid(resetToken);
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+    const { password, confirmPassword } = values;
+    const successMessage = { message: 'Password successfully reset.', type: 'success' };
+    const errorMessage = { message: 'Failed to set new password.', type: 'error' };
+    const payload = {
+      password,
+      confirmPassword,
+      token: resetToken,
+    };
+
+    const callbacks = {
+      onSuccess: res => {
+        addNotification(successMessage);
+
+        if (autoLogin) {
+          localStorage.setItem(`${appName}_token`, res.token || '');
+          navigate('/');
+          return;
+        }
+
+        navigate('/login');
+      },
+      onFail: () => addNotification(errorMessage),
+      onComplete: () => setSubmitting(false),
+    };
+
+    const resetTokenParam = () => {
+      const resetError = { message: 'Invalid reset token, send a new reset request.', type: 'error' };
+
+      searchParams.delete(tokenParam);
+      setSearchParams(searchParams);
+      addNotification(resetError);
+      navigate('/reset-password');
+    };
+
+    expired ? resetTokenParam() : updateUser(payload, callbacks);
   };
 
   return (
@@ -76,7 +118,12 @@ const SetPassword = props => {
 
             <Button
               type='submit'
-              text={<Font weight='bold'>Set password</Font>}
+              text={
+                <Font weight='bold'>
+                  {form.isSubmitting ? 'Setting new password...' : 'Set password'}
+                </Font>
+              }
+              disabled={form.isSubmitting}
               callback={form.handleSubmit}
               {...rest}
             />

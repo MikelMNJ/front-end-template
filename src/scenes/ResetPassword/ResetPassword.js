@@ -17,12 +17,21 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPassword = props => {
-  const { modalContent, setModalContent, ...rest } = props;
+  const { modalContent, setModalContent, sendResetEmail, addNotification, ...rest } = props;
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log(values);
-    setSubmitting(false);
+    const { email } = values;
+    const payload = { email };
+    const successMessage = { message: 'Reset request sent.', type: 'success' };
+    const errorMessage = { message: 'Failed to send reset request.', type: 'error' };
+    const callbacks = {
+      onSuccess: () => addNotification(successMessage),
+      onFail: () => addNotification(errorMessage),
+      onComplete: () => setSubmitting(false),
+    };
+
+    sendResetEmail(payload, callbacks);
   };
 
   return (
@@ -54,7 +63,12 @@ const ResetPassword = props => {
 
             <Button
               type='submit'
-              text={<Font weight='bold'>Send reset request</Font>}
+              text={
+                <Font weight='bold'>
+                  {form.isSubmitting ? 'Sending reset request...' : 'Send reset request'}
+                </Font>
+              }
+              disabled={form.isSubmitting}
               callback={form.handleSubmit}
               {...rest}
             />
