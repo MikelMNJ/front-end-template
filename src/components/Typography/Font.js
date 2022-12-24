@@ -29,15 +29,16 @@ const getFontFamily = props => {
 };
 
 const StyledFont = styled('div')`
+  display: inline-flex;
   font-family: ${props => getFontFamily(props)}, sans-serif;
   font-size: ${props => props.size || 1}rem;
 `;
 
 const Font = withTheme(props => {
-  const { theme, weight, size, children } = props;
+  const { theme, weight, size, children, ...rest } = props;
 
   return (
-    <StyledFont theme={theme} weight={weight} size={size}>
+    <StyledFont theme={theme} weight={weight} size={size} {...rest}>
       {children}
     </StyledFont>
   );

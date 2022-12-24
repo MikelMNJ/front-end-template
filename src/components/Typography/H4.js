@@ -8,10 +8,10 @@ const StyledH4 = styled('h4')`
 `;
 
 const H4 = withTheme(props => {
-  const { theme, children } = props;
+  const { theme, children, ...rest } = props;
 
   return (
-    <StyledH4 theme={theme}>
+    <StyledH4 theme={theme} {...rest}>
       {children}
     </StyledH4>
   );
