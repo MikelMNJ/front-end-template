@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Font } from 'components';
+import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { StyledResetPassword, Center } from './styles';
 import { Field, FieldError, Button, Spacer } from 'xerum';
@@ -35,6 +35,9 @@ const ResetPassword = props => {
       >
         {form => (
           <Form>
+            <H3>Reset password</H3>
+            <Spacer size={2} />
+
             <Field
               type='email'
               name='email'

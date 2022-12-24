@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Font } from 'components';
+import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { StyledSetPassword, Center } from './styles';
 import { Field, FieldError, Button, Spacer } from 'xerum';
@@ -40,6 +40,9 @@ const SetPassword = props => {
       >
         {form => (
           <Form>
+            <H3>Set password</H3>
+            <Spacer size={2} />
+
             <Field
               type='password'
               name='password'
@@ -67,7 +70,7 @@ const SetPassword = props => {
 
             <Button
               type='submit'
-              text={<Font weight='bold'>Reset password</Font>}
+              text={<Font weight='bold'>Set password</Font>}
               callback={form.handleSubmit}
               {...rest}
             />

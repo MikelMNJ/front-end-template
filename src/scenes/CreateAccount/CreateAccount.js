@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Font, H4 } from 'components';
+import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { TermsOfService, PrivacyPolicy } from 'scenes';
 import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer, Modal } from 'xerum';
@@ -48,6 +48,9 @@ const CreateAccount = props => {
       >
         {form => (
           <Form>
+            <H3>Create account</H3>
+            <Spacer size={2} />
+
             <Field
               type='email'
               name='email'

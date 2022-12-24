@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Font } from 'components';
+import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { StyledLogin, Center } from './styles';
-import { Field, FieldError, Button, Checkbox, Spacer } from 'xerum';
+import { Field, FieldError, Button, Spacer } from 'xerum';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -37,6 +37,9 @@ const Login = props => {
       >
         {form => (
           <Form>
+            <H3>Log in</H3>
+            <Spacer size={2} />
+
             <Field
               type='email'
               name='email'

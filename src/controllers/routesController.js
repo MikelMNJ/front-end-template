@@ -12,7 +12,6 @@ import {
   TermsOfServiceWrapper,
 } from 'scenes';
 
-
 const routes = [
   // Public routes
   {
