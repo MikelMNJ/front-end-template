@@ -4,7 +4,9 @@ import {
   handleNotify,
   handleInitialRes,
   started,
-  ended,
+  completed,
+  succeeded,
+  failed,
 } from 'helpers';
 
 const apiMiddleware = ({ dispatch }) => next => async action => {
@@ -20,13 +22,21 @@ const apiMiddleware = ({ dispatch }) => next => async action => {
   }
 };
 
-const updateResourceLoadingState = args => {
+const dispatchLoadingState = args => {
   const { dispatch, type, isLoading } = args;
-  const suffix = isLoading ? started : ended;
+  const suffix = isLoading ? started : completed;
   const requestType = `${type}${suffix}`;
   const payload = isLoading;
 
   dispatch(actionCreator(requestType, payload));
+};
+
+const dispatchSuccessState = args => {
+  const { dispatch, type, payload, meta, success } = args;
+  const suffix = success ? succeeded : failed;
+  const requestType = `${type}${suffix}`;
+
+  dispatch(actionCreator(requestType, payload, meta));
 };
 
 export const apiRelay = args => {
@@ -36,7 +46,7 @@ export const apiRelay = args => {
   const url = `${basePath}${prepPath(path) || ''}`;
   const options = { ...rest };
 
-  updateResourceLoadingState({ dispatch, type, isLoading: true });
+  dispatchLoadingState({ dispatch, type, isLoading: true });
 
   fetch(url, options)
     .then(res => handleInitialRes({ res, onSuccess, onFail, dispatch }))
@@ -46,17 +56,18 @@ export const apiRelay = args => {
         handleNotify(dispatch, data);
 
         if (payload && (!error || !errors)) {
-          dispatch(actionCreator(type, payload, meta));
+          dispatchSuccessState({ dispatch, type, payload, meta, success: true });
         }
       }
     })
     .catch(error => {
       console.error(error);
+      dispatchSuccessState({ dispatch, type, payload: null, meta, success: false });
       onFail?.(error);
     })
     .finally(() => {
       onComplete?.();
-      updateResourceLoadingState({ dispatch, type, isLoading: false });
+      dispatchLoadingState({ dispatch, type, isLoading: false });
       next(action);
     });
 };

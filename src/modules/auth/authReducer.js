@@ -16,34 +16,34 @@ const authReducer = (initialState = initial, action = {}) => {
     case request(actions.CHECK_TOKEN).start:
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
-    case actions.CHECK_TOKEN:
+    case request(actions.CHECK_TOKEN).success:
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
-    case request(actions.CHECK_TOKEN).end:
+    case request(actions.CHECK_TOKEN).complete:
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
-    case actions.CREATE_USER:
+    case request(actions.CREATE_USER).success:
       if (payload) updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
-    case actions.UPDATE_USER:
+    case request(actions.UPDATE_USER).success:
       if (payload) updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
-    case actions.DELETE_USER:
+    case request(actions.DELETE_USER).success:
       return state.remove(selectors.STATE_KEY_USER_INFO);
 
-    case actions.SEND_RESET_EMAIL:
+    case request(actions.SEND_RESET_EMAIL).success:
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case request(actions.LOG_IN).start:
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
-    case actions.LOG_IN:
+    case request(actions.LOG_IN).success:
       if (payload) updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
-    case request(actions.LOG_IN).end:
+    case request(actions.LOG_IN).complete:
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
     default:
