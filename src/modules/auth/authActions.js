@@ -39,8 +39,6 @@ const authActions = {
     const args = { type, payload, callbacks };
     return api.login(args);
   },
-
-  logout: () => actionCreator(authConstants.actions.LOG_OUT),
 };
 
 export { authActions };

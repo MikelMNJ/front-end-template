@@ -1,4 +1,7 @@
 
+export const started = '_REQUEST_START';
+export const ended = '_REQUEST_END';
+
 export const actionCreator = (type, payload, meta) => {
   const action = { type, payload };
   if (meta) { action.meta = meta };
@@ -13,3 +16,10 @@ export const makeInitialState = reducers => (
     return combinedState;
   }, {})
 );
+
+export const request = type => {
+  return {
+    start: `${type}${started}`,
+    end: `${type}${ended}`,
+  }
+};

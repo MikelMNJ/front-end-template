@@ -12,7 +12,7 @@ const appName = appConstants.appName;
 const tokenParam = appConstants.tokenParam;
 
 const App = props => {
-  const { userInfo, checkToken, logout, ...rest } = props;
+  const { userInfo, checkToken, logout, userInfoLoading, ...rest } = props;
   const lightTheme = props.selectedTheme === appConstants.themes.light;
   const token = userInfo?.token;
   const showUI = token;
@@ -56,7 +56,7 @@ const App = props => {
       <Notifications {...rest} />
 
       <Loading
-        isLoading={!userInfo}
+        isLoading={userInfoLoading}
         hasData={userInfo}
         iconColor={colorOverride}
         textColor={colorOverride}

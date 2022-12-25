@@ -15,6 +15,7 @@ const mapSelectorsToProps = state => {
     bannerContent: appSelectors.bannerContent(state),
     notifications: appSelectors.notifications(state),
     userInfo: authSelectors.userInfo(state),
+    userInfoLoading: authSelectors.userInfoLoading(state),
   };
 };
 
