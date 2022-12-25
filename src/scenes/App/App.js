@@ -56,8 +56,8 @@ const App = props => {
       <Notifications {...rest} />
 
       <Loading
-        isLoading={!token}
-        hasData={token}
+        isLoading={!userInfo}
+        hasData={userInfo}
         iconColor={colorOverride}
         textColor={colorOverride}
         text={<Font size={1.125} weight='bold'>Authenticating...</Font>}

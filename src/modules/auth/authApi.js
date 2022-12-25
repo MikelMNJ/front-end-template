@@ -15,6 +15,22 @@ export const checkToken = args => {
   };
 };
 
+export const login = args => {
+  const { type, payload, callbacks } = args;
+
+ return {
+    type,
+    path: '/auth',
+    method: 'POST',
+    body: JSON.stringify(payload),
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    ...callbacks,
+  };
+};
+
 export const createUser = args => {
   const { type, payload, callbacks } = args;
 
@@ -73,22 +89,6 @@ export const sendResetEmail = args => {
  return {
     type,
     path: '/emails/pw-reset',
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    ...callbacks,
-  };
-};
-
-export const login = args => {
-  const { type, payload, callbacks } = args;
-
- return {
-    type,
-    path: '/auth',
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
