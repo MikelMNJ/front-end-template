@@ -11,7 +11,6 @@ const authConstants = {
   },
 
   selectors: {
-    STATE_KEY_TOKEN_NAME: 'tokenName',
     STATE_KEY_USER_INFO: 'userInfo',
   },
 };

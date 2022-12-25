@@ -1,4 +1,6 @@
 import { css } from 'styled-components';
+import { appConstants } from 'modules';
+import _ from 'lodash';
 
 export const getColor = (props, key, fallback) => {
   const { theme, selectedTheme } = props;
@@ -27,7 +29,7 @@ export const importFonts = props => {
             font-weight: ${weight};
             font-style: ${style};
           }
-        `);
+          `);
       });
     };
 
@@ -36,4 +38,23 @@ export const importFonts = props => {
   }
 
   return css``;
+};
+
+export const updateLocalStorage = (key, value) => {
+  if (key && value) {
+    const appName = appConstants.appName;
+    const existingSettings = JSON.parse(localStorage.getItem(appName));
+    const newSettings = { ...existingSettings, [key]: value };
+
+    localStorage.setItem(appName, JSON.stringify(newSettings));
+  }
+};
+
+export const getLocalStorageSetting = key => {
+  if (key) {
+    const appName = appConstants.appName;
+    const existingSettings = JSON.parse(localStorage.getItem(appName));
+
+    return existingSettings?.[key];
+  }
 };

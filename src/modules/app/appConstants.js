@@ -1,3 +1,6 @@
+import _ from "lodash";
+
+const { REACT_APP_NAME } = process.env;
 
 const appConstants = {
   actions: {
@@ -28,6 +31,9 @@ const appConstants = {
     info: 'info',
     loading: 'loading',
   },
+
+  appName: _.camelCase(REACT_APP_NAME),
+  tokenParam: 'token',
 };
 
 export { appConstants };

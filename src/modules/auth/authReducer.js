@@ -1,13 +1,11 @@
-import { authConstants } from 'modules';
-import { storeToken } from 'helpers';
+import { authConstants, appConstants } from 'modules';
+import { updateLocalStorage } from 'helpers';
 import StateManager from 'state-wrangler';
 
-const { REACT_APP_NAME: appName } = process.env;
 const { actions, selectors } = authConstants;
+const { tokenParam } = appConstants;
 
-const initial = {
-  [selectors.STATE_KEY_TOKEN_NAME]: `${appName}_token`,
-};
+const initial = {};
 
 const authReducer = (initialState = initial, action = {}) => {
   const { meta, payload } = action;
@@ -18,11 +16,11 @@ const authReducer = (initialState = initial, action = {}) => {
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case actions.CREATE_USER:
-      storeToken(state, selectors, payload);
+      updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case actions.UPDATE_USER:
-      storeToken(state, selectors, payload);
+      updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case actions.DELETE_USER:
@@ -32,8 +30,7 @@ const authReducer = (initialState = initial, action = {}) => {
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case actions.LOG_IN:
-      storeToken(state, selectors, payload);
-      console.log(payload);
+      updateLocalStorage(tokenParam, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     default:

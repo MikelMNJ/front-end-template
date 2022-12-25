@@ -3,11 +3,13 @@ import { apiMiddleware } from 'middleware';
 import { makeInitialState } from 'helpers';
 
 import {
+  rootReducer,
   appReducer,
   authReducer,
 } from 'modules';
 
 const reducers = {
+  // root: rootReducer,
   app: appReducer,
   auth: authReducer,
 };

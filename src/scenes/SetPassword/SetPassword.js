@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
-import { tokenValid } from 'helpers';
+import { tokenValid, updateLocalStorage } from 'helpers';
 import { StyledSetPassword, Center } from './styles';
 import { Field, FieldError, Button, Spacer } from 'xerum';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
-const { REACT_APP_NAME: appName } = process.env;
 const dark = appConstants.themes.dark;
-const tokenParam = 'token';
+const tokenParam = appConstants.tokenParam;
 const autoLogin = false;
 
 const defaultValues = {
@@ -51,7 +50,7 @@ const SetPassword = props => {
         addNotification(successMessage);
 
         if (autoLogin) {
-          localStorage.setItem(`${appName}_token`, res.token || '');
+          updateLocalStorage(tokenParam, res.token);
           navigate('/');
           return;
         }

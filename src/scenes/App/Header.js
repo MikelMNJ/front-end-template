@@ -9,12 +9,7 @@ import { iconValid } from 'helpers';
 const { light, dark } = appConstants.themes;
 
 const Header = props => {
-  const {
-    theme,
-    selectedTheme,
-    setTheme,
-    bannerContent,
-  } = props;
+  const {theme, selectedTheme, setTheme, bannerContent, token, logout } = props;
 
   const [ showBanner, setShowBanner ] = useState(true);
   const navigate = useNavigate();
@@ -35,18 +30,34 @@ const Header = props => {
           </AppLogo>
         </Font>
 
-        <Button
-          theme={theme}
-          selectedTheme={selectedTheme}
-          noText={true}
-          btnType='transparent'
-          icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
-          color={theme.colors.lightGrey}
-          hoverColor={theme.colors.white}
-          textColor={theme.colors.lightGrey}
-          disabled={false}
-          callback={handleThemeChange}
-        />
+        <div>
+          <Button
+            theme={theme}
+            selectedTheme={selectedTheme}
+            noText={true}
+            btnType='transparent'
+            icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
+            color={theme.colors.lightGrey}
+            hoverColor={theme.colors.white}
+            textColor={theme.colors.lightGrey}
+            disabled={false}
+            callback={handleThemeChange}
+          />
+
+          {token && (
+            <Button
+              theme={theme}
+              selectedTheme={selectedTheme}
+              noText={true}
+              btnType='transparent'
+              icon='fa-solid fa-right-from-bracket'
+              color={theme.colors.lightGrey}
+              hoverColor={theme.colors.white}
+              textColor={theme.colors.lightGrey}
+              callback={logout}
+            />
+          )}
+        </div>
       </StyledHeader>
 
       {bannerContent && showBanner && (

@@ -1,21 +1,25 @@
 
 import { Fragment, useEffect } from 'react';
 import { Routes } from 'react-router-dom';
+import { appConstants } from 'modules';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { GlobalStyles, StyledApp, MainContent } from './styles';
 import { Header, Footer } from 'scenes';
 import { Notifications } from 'xerum';
 
 const { NODE_ENV } = process.env;
+const appName = appConstants.appName;
+const tokenParam = appConstants.tokenParam;
 const inDevelopment = NODE_ENV !== 'production';
 
 const App = props => {
-  const { userInfo, tokenName, checkToken, logout, ...rest } = props;
+  const { userInfo, checkToken, logout, ...rest } = props;
   const token = userInfo?.token;
   const showUI = token || inDevelopment;
 
   useEffect(() => {
-    const existingToken = localStorage.getItem(tokenName);
+    const existingSettings = JSON.parse(localStorage.getItem(appName));
+    const existingToken = existingSettings?.[tokenParam];
     const payload = { token: existingToken };
 
     if (existingToken) checkToken(payload);
@@ -32,7 +36,7 @@ const App = props => {
       <Notifications {...rest} />
 
       <StyledApp>
-        {showUI && <Header {...rest} />}
+        {showUI && <Header token={token} {...rest} />}
 
         <MainContent token={showUI}>
           <Routes>

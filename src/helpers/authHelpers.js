@@ -1,20 +1,16 @@
 import { tokenValid } from 'helpers';
+import { appConstants } from 'modules';
 import _ from 'lodash';
 
 export let sessionCheck;
 
-export const storeToken = (state, selectors, payload) => {
-  if (!_.isEmpty(payload)) {
-    const tokenName = state.get(selectors.STATE_KEY_TOKEN_NAME);
-    localStorage.setItem(tokenName, payload.token);
-  }
-};
+export const removeToken = () => {
+  const appName = appConstants.appName;
+  const tokenParam = appConstants.tokenParam;
+  const existingSettings = JSON.parse(localStorage.getItem(appName));
+  const { [tokenParam]: token, ...withoutToken } = existingSettings;
 
-export const removeToken = tokenName => {
-  const existingToken = localStorage.getItem(tokenName);
-  if (existingToken) {
-    localStorage.removeItem(tokenName);
-  }
+  localStorage.setItem(appName, JSON.stringify(withoutToken));
 };
 
 export const autoLogout = (token, logout, addNotification) => {
