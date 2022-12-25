@@ -9,6 +9,11 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  #root {
+    width: 100vw;
+    height: 100vh;
+  }
+
   body {
     background-color: ${props => getColor(props, 'primary')};
     color: ${props => getColor(props, 'onPrimary')};
@@ -37,6 +42,7 @@ export const StyledApp = styled('div')`
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
+  width: 100vw;
   background-color: ${props => getColor(props, 'primary')};
 `;
 
