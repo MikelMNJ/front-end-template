@@ -3,7 +3,7 @@ import { actionCreator, prepPath, handleNotify, handleInitialRes } from 'helpers
 const apiMiddleware = ({ dispatch }) => next => async action => {
   const isAPIRequest = action?.path || action?.method;
 
-  if (action) {
+  if (action.type) {
     if (isAPIRequest) {
       apiRelay({ ...action, dispatch, next });
       return;

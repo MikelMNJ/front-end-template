@@ -1,12 +1,17 @@
-import { initialState, mainReducer } from 'store';
-import { removeToken } from 'helpers';
+import { combineReducers } from '@reduxjs/toolkit';
+import { cleanApp } from 'helpers';
+import { reducers } from 'controllers';
 import { rootConstants } from 'modules';
 
-const rootReducer = (state = initialState, action = {}) => {
+const { actions } = rootConstants;
+
+const mainReducer = combineReducers(reducers);
+
+const rootReducer = (state = {}, action = {}) => {
   switch(action.type) {
-    case rootConstants.LOG_OUT:
-      removeToken();
-      return { ...initialState };
+    case actions.LOG_OUT:
+      cleanApp();
+      return mainReducer(undefined, action);
 
     default:
       return mainReducer(state, action);

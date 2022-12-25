@@ -13,6 +13,18 @@ import {
 } from 'scenes';
 
 const routes = [
+  // Private routes
+  {
+    path: '/',
+    element: <MainWrapper />,
+    authenticate: true,
+  },
+  {
+    path: '/authenticated-route',
+    element: <p>Authenticated content.</p>,
+    authenticate: true,
+  },
+
   // Public routes
   {
     path: '*',
@@ -23,10 +35,6 @@ const routes = [
       title={<H2>Unga Bunga!  We bungled the request ...</H2>}
       message="We'll try to do better, next time."
     />,
-  },
-  {
-    path: '/',
-    element: <MainWrapper />,
   },
   {
     path: '/login',
@@ -51,13 +59,6 @@ const routes = [
   {
     path: '/terms-of-service',
     element: <TermsOfServiceWrapper />,
-  },
-
-  // Private routes
-  {
-    path: '/authenticated-route',
-    element: <p>Authenticated content.</p>,
-    authenticate: true,
   },
 ];
 

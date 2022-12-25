@@ -1,21 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { reducers } from 'controllers';
 import { apiMiddleware } from 'middleware';
-import { makeInitialState } from 'helpers';
+import { rootReducer } from 'modules';
 
-import {
-  rootReducer,
-  appReducer,
-  authReducer,
-} from 'modules';
-
-const reducers = {
-  // root: rootReducer,
-  app: appReducer,
-  auth: authReducer,
-};
-
-const initialState = makeInitialState(reducers);
-const mainReducer = combineReducers(reducers);
+const allReducers = { ...reducers, root: rootReducer };
+const mainReducer = combineReducers(allReducers);
 const middleware = [ apiMiddleware ];
 
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
@@ -34,4 +23,4 @@ const storeConfig = {
 
 const store = configureStore(storeConfig);
 
-export { store, mainReducer, initialState };
+export { store };

@@ -26,3 +26,9 @@ export const autoLogout = (token, logout, addNotification) => {
     }, 1000)
   }
 };
+
+export const cleanApp = () => {
+  removeToken();
+  clearInterval(sessionCheck);
+  window.location.href = '/';
+}
