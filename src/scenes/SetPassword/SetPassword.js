@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Font, H3 } from 'components';
@@ -32,7 +33,7 @@ const SetPassword = props => {
 
   const navigate = useNavigate();
   const resetToken = searchParams.get(tokenParam);
-  const expired = !tokenValid(resetToken);
+  const expired = resetToken && !tokenValid(resetToken);
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -45,18 +46,20 @@ const SetPassword = props => {
       token: resetToken,
     };
 
+    const handleRedirect = res => {
+      addNotification(successMessage);
+
+      if (autoLogin) {
+        updateLocalStorage(tokenParam, res.token);
+        navigate('/');
+        return;
+      }
+
+      navigate('/login');
+    };
+
     const callbacks = {
-      onSuccess: res => {
-        addNotification(successMessage);
-
-        if (autoLogin) {
-          updateLocalStorage(tokenParam, res.token);
-          navigate('/');
-          return;
-        }
-
-        navigate('/login');
-      },
+      onSuccess: handleRedirect,
       onFail: () => addNotification(errorMessage),
       onComplete: () => setSubmitting(false),
     };
