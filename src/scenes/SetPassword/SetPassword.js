@@ -92,10 +92,10 @@ const SetPassword = props => {
               label={<Font weight='bold'>New password</Font>}
               icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
               iconCallback={() => setPasswordVisible(!passwordVisible)}
-              disabled={false}
               solidFill={false}
               form={form}
               textColor={darkTheme && '#fafafa'}
+              disabled={!resetToken}
               {...rest}
             />
             <FieldError name='password' {...rest} />
@@ -110,6 +110,7 @@ const SetPassword = props => {
               autoComplete='current-password'
               form={form}
               textColor={darkTheme && '#fafafa'}
+              disabled={!resetToken}
               {...rest}
             />
             <FieldError name='confirmNewPassword' {...rest} />
@@ -119,10 +120,12 @@ const SetPassword = props => {
               type='submit'
               text={
                 <Font weight='bold'>
-                  {form.isSubmitting ? 'Setting new password...' : 'Set password'}
+                  {!resetToken && 'Missing reset token'}
+                  {resetToken && !form.isSubmitting && 'Set password'}
+                  {resetToken && form.isSubmitting && 'Setting new password...'}
                 </Font>
               }
-              disabled={form.isSubmitting}
+              disabled={form.isSubmitting || !resetToken}
               callback={form.handleSubmit}
               {...rest}
             />
