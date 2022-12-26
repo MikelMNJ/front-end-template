@@ -1,5 +1,6 @@
 import { getColor } from 'helpers';
 import { theme } from 'theme';
+import { fonts } from 'controllers';
 import styled, { createGlobalStyle } from 'styled-components';
 
 const colors = theme.colors;
@@ -59,7 +60,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background-color: ${props => getColor(props, 'primary')};
     color: ${props => getColor(props, 'onPrimary')};
-    font-family: ${props => props.theme?.fonts?.primary?.normal?.family}, sans-serif;
+    font-family: ${fonts.primary.normal}, sans-serif;
     margin: 0;
   }
 

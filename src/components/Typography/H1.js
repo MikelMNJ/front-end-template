@@ -1,8 +1,9 @@
+import { fonts } from 'controllers';
 import styled, { withTheme } from 'styled-components';
 
 const StyledH1 = styled('h1')`
   font-weight: unset;
-  font-family: ${props => props.theme?.fonts?.secondary?.bold?.family}, sans-serif;
+  font-family: ${fonts?.secondary?.bold};
   font-size: 2rem;
   margin: 0;
 `;

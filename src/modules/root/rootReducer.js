@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { cleanApp } from 'helpers';
-import { reducers } from 'controllers';
+import { reducers } from 'controllers/reducersController';
 import { rootConstants } from 'modules';
 
 const { actions } = rootConstants;

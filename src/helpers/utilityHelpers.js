@@ -1,4 +1,3 @@
-import { css } from 'styled-components';
 import { appConstants } from 'modules';
 import _ from 'lodash';
 
@@ -11,33 +10,6 @@ export const getColor = (props, key, fallback) => {
   }
 
   return fallback;
-};
-
-export const importFonts = props => {
-  if (props.theme) {
-    const { fonts } = props.theme;
-    const fontFaces = [];
-
-    const allFontFaces = primaryOrSecondary => {
-      return Object.values(primaryOrSecondary)?.forEach(value => {
-        const { family, weight, style, format, src } = value;
-
-        fontFaces.push(css`
-          @font-face {
-            font-family: ${family};
-            src: url(${src}) ${format ? `format('${format}')` : ''};
-            font-weight: ${weight};
-            font-style: ${style};
-          }
-          `);
-      });
-    };
-
-    Object.keys(fonts)?.map(key => allFontFaces(fonts[key]));
-    return css`${fontFaces}`;
-  }
-
-  return css``;
 };
 
 export const updateLocalStorage = (key, value) => {

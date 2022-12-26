@@ -1,5 +1,4 @@
 import { appConstants } from 'modules';
-import { fonts } from 'controllers';
 
 const { themes } = appConstants;
 
@@ -70,6 +69,6 @@ const modes = {
   },
 };
 
-const theme = { colors, modes, fonts };
+const theme = { colors, modes };
 
 export { theme };
