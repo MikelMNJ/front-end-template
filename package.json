@@ -11,17 +11,19 @@
     "@sentry/react": "^7.26.0",
     "@sentry/tracing": "^7.26.0",
     "formik": "^2.2.9",
+    "gsap": "^3.11.4",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
     "react-is": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "state-wrangler": "^0.2.2",
     "styled-components": "^5.3.6",
     "xerum": "^0.5.7",
@@ -39,6 +41,16 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "no-unused-vars": "warn",
+      "semi": "warn"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -51,5 +63,5 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.1"
 }
