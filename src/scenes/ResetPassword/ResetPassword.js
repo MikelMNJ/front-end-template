@@ -23,7 +23,7 @@ const ResetPassword = props => {
   const handleSubmit = (values, { setSubmitting }) => {
     const { email } = values;
     const payload = { email };
-    const successMessage = { message: 'Reset request sent.', type: 'success' };
+    const successMessage = { message: 'Reset request sent.' };
     const errorMessage = { message: 'Failed to send reset request.', type: 'error' };
     const callbacks = {
       onSuccess: () => addNotification(successMessage),

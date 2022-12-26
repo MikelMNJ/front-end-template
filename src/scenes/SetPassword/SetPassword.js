@@ -37,7 +37,7 @@ const SetPassword = props => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { password, confirmPassword } = values;
-    const successMessage = { message: 'Password successfully reset.', type: 'success' };
+    const successMessage = { message: 'Password successfully reset.' };
     const errorMessage = { message: 'Failed to set new password.', type: 'error' };
     const payload = {
       password,
