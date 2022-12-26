@@ -3,6 +3,7 @@ import { reducers } from 'controllers';
 import { apiMiddleware } from 'middleware';
 import { rootReducer } from 'modules';
 
+// Do not add new module reducers to allReducers -- add them to controllers/reducersController.js
 const allReducers = { ...reducers, root: rootReducer };
 const mainReducer = combineReducers(allReducers);
 const middleware = [ apiMiddleware ];
