@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
@@ -41,24 +41,26 @@ const CreateAccount = props => {
   const token = userInfo?.token;
   const darkTheme = rest.selectedTheme === dark;
 
-  useEffect(() => {
+  const handleRedirect = useCallback(() => {
     const { state } = location;
 
     if (token) {
       const expired = !tokenValid(token);
       const route = !_.isEmpty(state) ? state.from.pathname + state.from.search : '/';
+
       if (!expired) {
         addNotification('Account created. Welcome!');
         navigate(route);
       }
     }
-  }, [ token, navigate, location, addNotification ]);
+  }, [ token, addNotification, location, navigate ]);
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { email, password, confirmPassword } = values;
     const createError = { message: 'Unable to create account.', type: 'error' };
 
     const callbacks = {
+      onSuccess: handleRedirect,
       onFail: () => addNotification(createError),
       onComplete: () => setSubmitting(false),
     };
