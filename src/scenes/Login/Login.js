@@ -57,68 +57,76 @@ const Login = props => {
     login(payload, callbacks);
   };
 
+  const buildForm = () => {
+    if (!token) {
+      return (
+        <Formik
+          initialValues={defaultValues}
+          validationSchema={validationSchema}
+          enableReinitialization={true}
+          onSubmit={handleSubmit}
+        >
+          {form => (
+            <Form>
+              <H3>Log in</H3>
+              <Spacer size={2} />
+
+              <Field
+                type='email'
+                name='email'
+                label={<Font weight='bold'>Email</Font>}
+                icon='fa-solid fa-envelope'
+                disabled={false}
+                solidFill={false}
+                form={form}
+                textColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+              <FieldError name='email' {...rest} />
+              <Spacer />
+
+              <Field
+                name='password'
+                label={<Font weight='bold'>Password</Font>}
+                type={passwordVisible ? 'text' : 'password'}
+                icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
+                iconCallback={() => setPasswordVisible(!passwordVisible)}
+                autoComplete='current-password'
+                form={form}
+                textColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+              <FieldError name='password' {...rest} />
+              <Spacer size={2} />
+
+              <Button
+                type='submit'
+                text={
+                  <Font weight='bold'>
+                    {form.isSubmitting ? 'Logging in...' : 'Login'}
+                  </Font>
+                }
+                disabled={form.isSubmitting}
+                callback={form.handleSubmit}
+                {...rest}
+              />
+
+              <Spacer />
+
+              <Center>
+                <Link to='/create-account'>Create account</Link> or&nbsp;
+                <Link to='/reset-password'>Reset Password</Link>
+              </Center>
+            </Form>
+          )}
+        </Formik>
+      );
+    }
+  };
+
   return (
     <StyledLogin>
-      <Formik
-        initialValues={defaultValues}
-        validationSchema={validationSchema}
-        enableReinitialization={true}
-        onSubmit={handleSubmit}
-      >
-        {form => (
-          <Form>
-            <H3>Log in</H3>
-            <Spacer size={2} />
-
-            <Field
-              type='email'
-              name='email'
-              label={<Font weight='bold'>Email</Font>}
-              icon='fa-solid fa-envelope'
-              disabled={false}
-              solidFill={false}
-              form={form}
-              textColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-            <FieldError name='email' {...rest} />
-            <Spacer />
-
-            <Field
-              name='password'
-              label={<Font weight='bold'>Password</Font>}
-              type={passwordVisible ? 'text' : 'password'}
-              icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
-              iconCallback={() => setPasswordVisible(!passwordVisible)}
-              autoComplete='current-password'
-              form={form}
-              textColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-            <FieldError name='password' {...rest} />
-            <Spacer size={2} />
-
-            <Button
-              type='submit'
-              text={
-                <Font weight='bold'>
-                  {form.isSubmitting ? 'Logging in...' : 'Login'}
-                </Font>
-              }
-              disabled={form.isSubmitting}
-              callback={form.handleSubmit}
-              {...rest}
-            />
-
-            <Spacer />
-
-            <Center>
-              <Link to='/create-account'>Create account</Link> or&nbsp;
-              <Link to='/reset-password'>Reset Password</Link>
-            </Center>
-          </Form>
-        )}
-      </Formik>
+      {buildForm()}
     </StyledLogin>
   );
 };
