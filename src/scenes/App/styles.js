@@ -4,40 +4,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 const colors = theme.colors;
 
-export const GlobalStyles = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-
-  #root {
-    width: 100vw;
-    height: 100vh;
-  }
-
-  body {
-    background-color: ${props => getColor(props, 'primary')};
-    color: ${props => getColor(props, 'onPrimary')};
-    font-family: ${props => props.theme?.fonts?.primary?.normal?.family}, sans-serif;
-    margin: 0;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 27rem;
-  }
-
-  a:link,
-  a:visited {
-    color: ${props => getColor(props, 'accent', colors.black)};
-  }
-
-  a:hover {
-    color: ${props => getColor(props, 'accentHover', colors.grey)};
-  }
-`;
-
 export const StyledApp = styled('div')`
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -78,4 +44,56 @@ export const AppLogo = styled('div')`
   align-items: center;
   user-select: none;
   cursor: pointer;
+`;
+
+export const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
+  #root {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  body {
+    background-color: ${props => getColor(props, 'primary')};
+    color: ${props => getColor(props, 'onPrimary')};
+    font-family: ${props => props.theme?.fonts?.primary?.normal?.family}, sans-serif;
+    margin: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 27rem;
+  }
+
+  a:link,
+  a:visited {
+    color: ${props => getColor(props, 'accent', colors.black)};
+  }
+
+  a:hover {
+    color: ${props => getColor(props, 'accentHover', colors.grey)};
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.625rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 0.25rem;
+    background: ${props => getColor(props, 'lightGrey', colors.lightGrey)};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0.25rem;
+    background: ${props => getColor(props, 'grey', colors.grey)};
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${props => getColor(props, 'darkGrey', colors.darkGrey)};
+  }
 `;
