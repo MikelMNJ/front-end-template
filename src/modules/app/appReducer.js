@@ -13,7 +13,7 @@ const initial = {
 };
 
 const appReducer = (initialState = initial, action = {}) => {
-  const { meta, payload } = action;
+  const { payload } = action;
   const state = new StateManager(initialState);
 
   switch(action.type) {

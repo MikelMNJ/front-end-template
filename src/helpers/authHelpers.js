@@ -1,6 +1,5 @@
 import { tokenValid } from 'helpers';
 import { appConstants } from 'modules';
-import _ from 'lodash';
 
 export let sessionCheck;
 

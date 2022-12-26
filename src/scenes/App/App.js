@@ -27,12 +27,12 @@ const App = props => {
     const payload = { token: existingToken };
 
     if (existingToken) checkToken(payload);
-  }, []);
+  }, [ checkToken ]);
 
   useEffect(() => {
     autoLogout(token, logout, props.addNotification);
     return () => clearInterval(sessionCheck);
-  }, [ token ]);
+  }, [ token, logout, props.addNotification ]);
 
   const renderApp = () => {
     return (

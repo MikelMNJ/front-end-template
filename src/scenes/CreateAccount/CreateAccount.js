@@ -8,6 +8,7 @@ import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer, Modal } from 'x
 import { StyledCreateAccount, Center } from './styles';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
+import _ from 'lodash';
 
 const dark = appConstants.themes.dark;
 
@@ -51,7 +52,7 @@ const CreateAccount = props => {
         navigate(route);
       }
     }
-  }, [ token, navigate, location ]);
+  }, [ token, navigate, location, addNotification ]);
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { email, password, confirmPassword } = values;

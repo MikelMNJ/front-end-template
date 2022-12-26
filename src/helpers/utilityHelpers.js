@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
 import { appConstants } from 'modules';
-import _ from 'lodash';
 
 export const getColor = (props, key, fallback) => {
   const { theme, selectedTheme } = props;

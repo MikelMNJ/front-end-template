@@ -5,16 +5,17 @@ import { BrowserTracing } from '@sentry/tracing';
 import { RouteChangeTracker } from 'components';
 import { ThemeProvider } from 'styled-components';
 import { FontFaces } from 'fontFaces';
-import ReactDOM from 'react-dom/client';
 import { Heartbeat } from 'xerum';
 import { theme } from 'theme';
 import { store } from 'store';
 import { AppWrapper } from 'scenes';
-import * as mirage from 'mirage';
-import * as Sentry from '@sentry/react';
+import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga';
 import PackageJSON from '../package.json';
+import * as Sentry from '@sentry/react';
 import _ from 'lodash';
+
+import './mirage';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const {
@@ -26,7 +27,7 @@ const {
 const { name, version } = PackageJSON;
 const inProduction = NODE_ENV === 'production';
 
-const useAnalytics = () => {
+const startAnalytics = () => {
   if (!_.isEmpty(analyticsID) && inProduction) {
     ReactGA.initialize(analyticsID);
     return <RouteChangeTracker />;
@@ -54,7 +55,7 @@ const MyApp = (
           <FontFaces theme={theme} />
         </ThemeProvider>
 
-        {useAnalytics()}
+        {startAnalytics()}
       </BrowserRouter>
     </Provider>
   </StrictMode>

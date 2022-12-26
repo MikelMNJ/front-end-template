@@ -1,6 +1,5 @@
 import jwt_decode from 'jwt-decode';
 import moment from 'moment';
-import _ from 'lodash';
 
 export const tokenValid = token => {
   let expired = true;
@@ -33,7 +32,7 @@ export const iconValid = val => {
 };
 
 export const urlValid = val => {
-  const regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g;
+  const regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w-]+)+[\w\-_~:?#[\]@!&',;=.]+$/g;
   const hasProtocol = val?.includes?.('https://');
   const isValid = regex.test(val);
 
