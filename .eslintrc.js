@@ -37,6 +37,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-var': 'error',
     'no-trailing-spaces': 'error',
+    'space-infix-ops': 'error',
     'arrow-spacing': 'error',
     'prefer-const': 'error',
     'arrow-parens': [ 'error', 'as-needed' ],
