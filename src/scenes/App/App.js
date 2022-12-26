@@ -15,7 +15,6 @@ const App = props => {
   const { userInfo, checkToken, logout, userInfoLoading, ...rest } = props;
   const lightTheme = props.selectedTheme === appConstants.themes.light;
   const token = userInfo?.token;
-  const showUI = token;
 
   const colorOverride = lightTheme
     ? props.theme.modes[props.selectedTheme].accent
@@ -37,15 +36,15 @@ const App = props => {
   const renderApp = () => {
     return (
       <StyledApp>
-        {showUI && <Header token={token} logout={logout} {...rest} />}
+        {token && <Header token={token} logout={logout} {...rest} />}
 
-        <MainContent token={showUI}>
+        <MainContent token={token}>
           <Routes>
             {makeRoutes(token)}
           </Routes>
         </MainContent>
 
-        {showUI && <Footer {...rest} />}
+        {token && <Footer {...rest} />}
       </StyledApp>
     );
   };
