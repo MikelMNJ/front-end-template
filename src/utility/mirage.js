@@ -1,7 +1,7 @@
 import { createServer } from 'miragejs';
 
 // eslint-disable-next-line
-const demoToken = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxMTRjMDBhNTAxZTU0M2MzNjQ0ZGU3In0sImlhdCI6MTY3MTQxNjAwMiwiZXhwIjoxNjc0MDA4MDAyfQ.kNRGniRnD4yxya_z-6j36PYXpwuCLmxj-35JIc7LDKY' };
+const token = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxMTRjMDBhNTAxZTU0M2MzNjQ0ZGU3In0sImlhdCI6MTY3MTQxNjAwMiwiZXhwIjoxNjc0MDA4MDAyfQ.kNRGniRnD4yxya_z-6j36PYXpwuCLmxj-35JIc7LDKY' };
 
 createServer({
   routes() {
@@ -10,22 +10,28 @@ createServer({
 
     // Check user token
     this.post('/users/me', () => {
-      return demoToken;
+      return { ...token };
     });
 
     // Login with email and password
     this.post('/auth', () => {
-      return demoToken;
+      return { ...token };
     });
 
     // Create user
     this.post('/users', () => {
-      return demoToken;
+      return {
+        ...token,
+        message: 'User created.',
+      };
     });
 
     // Update user
     this.put('/users', () => {
-      return demoToken;
+      return {
+        ...token,
+        message: 'User updated.',
+      };
     });
 
     // Delete user
@@ -35,7 +41,9 @@ createServer({
 
     // Send reset email
     this.post('/emails/pw-reset', () => {
-      return {};
+      return {
+        message: 'Reset request sent.',
+      };
     });
   },
 });

@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { SetPassword } from 'scenes';
 import { withTheme } from 'styled-components';
-import { appSelectors, appActions, authActions } from 'modules';
+import { appActions, appSelectors, authActions, authSelectors } from 'modules';
 
 const mapSelectorsToProps = state => {
   return {
     selectedTheme: appSelectors.selectedTheme(state),
+    userInfo: authSelectors.userInfo(state),
   };
 };
 

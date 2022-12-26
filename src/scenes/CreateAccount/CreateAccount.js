@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
@@ -33,35 +33,27 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateAccount = props => {
-  const { modalContent, setModalContent, userInfo, createUser, addNotification, ...rest } = props;
+  const { modalContent, setModalContent, createUser, userInfo, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const { state } = useLocation();
   const token = userInfo?.token;
   const darkTheme = rest.selectedTheme === dark;
 
-  const handleRedirect = useCallback(() => {
-    const { state } = location;
-
+  useEffect(() => {
     if (token) {
       const expired = !tokenValid(token);
       const route = !_.isEmpty(state) ? state.from.pathname + state.from.search : '/';
 
-      if (!expired) {
-        addNotification('Account created. Welcome!');
-        navigate(route);
-      }
+      if (!expired) navigate(route);
     }
-  }, [ token, addNotification, location, navigate ]);
+  }, [ token, state, navigate ]);
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { email, password, confirmPassword } = values;
-    const createError = { message: 'Unable to create account.', type: 'error' };
 
     const callbacks = {
-      onSuccess: handleRedirect,
-      onFail: () => addNotification(createError),
       onComplete: () => setSubmitting(false),
     };
 
@@ -74,116 +66,124 @@ const CreateAccount = props => {
     createUser(payload, callbacks);
   };
 
+  const buildForm = () => {
+    if (!token) {
+      return (
+        <Formik
+          initialValues={defaultValues}
+          validationSchema={validationSchema}
+          enableReinitialization={true}
+          onSubmit={handleSubmit}
+        >
+          {form => (
+            <Form>
+              <H3>Create account</H3>
+              <Spacer size={2} />
+
+              <Field
+                type='email'
+                name='email'
+                label={<Font weight='bold'>Email</Font>}
+                icon='fa-solid fa-envelope'
+                disabled={false}
+                solidFill={false}
+                form={form}
+                textColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+              <FieldError name='email' {...rest} />
+              <Spacer />
+
+              <Field
+                type={passwordVisible ? 'text' : 'password'}
+                name='password'
+                label={<Font weight='bold'>Password</Font>}
+                icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
+                iconCallback={() => setPasswordVisible(!passwordVisible)}
+                autoComplete='current-password'
+                form={form}
+                textColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+              <FieldError name='password' {...rest} />
+              <Spacer />
+
+              <Field
+                type={passwordVisible ? 'text' : 'password'}
+                name='confirmPassword'
+                label={<Font weight='bold'>Confirm password</Font>}
+                icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
+                iconCallback={() => setPasswordVisible(!passwordVisible)}
+                autoComplete='current-password'
+                form={form}
+                textColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+              <FieldError name='confirmPassword' {...rest} />
+              <Spacer />
+
+              <FieldReqs
+                value={form.values.password}
+                upper={true}
+                lower={true}
+                number={true}
+                min={8}
+                special={true}
+                {...rest}
+              />
+              <Spacer />
+
+              <Checkbox
+                name='conditions'
+                label={
+                  <>
+                    I agree to the&nbsp;
+                    <Link to={null} onClick={() => setModalContent(<TermsOfService {...rest} />)}>
+                      terms and conditions
+                    </Link> and&nbsp;
+                    <Link to={null} onClick={() => setModalContent(<PrivacyPolicy {...rest} />)}>
+                      privacy policy
+                    </Link>.
+                  </>
+                }
+                form={form}
+                checkColor={darkTheme && '#fafafa'}
+                {...rest}
+              />
+
+              <Center>
+                <FieldError name='conditions' {...rest} />
+              </Center>
+              <Spacer size={2} />
+
+              <Button
+                type='submit'
+                text={
+                  <Font weight='bold'>
+                    {form.isSubmitting ? 'Creating account...' : 'Create account'}
+                  </Font>
+                }
+                disabled={form.isSubmitting}
+                callback={form.handleSubmit}
+                {...rest}
+              />
+
+              <Spacer />
+
+              <Center>
+                <Link to='/login'>Log in</Link> or&nbsp;
+                <Link to='/reset-password'>Reset Password</Link>
+              </Center>
+            </Form>
+          )}
+        </Formik>
+      );
+    }
+  };
+
   return (
     <StyledCreateAccount>
-      <Formik
-        initialValues={defaultValues}
-        validationSchema={validationSchema}
-        enableReinitialization={true}
-        onSubmit={handleSubmit}
-      >
-        {form => (
-          <Form>
-            <H3>Create account</H3>
-            <Spacer size={2} />
-
-            <Field
-              type='email'
-              name='email'
-              label={<Font weight='bold'>Email</Font>}
-              icon='fa-solid fa-envelope'
-              disabled={false}
-              solidFill={false}
-              form={form}
-              textColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-            <FieldError name='email' {...rest} />
-            <Spacer />
-
-            <Field
-              type={passwordVisible ? 'text' : 'password'}
-              name='password'
-              label={<Font weight='bold'>Password</Font>}
-              icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
-              iconCallback={() => setPasswordVisible(!passwordVisible)}
-              autoComplete='current-password'
-              form={form}
-              textColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-            <FieldError name='password' {...rest} />
-            <Spacer />
-
-            <Field
-              type={passwordVisible ? 'text' : 'password'}
-              name='confirmPassword'
-              label={<Font weight='bold'>Confirm password</Font>}
-              icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
-              iconCallback={() => setPasswordVisible(!passwordVisible)}
-              autoComplete='current-password'
-              form={form}
-              textColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-            <FieldError name='confirmPassword' {...rest} />
-            <Spacer />
-
-            <FieldReqs
-              value={form.values.password}
-              upper={true}
-              lower={true}
-              number={true}
-              min={8}
-              special={true}
-              {...rest}
-            />
-            <Spacer />
-
-            <Checkbox
-              name='conditions'
-              label={
-                <>
-                  I agree to the&nbsp;
-                  <Link to={null} onClick={() => setModalContent(<TermsOfService {...rest} />)}>
-                    terms and conditions
-                  </Link> and&nbsp;
-                  <Link to={null} onClick={() => setModalContent(<PrivacyPolicy {...rest} />)}>
-                    privacy policy
-                  </Link>.
-                </>
-              }
-              form={form}
-              checkColor={darkTheme && '#fafafa'}
-              {...rest}
-            />
-
-            <Center>
-              <FieldError name='conditions' {...rest} />
-            </Center>
-            <Spacer size={2} />
-
-            <Button
-              type='submit'
-              text={
-                <Font weight='bold'>
-                  {form.isSubmitting ? 'Creating account...' : 'Create account'}
-                </Font>
-              }
-              disabled={form.isSubmitting}
-              callback={form.handleSubmit}
-              {...rest}
-            />
-
-            <Spacer />
-
-            <Center>
-              <Link to='/login'>Log in</Link> or&nbsp;
-              <Link to='/reset-password'>Reset Password</Link>
-            </Center>
-          </Form>
-        )}
-      </Formik>
+      {buildForm()}
 
       {modalContent && (
         <Modal onClose={() => setModalContent(null)} {...rest}>

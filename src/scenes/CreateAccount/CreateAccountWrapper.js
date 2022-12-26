@@ -13,7 +13,6 @@ const mapSelectorsToProps = state => {
 
 const mapActionsToProps = dispatch => {
   return {
-    addNotification: payload => dispatch(appActions.addNotification(payload)),
     setModalContent: payload => dispatch(appActions.setModalContent(payload)),
     createUser: (payload, callbacks) => dispatch(authActions.createUser(payload, callbacks)),
   };

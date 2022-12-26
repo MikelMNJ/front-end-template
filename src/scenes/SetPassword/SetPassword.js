@@ -27,19 +27,18 @@ const validationSchema = yup.object().shape({
 });
 
 const SetPassword = props => {
-  const { updateUser, addNotification, ...rest } = props;
+  const { updateUser, userInfo, addNotification, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
   const [ searchParams, setSearchParams ] = useSearchParams();
 
   const navigate = useNavigate();
+  const token = userInfo?.token;
   const resetToken = searchParams.get(tokenParam);
   const expired = resetToken && !tokenValid(resetToken);
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { password, confirmPassword } = values;
-    const successMessage = { message: 'Password successfully reset.' };
-    const errorMessage = { message: 'Failed to set new password.', type: 'error' };
     const payload = {
       password,
       confirmPassword,
@@ -47,8 +46,6 @@ const SetPassword = props => {
     };
 
     const handleRedirect = res => {
-      addNotification(successMessage);
-
       if (autoLogin) {
         updateLocalStorage(tokenParam, res.token);
         navigate('/');
@@ -60,7 +57,7 @@ const SetPassword = props => {
 
     const callbacks = {
       onSuccess: handleRedirect,
-      onFail: () => addNotification(errorMessage),
+      onFail: () => console.log('failed'),
       onComplete: () => setSubmitting(false),
     };
 
@@ -76,8 +73,8 @@ const SetPassword = props => {
     expired ? resetTokenParam() : updateUser(payload, callbacks);
   };
 
-  return (
-    <StyledSetPassword>
+  const buildForm = () => {
+    return (
       <Formik
         initialValues={defaultValues}
         validationSchema={validationSchema}
@@ -133,16 +130,29 @@ const SetPassword = props => {
               {...rest}
             />
 
-            <Spacer />
+              <>
+                <Spacer />
 
-            <Center>
-              <Link to='/login'>Log in</Link>,&nbsp;
-              <Link to='/create-account'>Create account</Link> or&nbsp;
-              <Link to='/reset-password'>Resend reset request</Link>
-            </Center>
+                <Center>
+                  {!token && (
+                    <>
+                      <Link to='/login'>Log in</Link>,&nbsp;
+                      <Link to='/create-account'>Create account</Link> or&nbsp;
+                    </>
+                  )}
+
+                  <Link to='/reset-password'>Resend reset request</Link>
+                </Center>
+              </>
           </Form>
         )}
       </Formik>
+    );
+  };
+
+  return (
+    <StyledSetPassword>
+      {buildForm()}
     </StyledSetPassword>
   );
 };

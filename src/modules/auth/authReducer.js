@@ -33,7 +33,7 @@ const authReducer = (initialState = initial, action = {}) => {
       return state.remove(selectors.STATE_KEY_USER_INFO);
 
     case request(actions.SEND_RESET_EMAIL).success:
-      return state.update(selectors.STATE_KEY_USER_INFO, payload);
+      return initialState;
 
     case request(actions.LOG_IN).start:
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);

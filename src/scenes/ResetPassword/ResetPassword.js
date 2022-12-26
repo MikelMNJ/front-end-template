@@ -17,25 +17,22 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPassword = props => {
-  const { sendResetEmail, addNotification, ...rest } = props;
+  const { sendResetEmail, userInfo, ...rest } = props;
   const darkTheme = rest.selectedTheme === dark;
+  const token = userInfo?.token;
 
   const handleSubmit = (values, { setSubmitting }) => {
     const { email } = values;
     const payload = { email };
-    const successMessage = { message: 'Reset request sent.' };
-    const errorMessage = { message: 'Failed to send reset request.', type: 'error' };
     const callbacks = {
-      onSuccess: () => addNotification(successMessage),
-      onFail: () => addNotification(errorMessage),
       onComplete: () => setSubmitting(false),
     };
 
     sendResetEmail(payload, callbacks);
   };
 
-  return (
-    <StyledResetPassword>
+  const buildForm = () => {
+    return (
       <Formik
         initialValues={defaultValues}
         validationSchema={validationSchema}
@@ -73,15 +70,25 @@ const ResetPassword = props => {
               {...rest}
             />
 
-            <Spacer />
+            {!token && (
+              <>
+                <Spacer />
 
-            <Center>
-              <Link to='/login'>Log in</Link> or&nbsp;
-              <Link to='/create-account'>Create account</Link>
-            </Center>
+                <Center>
+                  <Link to='/login'>Log in</Link> or&nbsp;
+                  <Link to='/create-account'>Create account</Link>
+                </Center>
+              </>
+            )}
           </Form>
         )}
       </Formik>
+    );
+  };
+
+  return (
+    <StyledResetPassword>
+      {buildForm()}
     </StyledResetPassword>
   );
 };
