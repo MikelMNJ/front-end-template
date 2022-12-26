@@ -1,7 +1,7 @@
-import { H2 } from 'components';
+import { H2 } from 'components/Typography/H2';
 import { NotFound } from 'xerum';
-import { theme } from 'theme';
 import { appConstants } from 'modules';
+import { theme } from 'theme';
 import {
   MainWrapper,
   LoginWrapper,
