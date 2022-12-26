@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     commonjs: true,
-    es13: true,
+    es6: true,
     jest: true,
     node: true,
   },
