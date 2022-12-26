@@ -1,7 +1,7 @@
 import { StyledFooter } from './styles';
 import { Font } from 'components';
 import { Copyright } from 'xerum';
-import * as PackageJSON from '../../../package.json';
+import PackageJSON from '../../../package.json';
 
 const { version } = PackageJSON;
 
