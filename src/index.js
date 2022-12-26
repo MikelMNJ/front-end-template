@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserTracing } from '@sentry/tracing';
 import { RouteChangeTracker } from 'components';
 import { ThemeProvider } from 'styled-components';
-import { FontFaces } from 'fontFaces';
+import { FontFaces } from 'utility';
 import { Heartbeat } from 'xerum';
 import { theme } from 'theme';
 import { store } from 'store';
@@ -15,7 +15,7 @@ import PackageJSON from '../package.json';
 import * as Sentry from '@sentry/react';
 import _ from 'lodash';
 
-import './mirage';
+import './utility/mirage';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const {
