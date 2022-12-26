@@ -41,7 +41,7 @@ const PrivacyPolicy = withTheme(props => {
         are built into the {company} Software.  This information may include, but is not limited to:
         your social security number or government issued ID and may be collected, as needed,
         for compliance with US Law and regulation. This information will only be requested
-        via secure channels within your account's interface and never by other means &mdash; such
+        via secure channels within your account&apos;s interface and never by other means &mdash; such
         as email, forums or chat services (third-party or otherwise).  We will amend this policy
         and update your account interface if such data collection begins.  Please reference the&nbsp;
         <Link to='#securitySection'>security section</Link> below.
@@ -63,7 +63,7 @@ const PrivacyPolicy = withTheme(props => {
         stored on your hard drive or in your device memory that helps us to
         improve our services and your experience, see which areas and features
         of our services are popular and count visits. We may also collect
-        information using web beacons (also known as 'tracking pixels'). Web
+        information using web beacons (also known as &lsquo;tracking pixels&rsquo;). Web
         beacons are electronic images that may be used in our services or emails
         and to track count visits or understand usage and campaign
         effectiveness.
@@ -108,7 +108,7 @@ const PrivacyPolicy = withTheme(props => {
       <Spacer />
 
       <P>
-        We don't share your personal information with third parties. Aggregated,
+        We don&apos;t share your personal information with third parties. Aggregated,
         anonymized data is periodically transmitted to external services to help
         us improve the {company} Software and service.
       </P>
@@ -128,7 +128,7 @@ const PrivacyPolicy = withTheme(props => {
         LinkedIn and Facebook. Your use of these third party services is
         entirely optional. We are not responsible for the privacy policies
         and/or practices of these third party services, and you are responsible
-        for reading and understanding those third party services' privacy
+        for reading and understanding those third party services&apos; privacy
         policies.
       </P>
       <Spacer size={2} />
@@ -155,9 +155,9 @@ const PrivacyPolicy = withTheme(props => {
       <Spacer />
 
       <P>
-        {company}, any of it's licensors or officers will never ask for your password!
+        {company}, any of it&apos;s licensors or officers will never ask for your password!
         {company} will also never ask for funds &mdash; fiat or digital &mdash; to be
-        sent to any specific individual's bank account or cryptographic wallet address.
+        sent to any specific individual&apos;s bank account or cryptographic wallet address.
         If payment is required for any of our services, it will always be handled securely
         via our third-party payment processor: Stripe.
       </P>
@@ -188,7 +188,7 @@ const PrivacyPolicy = withTheme(props => {
         </li>
 
         <li>
-          Always copy links from emails and manually paste them into a trusted web-browser's URL
+          Always copy links from emails and manually paste them into a trusted web-browser&apos;s URL
           field, <Font weight='bold'>for vetting first</Font>, <em>before</em> you hit enter.
         </li>
 

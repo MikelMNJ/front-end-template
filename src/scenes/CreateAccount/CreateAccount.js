@@ -25,11 +25,11 @@ const validationSchema = yup.object().shape({
 
   confirmPassword: yup.string()
     .required('Confirm password is required.')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([ yup.ref('password'), null ], 'Passwords must match'),
 
   conditions: yup
     .boolean()
-    .oneOf([true], 'You must agree to the terms and conditions.'),
+    .oneOf([ true ], 'You must agree to the terms and conditions.'),
 });
 
 const CreateAccount = props => {

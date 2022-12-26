@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { appConstants } from 'modules';
+import _ from 'lodash';
 
 export const getColor = (props, key, fallback) => {
   const { theme, selectedTheme } = props;
@@ -56,4 +57,10 @@ export const getLocalStorageSetting = key => {
 
     return existingSettings?.[key];
   }
+};
+
+export const notificationExists = (state, payload, selector) => {
+  const notifications = state.get(selector);
+  const exists = notifications?.find(notification => _.isEqual(notification, payload));
+  return exists;
 };

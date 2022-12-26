@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 
   confirmNewPassword: yup.string()
     .required('Confirm new password is required.')
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .oneOf([ yup.ref('password'), null ], 'Passwords must match'),
 });
 
 const SetPassword = props => {

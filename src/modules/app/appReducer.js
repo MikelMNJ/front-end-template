@@ -1,7 +1,6 @@
 import { appConstants } from 'modules';
-import { updateLocalStorage, getLocalStorageSetting } from 'helpers/utilityHelpers';
+import { updateLocalStorage, getLocalStorageSetting, notificationExists } from 'helpers/utilityHelpers';
 import StateManager from 'state-wrangler';
-import _ from 'lodash';
 
 const { actions, selectors, themes } = appConstants;
 const savedTheme = getLocalStorageSetting(selectors.STATE_KEY_SELECTED_THEME);
@@ -25,14 +24,12 @@ const appReducer = (initialState = initial, action = {}) => {
       return state.add(selectors.STATE_KEY_BANNER_CONTENT, payload);
 
     case actions.ADD_NOTIFICATION:
-      const notifications = state.get(selectors.STATE_KEY_NOTIFICATIONS);
-      const exists = notifications?.find(notification => _.isEqual(notification, payload));
-
-      return !exists ? state.add(selectors.STATE_KEY_NOTIFICATIONS, payload) : initialState;
+      return !notificationExists(state, payload, selectors.STATE_KEY_NOTIFICATIONS)
+        ? state.add(selectors.STATE_KEY_NOTIFICATIONS, payload)
+        : initialState;
 
     case actions.REMOVE_NOTIFICATION:
-      const index = payload;
-      return state.remove(selectors.STATE_KEY_NOTIFICATIONS, index);
+      return state.remove(selectors.STATE_KEY_NOTIFICATIONS, payload);
 
     case actions.CLEAR_NOTIFICATIONS:
       return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);

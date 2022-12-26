@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPassword = props => {
-  const { modalContent, setModalContent, sendResetEmail, addNotification, ...rest } = props;
+  const { sendResetEmail, addNotification, ...rest } = props;
   const darkTheme = rest.selectedTheme === dark;
 
   const handleSubmit = (values, { setSubmitting }) => {

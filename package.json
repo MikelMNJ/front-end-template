@@ -30,6 +30,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/preset-react": "^7.18.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -39,17 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "no-unused-vars": "warn",
-      "semi": "warn"
-    }
+    "eject": "react-scripts eject",
+    "lint": "eslint -c .eslintrc.js --ext .js,.jsx .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "browserslist": {
     "production": [
@@ -63,5 +57,7 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@3.3.1"
+  "resolutions": {
+    "react-error-overlay": "^6.0.11"
+  }
 }

@@ -10,13 +10,13 @@ export const paramsToObject = params => {
     const value = rawVal[1];
 
     paramsObject[key] = value;
-  })
+  });
 
   return paramsObject;
 };
 
 export const paramsToString = params => {
-  let paramsArray = [];
+  const paramsArray = [];
 
   Object.keys(params).forEach(key => {
     const paramValue = params[key];

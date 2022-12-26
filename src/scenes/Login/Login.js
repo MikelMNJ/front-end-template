@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = props => {
-  const { modalContent, setModalContent, login, addNotifcation, userInfo, ...rest } = props;
+  const { login, addNotifcation, userInfo, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   const navigate = useNavigate();

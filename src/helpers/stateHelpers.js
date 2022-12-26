@@ -6,7 +6,7 @@ export const failed = '_REQUEST_FAILED';
 
 export const actionCreator = (type, payload, meta) => {
   const action = { type, payload };
-  if (meta) { action.meta = meta };
+  if (meta) { action.meta = meta; }
   return action;
 };
 

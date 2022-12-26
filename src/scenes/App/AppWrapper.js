@@ -6,7 +6,7 @@ import {
   appActions,
   authSelectors,
   authActions,
-  rootActions
+  rootActions,
 } from 'modules';
 
 const mapSelectorsToProps = state => {

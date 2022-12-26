@@ -12,7 +12,7 @@ const devTools = process.env.NODE_ENV !== 'production' && reduxDevTools;
 
 const handleMiddleware = getDefaultMiddleWare => {
   const options = { serializableCheck: false };
-  return getDefaultMiddleWare(options).concat(middleware)
+  return getDefaultMiddleWare(options).concat(middleware);
 };
 
 const storeConfig = {

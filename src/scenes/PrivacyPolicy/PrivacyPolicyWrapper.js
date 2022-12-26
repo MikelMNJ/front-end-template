@@ -9,7 +9,7 @@ const mapSelectorsToProps = state => {
   };
 };
 
-const mapActionsToProps = dispatch => {
+const mapActionsToProps = () => {
   return {
 
   };

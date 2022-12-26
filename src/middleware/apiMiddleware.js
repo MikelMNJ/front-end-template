@@ -42,7 +42,7 @@ const dispatchSuccessState = args => {
 export const apiRelay = args => {
   const { REACT_APP_API_URL: basePath } = process.env;
   const { dispatch, next, ...action } = args;
-  const { type, path, meta, onSuccess, onFail, onComplete, state, ...rest } = action;
+  const { type, path, meta, onSuccess, onFail, onComplete, ...rest } = action;
   const url = `${basePath}${prepPath(path) || ''}`;
   const options = { ...rest };
 
@@ -52,7 +52,7 @@ export const apiRelay = args => {
     .then(res => handleInitialRes({ res, onSuccess, onFail, dispatch }))
     .then(data => {
       if (data) {
-        const { message, messages, error, errors, ...payload } = data;
+        const { error, errors, ...payload } = data;
         handleNotify(dispatch, data);
 
         if (payload && (!error || !errors)) {

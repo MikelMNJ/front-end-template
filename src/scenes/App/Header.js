@@ -9,7 +9,7 @@ import { iconValid } from 'helpers';
 const { light, dark } = appConstants.themes;
 
 const Header = props => {
-  const {theme, selectedTheme, setTheme, bannerContent, token, logout } = props;
+  const { theme, selectedTheme, setTheme, bannerContent, token, logout } = props;
 
   const [ showBanner, setShowBanner ] = useState(true);
   const navigate = useNavigate();

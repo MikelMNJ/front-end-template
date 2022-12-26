@@ -41,7 +41,7 @@ if (inProduction && !_.isEmpty(sentryDSN)) {
     integrations: [ new BrowserTracing() ],
     tracesSampleRate: 1.0,
   });
-};
+}
 
 const MyApp = (
   <StrictMode>

@@ -21,7 +21,7 @@ export const handleNotify = (dispatch, data) => {
         message: message || msg || item,
         icon,
         type: type || typeFallback,
-      }
+      };
     };
 
     if (msgArr) return messages.forEach(item => (
