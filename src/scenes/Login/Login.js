@@ -40,7 +40,8 @@ const Login = props => {
     }
   }, [ token, navigate, location ]);
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, actions) => {
+    const { setSubmitting } = actions;
     const { email, password } = values;
     const loginError = { message: 'Unable to log in.', type: 'error' };
 

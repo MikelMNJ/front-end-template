@@ -21,7 +21,8 @@ const ResetPassword = props => {
   const darkTheme = rest.selectedTheme === dark;
   const token = userInfo?.token;
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, actions) => {
+    const { setSubmitting } = actions;
     const { email } = values;
     const payload = { email };
     const callbacks = {

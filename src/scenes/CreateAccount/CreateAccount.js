@@ -50,7 +50,8 @@ const CreateAccount = props => {
     }
   }, [ token, state, navigate ]);
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = (values, actions) => {
+    const { setSubmitting } = actions;
     const { email, password, confirmPassword } = values;
 
     const callbacks = {

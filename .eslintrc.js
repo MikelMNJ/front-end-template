@@ -28,6 +28,10 @@ module.exports = {
   },
   plugins: [
     'import',
+    'etc',
+    '@typescript-eslint',
+    'eslint-plugin-no-inline-styles',
+    'destructuring',
   ],
   root: true,
   rules: {
@@ -50,6 +54,9 @@ module.exports = {
     'object-curly-spacing': [ 'error', 'always' ],
     'array-bracket-spacing': [ 'error', 'always' ],
     'react/forbid-component-props': [ 2, { forbid: [ 'style', 'className' ] } ],
+    'etc/no-commented-out-code': 'error',
+    'no-inline-styles/no-inline-styles': 'error',
+    'destructuring/in-params': 'error',
   },
   settings: {
     react: {
