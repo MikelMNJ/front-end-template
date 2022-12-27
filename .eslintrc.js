@@ -49,6 +49,7 @@ module.exports = {
     'no-duplicate-imports': 'error',
     'object-curly-spacing': [ 'error', 'always' ],
     'array-bracket-spacing': [ 'error', 'always' ],
+    'react/forbid-component-props': [ 2, { forbid: [ 'style', 'className' ] } ],
   },
   settings: {
     react: {
