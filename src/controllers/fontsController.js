@@ -14,12 +14,12 @@ const fonts = {
   secondary: {
     thin: null,
     extraLight: null,
-    light: 'OpenSans-Light',
-    normal: 'OpenSans-Regular',
+    light: null,
+    normal: null,
     medium: null,
     semiBold: null,
-    bold: 'OpenSans-Bold',
-    extraBold: 'OpenSans-ExtraBold',
+    bold: null,
+    extraBold: null,
     black: null,
   },
 };

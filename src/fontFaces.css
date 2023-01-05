@@ -30,38 +30,3 @@
   font-weight: 700;
   font-style: normal;
 }
-
-
-
-/* Secondary */
-@font-face {
-  font-family: 'OpenSans-Light';
-  src: local('OpenSans-Light'),
-    url('static/fonts/secondary/OpenSans-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'OpenSans-Regular';
-  src: local('OpenSans-Regular'),
-    url('static/fonts/secondary/OpenSans-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'OpenSans-Bold';
-  src: local('OpenSans-Bold'),
-    url('static/fonts/secondary/OpenSans-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'OpenSans-ExtraBold';
-  src: local('OpenSans-ExtraBold'),
-    url('static/fonts/secondary/OpenSans-ExtraBold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}

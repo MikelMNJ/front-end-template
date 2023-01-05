@@ -3,7 +3,7 @@ import styled, { withTheme } from 'styled-components';
 
 const StyledH4 = styled('h4')`
   font-weight: unset;
-  font-family: ${fonts?.secondary?.bold};
+  font-family: ${fonts?.primary?.bold};
   font-size: 1.25rem;
   margin: 0;
 `;
