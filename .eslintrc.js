@@ -37,6 +37,7 @@ module.exports = {
   rules: {
     quotes: [ 'error', 'single', { avoidEscape: true, allowTemplateLiterals: true } ],
     semi: [ 'error', 'always' ],
+    'react/display-name': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-var': 'error',
@@ -44,6 +45,7 @@ module.exports = {
     'space-infix-ops': 'error',
     'arrow-spacing': 'error',
     'prefer-const': 'error',
+    'space-in-parens': [ 'error', 'never' ],
     'arrow-parens': [ 'error', 'as-needed' ],
     'comma-dangle': [ 'error', 'always-multiline' ],
     'max-len': [ 'error', { code: 120 } ],
