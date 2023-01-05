@@ -84,7 +84,7 @@ const CreateAccount = props => {
               <Field
                 type='email'
                 name='email'
-                label={<Font weight='bold'>Email</Font>}
+                label={<Font weight='semibold'>Email</Font>}
                 icon='fa-solid fa-envelope'
                 disabled={false}
                 solidFill={false}
@@ -98,7 +98,7 @@ const CreateAccount = props => {
               <Field
                 type={passwordVisible ? 'text' : 'password'}
                 name='password'
-                label={<Font weight='bold'>Password</Font>}
+                label={<Font weight='semibold'>Password</Font>}
                 icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
                 iconCallback={() => setPasswordVisible(!passwordVisible)}
                 autoComplete='current-password'
@@ -112,7 +112,7 @@ const CreateAccount = props => {
               <Field
                 type={passwordVisible ? 'text' : 'password'}
                 name='confirmPassword'
-                label={<Font weight='bold'>Confirm password</Font>}
+                label={<Font weight='semibold'>Confirm password</Font>}
                 icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
                 iconCallback={() => setPasswordVisible(!passwordVisible)}
                 autoComplete='current-password'
@@ -160,7 +160,7 @@ const CreateAccount = props => {
               <Button
                 type='submit'
                 text={
-                  <Font weight='bold'>
+                  <Font weight='semibold'>
                     {form.isSubmitting ? 'Creating account...' : 'Create account'}
                   </Font>
                 }

@@ -75,7 +75,7 @@ const Login = props => {
               <Field
                 type='email'
                 name='email'
-                label={<Font weight='bold'>Email</Font>}
+                label={<Font weight='semibold'>Email</Font>}
                 icon='fa-solid fa-envelope'
                 disabled={false}
                 solidFill={false}
@@ -88,7 +88,7 @@ const Login = props => {
 
               <Field
                 name='password'
-                label={<Font weight='bold'>Password</Font>}
+                label={<Font weight='semibold'>Password</Font>}
                 type={passwordVisible ? 'text' : 'password'}
                 icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
                 iconCallback={() => setPasswordVisible(!passwordVisible)}
@@ -103,7 +103,7 @@ const Login = props => {
               <Button
                 type='submit'
                 text={
-                  <Font weight='bold'>
+                  <Font weight='semibold'>
                     {form.isSubmitting ? 'Logging in...' : 'Login'}
                   </Font>
                 }

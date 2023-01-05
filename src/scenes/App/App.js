@@ -59,7 +59,7 @@ const App = props => {
         hasData={userInfo}
         iconColor={colorOverride}
         textColor={colorOverride}
-        text={<Font size={1.125} weight='bold'>Authenticating...</Font>}
+        text={<Font size={1.125} weight='semibold'>Authenticating...</Font>}
         renderOnFail={true}
       >
         {renderApp()}

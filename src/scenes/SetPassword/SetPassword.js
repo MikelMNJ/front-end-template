@@ -89,7 +89,7 @@ const SetPassword = props => {
             <Field
               type={passwordVisible ? 'text' : 'password'}
               name='password'
-              label={<Font weight='bold'>New password</Font>}
+              label={<Font weight='semibold'>New password</Font>}
               icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
               iconCallback={() => setPasswordVisible(!passwordVisible)}
               solidFill={false}
@@ -104,7 +104,7 @@ const SetPassword = props => {
             <Field
               type={passwordVisible ? 'text' : 'password'}
               name='confirmNewPassword'
-              label={<Font weight='bold'>Confirm new password</Font>}
+              label={<Font weight='semibold'>Confirm new password</Font>}
               icon={passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}
               iconCallback={() => setPasswordVisible(!passwordVisible)}
               autoComplete='current-password'
@@ -119,7 +119,7 @@ const SetPassword = props => {
             <Button
               type='submit'
               text={
-                <Font weight='bold'>
+                <Font weight='semibold'>
                   {!resetToken && 'Missing reset token'}
                   {resetToken && !form.isSubmitting && 'Set password'}
                   {resetToken && form.isSubmitting && 'Setting new password...'}

@@ -11,12 +11,12 @@ const TermsOfService = withTheme(props => {
 
   return (
     <LegalDoc theme={theme} selectedTheme={selectedTheme}>
-      <Font weight='bold'>
+      <Font weight='semibold'>
         <P>ENGLISH</P>
       </Font>
 
       <div>
-        <Font weight='bold'>Licensor</Font>:&nbsp;
+        <Font weight='semibold'>Licensor</Font>:&nbsp;
         <Font weight='normal'>{licensor}</Font>
       </div>
       <Spacer size={2} />

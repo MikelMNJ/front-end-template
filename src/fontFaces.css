@@ -1,32 +1,32 @@
 /* Primary */
 @font-face {
-  font-family: 'Nunito-ExtraLight';
-  src: local('Nunito-ExtraLight'),
-    url('static/fonts/primary/Nunito-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Nunito-Light';
-  src: local('Nunito-Light'),
-    url('static/fonts/primary/Nunito-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Nunito-Regular';
-  src: local('Nunito-Regular'),
-    url('static/fonts/primary/Nunito-Regular.ttf') format('truetype');
+  font-family: 'Inter-Regular';
+  src: local('Inter-Regular'),
+    url('static/fonts/primary/Inter-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Nunito-Bold';
-  src: local('Nunito-Bold'),
-    url('static/fonts/primary/Nunito-Bold.ttf') format('truetype');
+  font-family: 'Inter-Medium';
+  src: local('Inter-Medium'),
+    url('static/fonts/primary/Inter-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-SemiBold';
+  src: local('Inter-SemiBold'),
+    url('static/fonts/primary/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-Bold';
+  src: local('Inter-Bold'),
+    url('static/fonts/primary/Inter-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }

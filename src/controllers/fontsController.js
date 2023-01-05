@@ -1,12 +1,12 @@
 const fonts = {
   primary: {
     thin: null,
-    extraLight: 'Nunito-ExtraLight',
-    light: 'Nunito-Light',
-    normal: 'Nunito-Regular',
-    medium: null,
-    semiBold: null,
-    bold: 'Nunito-Bold',
+    extraLight: null,
+    light: null,
+    normal: 'Inter-Regular',
+    medium: 'Inter-Medium',
+    semiBold: 'Inter-SemiBold',
+    bold: 'Inter-Bold',
     extraBold: null,
     black: null,
   },

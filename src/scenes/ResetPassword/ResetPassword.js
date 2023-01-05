@@ -48,7 +48,7 @@ const ResetPassword = props => {
             <Field
               type='email'
               name='email'
-              label={<Font weight='bold'>Email</Font>}
+              label={<Font weight='semibold'>Email</Font>}
               icon='fa-solid fa-envelope'
               disabled={false}
               solidFill={false}
@@ -62,7 +62,7 @@ const ResetPassword = props => {
             <Button
               type='submit'
               text={
-                <Font weight='bold'>
+                <Font weight='semibold'>
                   {form.isSubmitting ? 'Sending reset request...' : 'Send reset request'}
                 </Font>
               }

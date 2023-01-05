@@ -21,7 +21,7 @@ const Header = props => {
   return (
     <header>
       <StyledHeader theme={theme} selectedTheme={selectedTheme}>
-        <Font weight='bold' size={1.75}>
+        <Font weight='semibold' size={1.75}>
           <AppLogo onClick={() => navigate('/')}>
             <i className={iconValid('fa-brands fa-react')} />
             <Spacer across={true} />
@@ -72,7 +72,7 @@ const Header = props => {
             <i className={iconValid('fa-solid fa-face-grin-stars')} />
             <Spacer size={1} across={true} />
 
-            <Font weight='bold'>
+            <Font weight='semibold'>
               {bannerContent}
             </Font>
           </Banner>

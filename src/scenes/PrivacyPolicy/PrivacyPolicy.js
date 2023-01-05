@@ -189,7 +189,7 @@ const PrivacyPolicy = withTheme(props => {
 
         <li>
           Always copy links from emails and manually paste them into a trusted web-browser&apos;s URL
-          field, <Font weight='bold'>for vetting first</Font>, <em>before</em> you hit enter.
+          field, <Font weight='semibold'>for vetting first</Font>, <em>before</em> you hit enter.
         </li>
 
         <li>
