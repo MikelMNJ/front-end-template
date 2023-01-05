@@ -12,7 +12,6 @@ const Footer = props => {
     <StyledFooter theme={theme} selectedTheme={selectedTheme}>
       <Font size={0.9}>
         <Copyright
-          trade={true}
           rights={true}
           name='[Company]'
           message='made for you.'
