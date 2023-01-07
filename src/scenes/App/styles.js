@@ -8,8 +8,8 @@ const colors = theme.colors;
 export const StyledApp = styled('div')`
   display: grid;
   grid-template-rows: auto 1fr auto;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: ${props => getColor(props, 'primary')};
 `;
 
@@ -53,7 +53,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   #root {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
 
