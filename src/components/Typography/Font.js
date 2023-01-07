@@ -30,7 +30,7 @@ const getFontFamily = props => {
 };
 
 const StyledFont = styled('div')`
-  display: inline-flex;
+  display: ${props => props.inline ? 'inline-flex' : 'block'};
   font-family: ${props => getFontFamily(props)}, sans-serif;
   font-size: ${props => props.size || 1}rem;
 `;
