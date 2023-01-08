@@ -34,6 +34,14 @@ const appConstants = {
 
   appName: _.camelCase(REACT_APP_NAME),
   tokenParam: 'token',
+  layouts: {
+    full: { columns: 1, width: '70rem' },
+    half: { columns: 2, width: '34rem' },
+    third: { columns: 3, width: '22rem' },
+    quarter: { columns: 4, width: '16rem' },
+    sixth: { columns: 6, width: '10rem' },
+    single: { columns: 12, width: '4rem' },
+  },
 };
 
 export { appConstants };

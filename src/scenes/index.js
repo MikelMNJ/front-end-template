@@ -22,3 +22,11 @@ export * from './PrivacyPolicy/PrivacyPolicy';
 export * from './PrivacyPolicy/PrivacyPolicyWrapper';
 export * from './TermsOfService/TermsOfService';
 export * from './TermsOfService/TermsOfServiceWrapper';
+
+// Design Systems
+export * from './DesignSystems/ColorSystem/ColorSystem';
+export * from './DesignSystems/ColorSystem/ColorSystemWrapper';
+export * from './DesignSystems/TypeSystem/TypeSystem';
+export * from './DesignSystems/TypeSystem/TypeSystemWrapper';
+export * from './DesignSystems/GridSystem/GridSystem';
+export * from './DesignSystems/GridSystem/GridSystemWrapper';

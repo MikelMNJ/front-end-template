@@ -2,21 +2,21 @@ import { fonts } from 'controllers';
 import { getFontFamily } from 'helpers';
 import styled, { withTheme } from 'styled-components';
 
-const StyledH6 = styled('h6')`
+const StyledD1 = styled('h1')`
   font-weight: unset;
   font-family: ${props => props.weight ? getFontFamily(props) : fonts?.primary?.bold};
-  font-size: 0.67rem;
+  font-size: 4rem;
   margin: 0;
 `;
 
-const H6 = withTheme(props => {
+const D1 = withTheme(props => {
   const { theme, children, ...rest } = props;
 
   return (
-    <StyledH6 theme={theme} {...rest}>
+    <StyledD1 theme={theme} {...rest}>
       {children}
-    </StyledH6>
+    </StyledD1>
   );
 });
 
-export { H6 };
+export { D1 };

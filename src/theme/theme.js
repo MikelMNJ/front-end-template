@@ -3,16 +3,15 @@ import { appConstants } from 'modules';
 const { themes } = appConstants;
 
 const colors = {
-  greyWeb: '#7a7d7d',
   raisinBlack: '#2a2829',
   brightNavyBlue: '#0c77d4',
   carolinaBlue: '#479eeb',
   congoPink: '#f1746e',
 
   white: '#fafafa',
-  lightGrey: '#d0cfcf',
-  grey: '#868383',
-  darkGrey: '#343232',
+  lightGrey: '#e1e1e1',
+  grey: '#999999',
+  darkGrey: '#333333',
   black: '#1e1e1e',
   transparent: 'transparent',
 
@@ -24,7 +23,7 @@ const colors = {
 const modes = {
   [themes.light]: {
     primary: colors.white,
-    onPrimary: colors.greyWeb,
+    onPrimary: colors.raisinBlack,
     secondary: colors.raisinBlack,
     onSecondary: colors.lightGrey,
     accent: colors.brightNavyBlue,
@@ -49,7 +48,7 @@ const modes = {
     primary: colors.raisinBlack,
     onPrimary: colors.white,
     secondary: colors.black,
-    onSecondary: colors.lightGrey,
+    onSecondary: colors.grey,
     accent: colors.brightNavyBlue,
     onAccent: colors.darkGrey,
     accentHover: colors.carolinaBlue,

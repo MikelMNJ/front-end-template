@@ -1,9 +1,10 @@
 import { fonts } from 'controllers';
+import { getFontFamily } from 'helpers';
 import styled, { withTheme } from 'styled-components';
 
 const StyledH5 = styled('h5')`
   font-weight: unset;
-  font-family: ${fonts?.primary?.bold};
+  font-family: ${props => props.weight ? getFontFamily(props) : fonts?.primary?.bold};
   font-size: 0.83rem;
   margin: 0;
 `;

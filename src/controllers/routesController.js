@@ -10,6 +10,9 @@ import {
   SetPasswordWrapper,
   PrivacyPolicyWrapper,
   TermsOfServiceWrapper,
+  ColorSystemWrapper,
+  TypeSystemWrapper,
+  GridSystemWrapper,
 } from 'scenes';
 
 const routes = [
@@ -59,6 +62,20 @@ const routes = [
   {
     path: '/terms-of-service',
     element: <TermsOfServiceWrapper />,
+  },
+
+  // Public routes: Desing systems
+  {
+    path: '/color',
+    element: <ColorSystemWrapper />,
+  },
+  {
+    path: '/typography',
+    element: <TypeSystemWrapper />,
+  },
+  {
+    path: '/grid',
+    element: <GridSystemWrapper />,
   },
 ];
 
