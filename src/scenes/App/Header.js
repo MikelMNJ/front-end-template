@@ -38,9 +38,9 @@ const Header = props => {
               noText={true}
               btnType='transparent'
               icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
-              color={theme.colors.lightGrey}
-              hoverColor={theme.colors.white}
-              textColor={theme.colors.lightGrey}
+              color={theme.colors.neutral.lightGrey}
+              hoverColor={theme.colors.shades.white}
+              textColor={theme.colors.neutral.lightGrey}
               disabled={false}
               callback={handleThemeChange}
             />
@@ -52,9 +52,9 @@ const Header = props => {
                 noText={true}
                 btnType='transparent'
                 icon='fa-solid fa-right-from-bracket'
-                color={theme.colors.lightGrey}
-                hoverColor={theme.colors.white}
-                textColor={theme.colors.lightGrey}
+                color={theme.colors.neutral.lightGrey}
+                hoverColor={theme.colors.shades.white}
+                textColor={theme.colors.neutral.lightGrey}
                 callback={logout}
               />
             )}
@@ -68,7 +68,7 @@ const Header = props => {
             selectedTheme={selectedTheme}
             center={true}
             sharp={true}
-            textColor={theme.colors.white}
+            textColor={theme.colors.shades.white}
             callback={() => setShowBanner(false)}
           >
             <i className={iconValid('fa-solid fa-face-grin-stars')} />

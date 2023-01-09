@@ -1,12 +1,6 @@
 import { getColor } from 'helpers';
 import styled from 'styled-components';
 
-export const TypeWrapper = styled('div')`
-display: flex;
-flex-direction: column;
-width: 100%;
-`;
-
 export const TypeCards = styled('div')`
   display: flex;
   gap: 1rem;

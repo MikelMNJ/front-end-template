@@ -23,8 +23,10 @@ export const TitleWrapper = styled('div')`
 
 export const RightContent = styled('div')`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: ${props => getColor(props, 'grey')};
 `;
 
 export const ContentArea = styled('div')`

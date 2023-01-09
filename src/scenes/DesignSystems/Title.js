@@ -26,10 +26,8 @@ const Title = props => {
         </TitleWrapper>
 
         {rightContent && (
-          <RightContent>
-            <Font color={grey}>
-              {rightContent}
-            </Font>
+          <RightContent {...props}>
+            {rightContent}
           </RightContent>
         )}
       </Layout>

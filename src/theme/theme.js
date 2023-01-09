@@ -3,68 +3,78 @@ import { appConstants } from 'modules';
 const { themes } = appConstants;
 
 const colors = {
-  raisinBlack: '#2a2829',
-  brightNavyBlue: '#0c77d4',
-  carolinaBlue: '#479eeb',
-  congoPink: '#f1746e',
+  neutral: {
+    raisinBlack: '#2a2829',
+    davysGrey: '#555555',
+    greyWeb: '#7a7d7d',
+    lightGrey: '#d0cfcf',
+  },
 
-  white: '#fafafa',
-  lightGrey: '#e1e1e1',
-  grey: '#999999',
-  darkGrey: '#333333',
-  black: '#1e1e1e',
-  transparent: 'transparent',
+  accent: {
+    brightNavyBlue: '#0c77d4',
+    carolinaBlue: '#479eeb',
+  },
 
-  success: '#50b990',
-  warning: '#f0b800',
-  error: '#c93434',
+  success: {
+    oceanGreen: '#50b990',
+  },
+
+  warning: {
+    orangeYellow: '#f0b800',
+  },
+
+  error: {
+    persianRed: '#c93434',
+    congoPink: '#f1746e',
+  },
+
+  shades: {
+    black: '#1e1e1e',
+    white: '#fafafa',
+  },
 };
 
 const modes = {
   [themes.light]: {
-    primary: colors.white,
-    onPrimary: colors.raisinBlack,
-    secondary: colors.raisinBlack,
-    onSecondary: colors.lightGrey,
-    accent: colors.brightNavyBlue,
-    onAccent: colors.white,
-    accentHover: colors.carolinaBlue,
-    onAccentHover: colors.white,
+    primary: colors.shades.white,
+    onPrimary: colors.neutral.raisinBlack,
+    secondary: colors.neutral.raisinBlack,
+    onSecondary: colors.neutral.lightGrey,
+    accent: colors.accent.brightNavyBlue,
+    onAccent: colors.shades.white,
+    accentHover: colors.accent.carolinaBlue,
+    onAccentHover: colors.shades.white,
 
-    white: colors.white,
-    grey: colors.grey,
-    lightGrey: colors.lightGrey,
-    darkGrey: colors.darkGrey,
-    black: colors.black,
-    transparent: colors.transparent,
+    white: colors.shades.white,
+    lightGrey: colors.neutral.lightGrey,
+    grey: colors.neutral.greyWeb,
+    darkGrey: colors.neutral.davysGrey,
+    black: colors.shades.black,
 
-    success: colors.success,
-    warning: colors.warning,
-    error: colors.error,
-    info: colors.info,
+    success: colors.success.oceanGreen,
+    warning: colors.warning.orangeYellow,
+    error: colors.error.persianRed,
   },
 
   [themes.dark]: {
-    primary: colors.raisinBlack,
-    onPrimary: colors.white,
-    secondary: colors.black,
-    onSecondary: colors.grey,
-    accent: colors.brightNavyBlue,
-    onAccent: colors.darkGrey,
-    accentHover: colors.carolinaBlue,
-    onAccentHover: colors.darkGrey,
+    primary: colors.neutral.raisinBlack,
+    onPrimary: colors.shades.white,
+    secondary: colors.shades.black,
+    onSecondary: colors.neutral.lightGrey,
+    accent: colors.accent.brightNavyBlue,
+    onAccent: colors.neutral.raisinBlack,
+    accentHover: colors.accent.carolinaBlue,
+    onAccentHover: colors.neutral.raisinBlack,
 
-    white: colors.white,
-    grey: colors.grey,
-    lightGrey: colors.lightGrey,
-    darkGrey: colors.darkGrey,
-    black: colors.black,
-    transparent: colors.transparent,
+    white: colors.shades.white,
+    lightGrey: colors.neutral.lightGrey,
+    grey: colors.neutral.greyWeb,
+    darkGrey: colors.neutral.davysGrey,
+    black: colors.shades.black,
 
-    success: colors.success,
-    warning: colors.warning,
-    error: colors.congoPink,
-    info: colors.info,
+    success: colors.success.oceanGreen,
+    warning: colors.warning.orangeYellow,
+    error: colors.error.congoPink,
   },
 };
 

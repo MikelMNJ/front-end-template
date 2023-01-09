@@ -1,6 +1,5 @@
-import { H3, Layout } from 'components';
+import { H3, P, Font, Layout } from 'components';
 import { Spacer } from 'xerum';
-import { FontSet } from './FontSet';
 import { Title } from '../Title';
 import { TypeSample } from './TypeSample';
 import { TypeSet } from './TypeSet';
@@ -12,7 +11,21 @@ const TypeSystem = props => {
       <Title
         text='Typography'
         subText='Font faces, type sets and weights'
-        rightContent={<FontSet {...props} />}
+        rightContent={
+          <>
+            <P>
+              Add fonts to <Font weight='semiBold'>static/fonts/primary or secondary</Font>
+            </P>
+
+            <P>
+              Define font faces in <Font weight='semiBold'>fontFaces.css</Font>
+            </P>
+
+            <P>
+              Add names to <Font weight='semiBold'>controllers/fontsController.js</Font>
+            </P>
+          </>
+        }
         {...props}
       />
 

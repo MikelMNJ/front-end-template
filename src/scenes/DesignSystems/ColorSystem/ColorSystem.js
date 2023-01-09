@@ -10,7 +10,7 @@ const ColorSystem = props => {
         text='Color'
         subText='Definitions and usage' {...props}
         rightContent={(
-          <div>
+          <>
             <P>
               Customize in&nbsp;<Font weight='semiBold'>theme/theme.js</Font>
             </P>
@@ -18,9 +18,9 @@ const ColorSystem = props => {
             <P>
               Pass <Font weight='semiBold'>theme</Font> and&nbsp;
               <Font weight='semiBold'>selectedTheme</Font> props to&nbsp;
-              <Font weight='semiBold'>styled components</Font>.
+              <Font weight='semiBold'>styled components</Font>
             </P>
-          </div>
+          </>
         )}
       />
 

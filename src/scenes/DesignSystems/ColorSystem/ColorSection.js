@@ -4,12 +4,13 @@ import { ColorSwatch } from './ColorSwatch';
 import { Spacer } from 'xerum';
 
 const ColorSection = props => {
-  const { title, description, colors } = props;
+  const { title, description, colors, names } = props;
 
   const buildSwatches = () => {
-    const swatches = colors.map((color, index) => (
-      <ColorSwatch key={index} color={color} {...props} />
-    ));
+    const swatches = colors.map((color, index) => {
+      const name = names?.[index];
+      return <ColorSwatch key={index} color={color} name={name} {...props} />;
+    });
 
     return swatches;
   };
@@ -18,7 +19,7 @@ const ColorSection = props => {
     <ColorSectionWrapper>
       <ColorDescription>
         <H3>{title}</H3>
-        <Spacer />
+        <Spacer size={0.5} />
         <P>{description}</P>
       </ColorDescription>
 

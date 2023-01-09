@@ -12,9 +12,9 @@ const LayoutSystem = props => {
         text='Layout'
         subText='Spacing and layout'
         rightContent={(
-          <>
+          <div>
             Import &#123; Layout &#125; from &apos;<Font weight='semiBold'>components</Font>&apos;;
-          </>
+          </div>
         )}
         {...props}
       />

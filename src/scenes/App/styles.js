@@ -73,11 +73,11 @@ export const GlobalStyles = createGlobalStyle`
 
   a:link,
   a:visited {
-    color: ${props => getColor(props, 'accent', colors.black)};
+    color: ${props => getColor(props, 'accent', colors.neutral.raisinBlack)};
   }
 
   a:hover {
-    color: ${props => getColor(props, 'accentHover', colors.grey)};
+    color: ${props => getColor(props, 'accentHover', colors.neutral.greyWeb)};
   }
 
   ::-webkit-scrollbar {
@@ -86,15 +86,15 @@ export const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar-track {
     border-radius: 0.25rem;
-    background: ${props => getColor(props, 'lightGrey', colors.lightGrey)};
+    background: ${props => getColor(props, 'lightGrey', colors.neutral.lightGrey)};
   }
 
   ::-webkit-scrollbar-thumb {
     border-radius: 0.25rem;
-    background: ${props => getColor(props, 'grey', colors.grey)};
+    background: ${props => getColor(props, 'grey', colors.neutral.greyWeb)};
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${props => getColor(props, 'darkGrey', colors.darkGrey)};
+    background: ${props => getColor(props, 'darkGrey', colors.neutral.davysGrey)};
   }
 `;

@@ -11,9 +11,10 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Neutral'
-          description='Generally used for borders, dropshadows, placeholders,
+          description='Used for borders, dropshadows, placeholders,
           disabled states or anywhere a neutral color is needed.'
-          colors={[ colors.darkGrey, colors.grey, colors.lightGrey ]}
+          colors={Object.values(colors.neutral).map(color => color)}
+          names={Object.keys(colors.neutral).map(key => key)}
           {...props}
         />
       </Layout>
@@ -23,9 +24,10 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Accent'
-          description='Generally used for buttons, links, and anything that
-          requires user attention or interaction.'
-          colors={[ colors.brightNavyBlue, colors.carolinaBlue ]}
+          description='Used for buttons, links, hover and form element focus
+          states, or anything that requires user attention or interaction.'
+          colors={Object.values(colors.accent).map(color => color)}
+          names={Object.keys(colors.accent).map(key => key)}
           {...props}
         />
       </Layout>
@@ -35,10 +37,11 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Success'
-          description='Generally used for icons, text or anywhere that
+          description='Used for icons, text or anywhere that
           should give the user positive interaction or
           feedback.'
-          colors={[ colors.success ]}
+          colors={Object.values(colors.success).map(color => color)}
+          names={Object.keys(colors.success).map(key => key)}
           {...props}
         />
       </Layout>
@@ -48,10 +51,11 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Warning'
-          description='Generally used for icons, text or anywhere that
+          description='Used for icons, text or anywhere that
           should give the user apprehensive interaction or
           feedback.'
-          colors={[ colors.warning ]}
+          colors={Object.values(colors.warning).map(color => color)}
+          names={Object.keys(colors.warning).map(key => key)}
           {...props}
         />
       </Layout>
@@ -61,10 +65,11 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Error'
-          description='Generally used for icons, text or anywhere that
+          description='Used for icons, text or anywhere that
           should give the user negative feedback, a sense
           of urgency, or attention.'
-          colors={[ colors.error, colors.congoPink ]}
+          colors={Object.values(colors.error).map(color => color)}
+          names={Object.keys(colors.error).map(key => key)}
           {...props}
         />
       </Layout>
@@ -74,9 +79,10 @@ const ColorDefinitions = props => {
       <Layout>
         <ColorSection
           title='Shades'
-          description='Generally used for text, possibly backgrounds, or
+          description='Used for text, possibly backgrounds, or
           elements that require high contrast.'
-          colors={[ colors.black, colors.white ]}
+          colors={Object.values(colors.shades).map(color => color)}
+          names={Object.keys(colors.shades).map(key => key)}
           {...props}
         />
       </Layout>
