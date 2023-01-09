@@ -1,46 +1,20 @@
-import { Font } from 'components';
-import { Spacer } from 'xerum';
-import { TypeWrapper, TypeCard, FontDisplay, FontSample } from './styles';
+import { P, Font } from 'components';
+import { TypeWrapper } from './styles';
 
-const FontSet = props => {
+const FontSet = () => {
   return (
     <TypeWrapper>
-      <TypeCard {...props}>
-        <FontDisplay {...props}>
-          <Font size={4}>Aa</Font>
-        </FontDisplay>
+      <P>
+        Add fonts to <Font weight='semiBold'>static/fonts/primary or secondary</Font>
+      </P>
 
-        <FontSample>
-          <Font size={1.5}>Inter</Font>
-          <Font weight='regular'>Regular</Font>
-        </FontSample>
-      </TypeCard>
+      <P>
+        Define font faces in <Font weight='semiBold'>fontFaces.css</Font>
+      </P>
 
-      <Spacer across={true} />
-
-      <TypeCard {...props}>
-        <FontDisplay {...props}>
-          <Font size={4} weight='semiBold'>Aa</Font>
-        </FontDisplay>
-
-        <FontSample>
-          <Font size={1.5} weight='semiBold'>Inter</Font>
-          <Font weight='semiBold'>Semi-Bold</Font>
-        </FontSample>
-      </TypeCard>
-
-      <Spacer across={true} />
-
-      <TypeCard {...props}>
-        <FontDisplay {...props}>
-          <Font size={4} weight='bold'>Aa</Font>
-        </FontDisplay>
-
-        <FontSample>
-          <Font size={1.5} weight='bold'>Inter</Font>
-          <Font weight='bold'>Bold</Font>
-        </FontSample>
-      </TypeCard>
+      <P>
+        Add names to <Font weight='semiBold'>controllers/fontsController.js</Font>
+      </P>
     </TypeWrapper>
   );
 };

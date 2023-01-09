@@ -2,15 +2,20 @@ import { getColor } from 'helpers';
 import styled from 'styled-components';
 
 export const TypeWrapper = styled('div')`
-width: 100%;
 display: flex;
+flex-direction: column;
+width: 100%;
+`;
+
+export const TypeCards = styled('div')`
+  display: flex;
+  gap: 1rem;
 `;
 
 export const TypeCard = styled('div')`
-  width: 9rem;
-  flex-grow: 1;
-  flex-basis: 0;
-  color: ${props => getColor(props, 'grey')};
+  display: inline-flex;
+  gap: 0.5rem;
+  width: auto;
 `;
 
 export const FontDisplay = styled('div')`

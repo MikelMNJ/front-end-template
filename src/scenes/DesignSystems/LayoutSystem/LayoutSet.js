@@ -30,6 +30,9 @@ const LayoutSet = props => {
 
       <LayoutUnit size={4} {...props} />
       <Spacer across={true} />
+
+      <LayoutUnit size={2} {...props} />
+      <Spacer across={true} />
     </LayoutWrapper>
   );
 };
