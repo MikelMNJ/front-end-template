@@ -17,11 +17,11 @@ const TypeSystem = props => {
       />
 
       <ContentArea>
-        <TypeSet {...props} />
+        <Layout center={true}>
+          <TypeSet {...props} />
 
-        <Spacer size={3} />
+          <Spacer size={3} />
 
-        <Layout>
           <H3>Type Sets and Weights</H3>
 
           <Spacer size={1.5} />

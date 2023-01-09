@@ -1,4 +1,4 @@
-import { P, Font } from 'components';
+import { P, Font, Layout } from 'components';
 import { Title } from '../Title';
 import { ContentArea } from '../styles';
 import { ColorDefinitions } from './ColorDefinitions';
@@ -25,7 +25,9 @@ const ColorSystem = props => {
       />
 
       <ContentArea>
-        <ColorDefinitions {...props} />
+        <Layout center={true}>
+          <ColorDefinitions {...props} />
+        </Layout>
       </ContentArea>
     </div>
   );

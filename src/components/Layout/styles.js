@@ -4,6 +4,10 @@ import styled, { css } from 'styled-components';
 const layoutWidth = appConstants.layoutWidth;
 
 export const LayoutWrapper = styled('div')`
+  width: 100%;
+  max-width: ${layoutWidth}rem;
+
+  ${props => props.center && css`margin: 0 auto;`}
   ${props => props.inline && css`
     display: inline-flex;
     flex-wrap: wrap;
@@ -12,7 +16,4 @@ export const LayoutWrapper = styled('div')`
     flex-basis: 0;
     justify-content: space-between;
   `}
-
-  width: 100%;
-  max-width: ${layoutWidth}rem;
 `;

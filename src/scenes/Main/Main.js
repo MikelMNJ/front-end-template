@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { P, Font } from 'components';
-import { StyledMain } from './styles';
+import { P, Font, Layout } from 'components';
+import { StyledMain, ContentArea } from './styles';
 import { Title } from 'scenes/DesignSystems/Title';
 
 const Main = props => {
@@ -37,6 +37,12 @@ const Main = props => {
         rightContent={additionalText()}
         {...props}
       />
+
+      <ContentArea>
+        <Layout center={true}>
+
+        </Layout>
+      </ContentArea>
     </StyledMain>
   );
 };

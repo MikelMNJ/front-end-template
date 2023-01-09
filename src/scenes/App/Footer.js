@@ -1,5 +1,5 @@
 import { StyledFooter } from './styles';
-import { Font } from 'components';
+import { Font, Layout } from 'components';
 import { Copyright } from 'xerum';
 import PackageJSON from '../../../package.json';
 
@@ -10,17 +10,19 @@ const Footer = props => {
 
   return (
     <StyledFooter theme={theme} selectedTheme={selectedTheme}>
-      <Font size={0.9}>
-        <Copyright
-          rights={true}
-          name='[Company]'
-          message='made for you.'
-        />
-      </Font>
+      <Layout inline={true} center={true}>
+        <Font size={0.9}>
+          <Copyright
+            rights={true}
+            name='[Company]'
+            message='made for you.'
+          />
+        </Font>
 
-      <Font weight='light' size={0.9}>
-        v{version}
-      </Font>
+        <Font weight='light' size={0.9}>
+          v{version}
+        </Font>
+      </Layout>
     </StyledFooter>
   );
 };

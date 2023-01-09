@@ -1,4 +1,4 @@
-import { Font } from 'components';
+import { Font, Layout } from 'components';
 import { Spacer } from 'xerum';
 import { Title } from '../Title';
 import { ElementSpacing } from './ElementSpacing';
@@ -20,9 +20,11 @@ const LayoutSystem = props => {
       />
 
       <ContentArea>
-        <ElementSpacing {...props} />
-        <Spacer size={3} />
-        <LayoutDefinitions />
+        <Layout center={true}>
+          <ElementSpacing {...props} />
+          <Spacer size={3} />
+          <LayoutDefinitions />
+        </Layout>
       </ContentArea>
     </div>
   );

@@ -1,10 +1,10 @@
 import { LayoutWrapper } from './styles';
 
 const Layout = props => {
-  const { inline, children } = props;
+  const { inline, center, children } = props;
 
   return (
-    <LayoutWrapper inline={inline}>
+    <LayoutWrapper inline={inline} center={center}>
       {children}
     </LayoutWrapper>
   );

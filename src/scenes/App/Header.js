@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { appConstants } from 'modules';
-import { Font } from 'components';
+import { Font, Layout } from 'components';
 import { StyledHeader, AppLogo } from './styles';
 import { Button, Banner, Spacer } from 'xerum';
 import { iconValid } from 'helpers';
@@ -21,43 +21,45 @@ const Header = props => {
   return (
     <header>
       <StyledHeader theme={theme} selectedTheme={selectedTheme}>
-        <Font weight='semibold' size={1.75}>
-          <AppLogo onClick={() => navigate('/')}>
-            <i className={iconValid('fa-brands fa-react')} />
-            <Spacer across={true} />
+        <Layout inline={true} center={true}>
+          <Font weight='semibold' size={1.75}>
+            <AppLogo onClick={() => navigate('/')}>
+              <i className={iconValid('fa-brands fa-react')} />
+              <Spacer across={true} />
 
-            [App name]
-          </AppLogo>
-        </Font>
+              [App name]
+            </AppLogo>
+          </Font>
 
-        <div>
-          <Button
-            theme={theme}
-            selectedTheme={selectedTheme}
-            noText={true}
-            btnType='transparent'
-            icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
-            color={theme.colors.lightGrey}
-            hoverColor={theme.colors.white}
-            textColor={theme.colors.lightGrey}
-            disabled={false}
-            callback={handleThemeChange}
-          />
-
-          {token && (
+          <div>
             <Button
               theme={theme}
               selectedTheme={selectedTheme}
               noText={true}
               btnType='transparent'
-              icon='fa-solid fa-right-from-bracket'
+              icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
               color={theme.colors.lightGrey}
               hoverColor={theme.colors.white}
               textColor={theme.colors.lightGrey}
-              callback={logout}
+              disabled={false}
+              callback={handleThemeChange}
             />
-          )}
-        </div>
+
+            {token && (
+              <Button
+                theme={theme}
+                selectedTheme={selectedTheme}
+                noText={true}
+                btnType='transparent'
+                icon='fa-solid fa-right-from-bracket'
+                color={theme.colors.lightGrey}
+                hoverColor={theme.colors.white}
+                textColor={theme.colors.lightGrey}
+                callback={logout}
+              />
+            )}
+          </div>
+        </Layout>
       </StyledHeader>
 
       {bannerContent && showBanner && (

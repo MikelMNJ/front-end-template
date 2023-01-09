@@ -1,4 +1,4 @@
-import { H2, P, Font } from 'components';
+import { H2, P, Font, Layout } from 'components';
 import { Spacer } from 'xerum';
 import { TitleArea, RightContent } from './styles';
 
@@ -8,29 +8,31 @@ const Title = props => {
 
   return (
     <TitleArea {...props}>
-      <div>
-        {text && <H2>{text}</H2>}
+      <Layout inline={true} center={true}>
+        <div>
+          {text && <H2>{text}</H2>}
 
-        {subText && (
-          <>
-            <Spacer size={0.25} />
+          {subText && (
+            <>
+              <Spacer size={0.25} />
 
-            <P>
-              <Font color={grey}>
-                {subText}
-              </Font>
-            </P>
-          </>
+              <P>
+                <Font color={grey}>
+                  {subText}
+                </Font>
+              </P>
+            </>
+          )}
+        </div>
+
+        {rightContent && (
+          <RightContent>
+            <Font color={grey}>
+              {rightContent}
+            </Font>
+          </RightContent>
         )}
-      </div>
-
-      {rightContent && (
-        <RightContent>
-          <Font color={grey}>
-            {rightContent}
-          </Font>
-        </RightContent>
-      )}
+      </Layout>
     </TitleArea>
   );
 };
