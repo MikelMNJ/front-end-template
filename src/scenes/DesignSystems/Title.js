@@ -1,6 +1,6 @@
 import { H2, P, Font, Layout } from 'components';
 import { Spacer } from 'xerum';
-import { TitleArea, RightContent } from './styles';
+import { TitleArea, TitleWrapper, RightContent } from './styles';
 
 const Title = props => {
   const { theme, selectedTheme, text, subText, rightContent } = props;
@@ -9,7 +9,7 @@ const Title = props => {
   return (
     <TitleArea {...props}>
       <Layout inline={true} center={true}>
-        <div>
+        <TitleWrapper>
           {text && <H2>{text}</H2>}
 
           {subText && (
@@ -23,7 +23,7 @@ const Title = props => {
               </P>
             </>
           )}
-        </div>
+        </TitleWrapper>
 
         {rightContent && (
           <RightContent>

@@ -15,9 +15,16 @@ export const TitleArea = styled('div')`
     margin: -0.5rem 0 0 -0.0625rem;
   }
 `;
+export const TitleWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 export const RightContent = styled('div')`
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 export const ContentArea = styled('div')`

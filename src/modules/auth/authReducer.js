@@ -1,4 +1,5 @@
-import { authConstants, appConstants } from 'modules';
+import { appConstants } from 'modules/app/appConstants';
+import { authConstants } from 'modules/auth/authConstants';
 import { updateLocalStorage, request } from 'helpers';
 import StateManager from 'state-wrangler';
 

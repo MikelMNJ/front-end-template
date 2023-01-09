@@ -1,4 +1,5 @@
-import { appReducer, authReducer } from 'modules';
+import { appReducer } from 'modules/app/appReducer';
+import { authReducer } from 'modules/auth/authReducer';
 
 const reducers = {
   app: appReducer,
