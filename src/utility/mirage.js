@@ -1,7 +1,7 @@
 import { createServer } from 'miragejs';
 
 // eslint-disable-next-line
-const token = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxMTRjMDBhNTAxZTU0M2MzNjQ0ZGU3In0sImlhdCI6MTY3MTQxNjAwMiwiZXhwIjoxNjc0MDA4MDAyfQ.kNRGniRnD4yxya_z-6j36PYXpwuCLmxj-35JIc7LDKY' };
+export const token = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxMTRjMDBhNTAxZTU0M2MzNjQ0ZGU3In0sImlhdCI6MTY3MzMwNDUwMywiZXhwIjoxNjc1ODk2NTAzfQ.MLa2ZTl0sOVHZ2tZGziV4X3qaToonMdj4Mvo8NHd1_4' };
 
 createServer({
   routes() {

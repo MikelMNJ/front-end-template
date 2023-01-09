@@ -38,7 +38,7 @@ const App = props => {
       <StyledApp>
         {token && <Header token={token} logout={logout} {...rest} />}
 
-        <MainContent token={token}>
+        <MainContent>
           <Routes>
             {makeRoutes(token)}
           </Routes>
