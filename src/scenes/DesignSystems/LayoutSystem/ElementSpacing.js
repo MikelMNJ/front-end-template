@@ -1,10 +1,10 @@
 import { H3, P, Layout } from 'components';
 import { Spacer } from 'xerum';
-import { GridSet } from './GridSet';
+import { LayoutSet } from './LayoutSet';
 
 const ElementSpacing = props => {
   return (
-    <Layout columns={2}>
+    <Layout inline={true}>
       <div>
         <H3>Element Spacing</H3>
         <Spacer />
@@ -12,14 +12,13 @@ const ElementSpacing = props => {
 
       <div>
         <P>
-          Element spacing should have a buffer gap of one of the sizes displayed.
-          These gaps use the most common sizes for spacing and will result in proper
-          heirarchy based on core design principles.
+          Consider using the defined sizes between your elements for coherent
+          element grouping and heirarchy:
         </P>
 
         <Spacer size={3} />
 
-        <GridSet {...props} />
+        <LayoutSet {...props} />
       </div>
     </Layout>
   );

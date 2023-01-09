@@ -18,9 +18,7 @@ const ColorSection = props => {
     <ColorSectionWrapper>
       <ColorDescription>
         <H3>{title}</H3>
-
         <Spacer />
-
         <P>{description}</P>
       </ColorDescription>
 

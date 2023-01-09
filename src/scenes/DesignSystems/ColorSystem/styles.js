@@ -10,7 +10,7 @@ height: auto;
 export const ColorDescription = styled('div')`
 display: flex;
 flex-direction: column;
-width: 24rem;
+min-width: 22rem;
 `;
 
 export const Palette = styled('div')`

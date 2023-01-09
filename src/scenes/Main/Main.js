@@ -21,9 +21,9 @@ const Main = props => {
         </Font>
       </Link> and&nbsp;
 
-      <Link to='/grid'>
+      <Link to='/layout'>
         <Font weight='semiBold'>
-          grid
+          layout
         </Font>
       </Link> systems.
     </P>
@@ -33,7 +33,7 @@ const Main = props => {
     <StyledMain>
       <Title
         text='Next steps...'
-        subText='Color, Typography and Grid systems'
+        subText='Color, Typography and Layout systems'
         rightContent={additionalText()}
         {...props}
       />

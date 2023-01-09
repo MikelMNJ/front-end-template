@@ -12,7 +12,7 @@ import {
   TermsOfServiceWrapper,
   ColorSystemWrapper,
   TypeSystemWrapper,
-  GridSystemWrapper,
+  LayoutSystemWrapper,
 } from 'scenes';
 
 const routes = [
@@ -74,8 +74,8 @@ const routes = [
     element: <TypeSystemWrapper />,
   },
   {
-    path: '/grid',
-    element: <GridSystemWrapper />,
+    path: '/layout',
+    element: <LayoutSystemWrapper />,
   },
 ];
 

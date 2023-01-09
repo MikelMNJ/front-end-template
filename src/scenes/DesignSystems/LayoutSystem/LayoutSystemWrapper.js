@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { GridSystem } from 'scenes';
+import { LayoutSystem } from 'scenes';
 import { withTheme } from 'styled-components';
 import { appSelectors } from 'modules';
 
@@ -13,7 +13,7 @@ const mapActionsToProps = () => {
   return {};
 };
 
-const Component = withTheme(GridSystem);
-const GridSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(LayoutSystem);
+const LayoutSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { GridSystemWrapper };
+export { LayoutSystemWrapper };

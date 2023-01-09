@@ -1,6 +1,6 @@
 import { D1, D2, H1, H2, H3, H4, H5, H6, P, Layout } from 'components';
 import { Spacer } from 'xerum';
-import { TypeSampleWrapper, SampleTitle } from './styles';
+import { SampleTitle, SampleWrapper } from './styles';
 
 const TypeSample = props => {
   const { type } = props;
@@ -14,12 +14,10 @@ const TypeSample = props => {
               Display 01
               <P>Regular</P>
             </D1>
-
             <D1 weight='semiBold'>
               Display 01
               <P>Semi-Bold</P>
             </D1>
-
             <D1>
               Display 01
               <P>Bold</P>
@@ -84,8 +82,6 @@ const TypeSample = props => {
               Heading 02
               <P>Bold</P>
             </H2>
-
-            <Spacer size={3} />
           </>
         );
 
@@ -175,22 +171,19 @@ const TypeSample = props => {
   };
 
   return (
-    <Layout>
-      <div>
-        <SampleTitle {...props}>
-          &lt;{type} {type !== 'P' && 'weight={weight}'} /&gt;
-          <Spacer size={0.5} />
-        </SampleTitle>
+    <Layout noSpacing={true}>
+      <SampleTitle {...props}>
+        &lt;{type} {type !== 'P' && 'weight={weight}'} /&gt;
+        <Spacer size={0.5} />
+      </SampleTitle>
 
-        <Spacer size={1.5} />
+      <Spacer size={1.5} />
 
-        <TypeSampleWrapper>
-          {buildSample()}
-          <Spacer />
-        </TypeSampleWrapper>
+      <SampleWrapper>
+        {buildSample()}
+      </SampleWrapper>
 
-        <Spacer size={3} />
-      </div>
+      <Spacer size={3} />
     </Layout>
   );
 };

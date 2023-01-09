@@ -1,10 +1,10 @@
 import { LayoutWrapper } from './styles';
 
 const Layout = props => {
-  const { columns, children } = props;
+  const { inline, children } = props;
 
   return (
-    <LayoutWrapper columns={columns}>
+    <LayoutWrapper inline={inline}>
       {children}
     </LayoutWrapper>
   );

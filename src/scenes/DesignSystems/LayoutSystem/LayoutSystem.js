@@ -5,11 +5,11 @@ import { ElementSpacing } from './ElementSpacing';
 import { LayoutDefinitions } from './LayoutDefinitions';
 import { ContentArea } from '../styles';
 
-const GridSystem = props => {
+const LayoutSystem = props => {
   return (
     <div>
       <Title
-        text='Grid'
+        text='Layout'
         subText='Spacing and layout'
         rightContent={(
           <>
@@ -28,4 +28,4 @@ const GridSystem = props => {
   );
 };
 
-export { GridSystem };
+export { LayoutSystem };

@@ -25,13 +25,6 @@ flex-direction: column;
 justify-content: center;
 `;
 
-export const TypeSampleWrapper = styled('div')`
-  display: grid;
-  gap: 0 1rem;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-`;
-
 export const SampleTitle = styled('div')`
   width: 100%;
   color: ${props => getColor(props, 'grey')};
@@ -39,5 +32,11 @@ export const SampleTitle = styled('div')`
 `;
 
 export const SampleWrapper = styled('div')`
+  display: inline-flex;
+  justify-content: space-between;
   width: 100%;
+
+  & > * {
+    width: 21rem;
+  }
 `;
