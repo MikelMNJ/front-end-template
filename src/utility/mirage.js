@@ -6,7 +6,7 @@ export const token = { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7
 createServer({
   routes() {
     this.namespace = 'api/v1';
-    this.passthrough();
+    this.passthrough('https://icanhazip.com/');
 
     // Check user token
     this.post('/users/me', () => {
