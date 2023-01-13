@@ -1,13 +1,25 @@
+import _ from 'lodash';
+
 export const paramsToObject = params => {
   const decodedParams = decodeURI(params);
-  const rawString = decodedParams.split(/[?&]+/);
+  const rawString = decodedParams.split(/[#?&]+/);
   const paramsArray = rawString.slice(1, rawString.length);
   const paramsObject = {};
 
   paramsArray.forEach(param => {
     const rawVal = param.split('=');
     const key = rawVal[0];
-    const value = rawVal[1];
+    const value = rawVal[1] === 'undefined' ? undefined : rawVal[1];
+
+    if (paramsObject[key]) {
+      if (Array.isArray(paramsObject[key])) {
+        paramsObject[key].push(value);
+        return;
+      }
+
+      paramsObject[key] = [ paramsObject[key], value ];
+      return;
+    }
 
     paramsObject[key] = value;
   });
@@ -15,17 +27,23 @@ export const paramsToObject = params => {
   return paramsObject;
 };
 
-export const paramsToString = params => {
+export const paramsToString = (params, isHash) => {
   const paramsArray = [];
 
-  Object.keys(params).forEach(key => {
-    const paramValue = params[key];
-    paramsArray.push(`${key}=${paramValue}`);
-  });
+  for (const key in params) {
+    if (Array.isArray(params[key])) {
+      params[key].forEach(value => {
+        paramsArray.push(`${key}=${value}`);
+      });
+      return;
+    }
+
+    paramsArray.push(`${key}=${params[key]}`);
+  }
 
   paramsArray.forEach((param, index) => {
     if (index === 0) {
-      paramsArray[index] = `?${encodeURI(param)}`;
+      paramsArray[index] = `${isHash ? '#' : '?'}${encodeURI(param)}`;
       return;
     }
 
@@ -35,12 +53,44 @@ export const paramsToString = params => {
   return paramsArray.join('');
 };
 
-export const paramsFromURL = () => {
+export const paramsFromHash = () => {
   const location = window.location.href;
-  const paramSplit = location.split('?');
-  const params = `?${paramSplit[1]}`;
+  const paramSplit = location.split('#');
+  const params = `#${paramSplit[1]}`;
   const workingParams = paramsToObject(params);
 
   delete workingParams.undefined;
-  return paramsToString(workingParams);
+
+  return paramsToString(workingParams, true);
+};
+
+export const paramsFromURL = () => {
+  return window.location.search;
+};
+
+export const decode = value => {
+  const isArray = _.isArray(value);
+  const isString = _.isString(value);
+  const isValid = value && value !== 'undefined' && (isString || isArray);
+
+  const cleanItem = item => {
+    return decodeURI(item)
+      .replaceAll('%2B', ' ')
+      .replaceAll('+', ' ')
+      .replaceAll('%2C', ',')
+      .replaceAll('%2F', '/')
+      .replaceAll('%26', '&')
+      .replaceAll('%5E', '^')
+      .replaceAll('%24', '$')
+      .replaceAll('%23', '#')
+      .replaceAll('%40', '@')
+      .replaceAll('%3D', '=')
+      .replaceAll('%3B', ';')
+      .replaceAll('%3A', ':')
+      .replaceAll('%3F', '?');
+  };
+
+  if (!isValid) return;
+  if (isArray) return value.map(item => cleanItem(item));
+  return cleanItem(value);
 };
