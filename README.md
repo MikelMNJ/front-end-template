@@ -199,10 +199,10 @@ Should the internet connection fail while the user is using your app, the applic
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
 app in *main.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
 
-**Note**: This component comes from `xerum` and has additional props.  Pleae see the [Xerum: Heartbeat](https://xerum.netlify.app/#heartbeat) for full usage.
+**Note**: This component comes from `xerum` and has additional props.  Pleae see the [Xerum](https://xerum.netlify.app) for full usage.
 
 
-# Themes and Fonts
+# Themes, Fonts and Layout
 ## Themes
 
 This template was built with `styled-components`.  It maintains unique class names on all of your components for a conflict-free styling experience.
@@ -228,6 +228,18 @@ If you need your headers, for example, to use the secondary font, open any `<H# 
 `getFontFamily()` function in *fontHelpers.jsx* to account for secondary font cases.
 
 **Note**: The `getFontFamily()` function is used to dynamically use the desired font-face in the `<Font />` and other Typography components.
+
+
+
+## Layout
+
+The `<Layout />` component, `import { Layout } from 'components';`, limits child content to a max width defined as layoutWidth in *modules/app/appConstants.jsx*.
+
+It can also use *Flexbox* to display it's children as inline elements, with even spacing between each child element with `<Layout inline={true} />`.
+
+You can use `<Layout center={true} />` if you need the layout element center justified in its parent. This approach is the default alternative to a Grid system.
+
+Note: The custom `<P />` tag, `import { P } from 'components';`, has a max width built in to assist with blocks of text that may exceed the best practice of 9-12 words per line.
 
 
 
@@ -276,7 +288,7 @@ State is handled with Redux.
 
 ## About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
-other state helpers and custom hooks (like `useDispatch()` or `useSelector()`) in *helpers/stateHelpers.jsx*.
+other state helpers, in *helpers/stateHelpers.jsx*.
 The action creator passes an object with `{ type, payload }` to the reducer, where the reducer's *switch* statement
 reads the `action.type` and updates state accordingly.
 
@@ -287,51 +299,55 @@ details on how to use this. If you would rather use a library such as *immutable
 
 The following can be found in *modules/appReducer.jsx*:
 ```jsx
+import { appConstants } from 'modules';
+import { updateLocalStorage, getLocalStorageSetting, notificationExists } from 'helpers/utilityHelpers';
 import StateManager from 'state-wrangler';
-import constants from './appConstants';
-import _ from 'lodash';
+
+const { actions, selectors, themes } = appConstants;
+const savedTheme = getLocalStorageSetting(selectors.STATE_KEY_SELECTED_THEME);
 
 const initial = {
-  [constants.STATE_KEY_NOTIFICATIONS]: [],
+  [selectors.STATE_KEY_SELECTED_THEME]: savedTheme || themes.light,
+  [selectors.STATE_KEY_NOTIFICATIONS]: [],
+  [selectors.STATE_KEY_BANNER_CONTENT]: null,
 };
 
-const reducer = (initialState = initial, action = {}) => {
-  const { meta, payload } = action;
+const appReducer = (initialState = initial, action = {}) => {
+  const { payload } = action;
   const state = new StateManager(initialState);
 
   switch(action.type) {
-    case constants.SAMPLE_ACTION:
-      return state.update(constants.STATE_KEY_SAMPLE_SELECTOR, payload);
+    case actions.SET_THEME:
+      updateLocalStorage(selectors.STATE_KEY_SELECTED_THEME, payload);
+      return state.update(selectors.STATE_KEY_SELECTED_THEME, payload);
 
-    case constants.ADD_NOTIFICATION:
-      const notifications =  state.get(constants.STATE_KEY_NOTIFICATIONS);
-      const exists = notifications?.find(notification => _.isEqual(notification, payload));
+    case actions.SET_BANNER_CONTENT:
+      return state.add(selectors.STATE_KEY_BANNER_CONTENT, payload);
 
-      return !exists ? state.add(constants.STATE_KEY_NOTIFICATIONS, payload) : initialState;
+    case actions.ADD_NOTIFICATION:
+      return !notificationExists(state, payload, selectors.STATE_KEY_NOTIFICATIONS)
+        ? state.add(selectors.STATE_KEY_NOTIFICATIONS, payload)
+        : initialState;
 
-    case constants.REMOVE_NOTIFICATION:
-      const index = payload;
-      return state.remove(constants.STATE_KEY_NOTIFICATIONS, index);
+    case actions.REMOVE_NOTIFICATION:
+      return state.remove(selectors.STATE_KEY_NOTIFICATIONS, payload);
 
-    case constants.SAMPLE_API_CALL:
-      return state.update(constants.STATE_KEY_SAMPLE_API_RESPONSE, payload);
+    case actions.CLEAR_NOTIFICATIONS:
+      return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);
 
-    case constants.SEND_EMAIL:
-      return state.update(constants.STATE_KEY_EMAIL_RESPONSE, payload);
-
-    case constants.SET_GLOBAL_BANNER_CONTENT:
-      return state.add(constants.STATE_KEY_GLOBAL_BANNER_CONTENT, payload);
+    case actions.SET_MODAL_VISIBLE:
+      return state.update(selectors.STATE_KEY_MODAL_VISIBLE, payload);
 
     default:
       return initialState;
   }
 };
 
-export default reducer;
+export { appReducer };
 ```
 
 **Note**: It's recommended to create a new folder in *modules* for each section or page of your app. These other reducers, actions, selectors etc. will keep things scalable and manageable.
-Don't forget to add any new reducers in *store.jsx* &mdash; they should be added to `const reducers = {}`.
+Don't forget to add any new reducers in *reducersController.jsx*`. **Do not add them in store.jsx**
 
 
 
@@ -340,149 +356,160 @@ Actions and Selectors are defined in objects for their specific module &mdash; t
 ```jsx
 // appConstants.jsx
 const constants = {
-  // Actions
-  SAMPLE_ACTION: "modules/app/SAMPLE_ACTION",
-  ADD_NOTIFICATION: "modules/app/ADD_NOTIFICATION",
-  REMOVE_NOTIFICATION: "modules/app/REMOVE_NOTIFICATION",
-  SET_GLOBAL_BANNER: "modules/app/SET_GLOBAL_BANNER",
-  SEND_EMAIL: "modules/app/SEND_EMAIL",
-  SAMPLE_API_CALL: "modules/app/SAMPLE_API_CALL",
+  actions: {
+    SET_THEME: 'modules/app/SET_THEME',
+    SET_BANNER_CONTENT: 'modules/app/SET_BANNER_CONTENT',
+    ADD_NOTIFICATION: 'modules/app/ADD_NOTIFICATION',
+    REMOVE_NOTIFICATION: 'modules/app/REMOVE_NOTIFICATION',
+    CLEAR_NOTIFICATIONS: 'modules/app/CLEAR_NOTIFICATIONS',
+    SET_MODAL_VISIBLE: 'modules/app/SET_MODAL_VISIBLE',
+  },
 
-  // Selectors
-  STATE_KEY_SAMPLE_SELECTOR: "sampleSelector",
-  STATE_KEY_NOTIFICATIONS: "notifications",
-  STATE_KEY_GLOBAL_BANNER_CONTENT: "globalBannerContent",
-  STATE_KEY_EMAIL_RESPONSE: "emailResponse",
-  STATE_KEY_SAMPLE_API_RESPONSE: "sampleAPIResponse",
+  selectors: {
+    STATE_KEY_SELECTED_THEME: 'selectedTheme',
+    STATE_KEY_BANNER_CONTENT: 'bannerContent',
+    STATE_KEY_NOTIFICATIONS: 'notifications',
+    STATE_KEY_MODAL_VISIBLE: 'modalContent',
+  },
 };
 ```
 
 ```jsx
 // appActions.jsx
+import { actionCreator } from 'helpers';
+import { appConstants } from 'modules';
+
 const appActions = {
-  // Simple actions, directly updates the reducer.
-  sampleAction: payload => actionCreator(constants.SAMPLE_ACTION, payload),
-  addNotification: payload => actionCreator(constants.ADD_NOTIFICATION, payload),
-  removeNotification: payload => actionCreator(constants.REMOVE_NOTIFICATION, payload),
-  setGlobalBannerContent: payload => actionCreator(constants.SET_GLOBAL_BANNER_CONTENT, payload),
-
-  // API actions go through middleware, then passes the server res.json() back to the reducer, as payload.
-  sendEmail: (payload, callback) => {
-    const args = { type: constants.SEND_EMAIL, payload,  callback };
-    return api.sendEmail(args);
-  },
-
-  sampleAPICall: (payload, callback) => {
-    const args = { type: constants.SAMPLE_API_CALL, payload,  callback };
-    return api.sampleAPICall(args);
-  },
+  setTheme: payload => actionCreator(appConstants.actions.SET_THEME, payload),
+  setBannerContent: payload => actionCreator(appConstants.actions.SET_BANNER_CONTENT, payload),
+  addNotification: payload => actionCreator(appConstants.actions.ADD_NOTIFICATION, payload),
+  removeNotification: payload => actionCreator(appConstants.actions.REMOVE_NOTIFICATION, payload),
+  clearNotifications: () => actionCreator(appConstants.actions.CLEAR_NOTIFICATIONS),
+  setModalContent: payload => actionCreator(appConstants.actions.SET_MODAL_VISIBLE, payload),
 };
+
+export { appActions };
 ```
 
 ```jsx
 // appSelectors.jsx
+import { appConstants } from 'modules';
+
+const { selectors } = appConstants;
+
 const appSelectors = {
-  // state.app with "app" being the reducer's imported name in store.jsx
-  // This will need to be changed according to the reducer you are working with/targeting.
-  sampleSelector: state => state.app[constants.STATE_KEY_SAMPLE_SELECTOR],
-  notifications: state => state.app[constants.STATE_KEY_NOTIFICATIONS],
-  emailResponse: state => state.app[constants.STATE_KEY_EMAIL_RESPONSE],
-  sampleAPIResponse: state => state.app[constants.STATE_KEY_SAMPLE_API_RESPONSE],
-  globalBannerContent: state => state.app[constants.STATE_KEY_GLOBAL_BANNER_CONTENT],
-}
-```
-
-**Calling a simple action or reading a state selector from a component**<br />
-The process of using an action/selector to update or read from a targeted reducer is identical to *Redux*.
-A more complete example can be found in *scenes/DeleteMe/CheckState.jsx*:
-```jsx
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'helpers/stateHelpers';
-import appActions from 'modules/app/appActions';
-import appSelectors from 'modules/app/appSelectors';
-
-const YourComponent = props => {
-  // Sample actions/selectors from global state...
-  const dispatch = useDispatch();
-  const sampleAction = useCallback(payload => dispatch(appActions?.sampleAction(payload)), [dispatch]);
-  const sampleSelector = useSelector(state => appSelectors?.sampleSelector(state));
-
-  useEffect(() => {
-    if (!sampleSelector) {
-      sampleAction("New value from global state!");
-    }
-  }, [sampleSelector, sampleAction]);
-
-  return (
-    <div>
-      {sampleSelector || "No state key value."}
-    </div>
-  );
+  selectedTheme: state => state.app[selectors.STATE_KEY_SELECTED_THEME],
+  bannerContent: state => state.app[selectors.STATE_KEY_BANNER_CONTENT],
+  notifications: state => state.app[selectors.STATE_KEY_NOTIFICATIONS],
+  modalContent: state => state.app[selectors.STATE_KEY_MODAL_VISIBLE],
 };
 
-export default YourComponent;
+export { appSelectors };
+```
+
+## About Higher Order Component Wrappers
+
+> It is strongly recommended to not deviate from this pattern!  You will need to create a Wrapper component for every main
+> component that is returned from a route, or as needed.
+
+Higher order components are used to house all logic related to declaring and using actions or selectors.  Additionally,
+the wrapper component handles passing `theme`, via `withTheme` from `styled-components`.  The benefit of this workflow is
+your component remains clean of all global state logic, and your state logic is now located in one central place for that component.
+
+Redux's `connect()` method is responsible for combining all mapped actions, selectors and theme items and passing them along
+to the specified component for use in `props`. Here is the main `AppWrapper.jsx` file found in `scenes/App`:
+
+```jsx
+import { connect } from 'react-redux';
+import { withTheme } from 'styled-components';
+import { App } from 'scenes';
+import {
+  appSelectors,
+  appActions,
+  authSelectors,
+  authActions,
+  rootActions,
+} from 'modules';
+
+const mapSelectorsToProps = state => {
+  return {
+    selectedTheme: appSelectors.selectedTheme(state),
+    bannerContent: appSelectors.bannerContent(state),
+    notifications: appSelectors.notifications(state),
+    userInfo: authSelectors.userInfo(state),
+    userInfoLoading: authSelectors.userInfoLoading(state),
+  };
+};
+
+const mapActionsToProps = dispatch => {
+  return {
+    setTheme: payload => dispatch(appActions.setTheme(payload)),
+    addNotification: payload => dispatch(appActions.addNotification(payload)),
+    removeNotification: payload => dispatch(appActions.removeNotification(payload)),
+    checkToken: payload => dispatch(authActions.checkToken(payload)),
+    logout: () => dispatch(rootActions.logout()),
+  };
+};
+
+const Component = withTheme(App);
+const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+
+export { AppWrapper };
 ```
 
 **Calling an API action**
-API actions are called in the same way as above, but can be passed a callback function as the second argument.  This callback function
-will be executed after the server responds.
+API actions can be passed a callbacks function containing `onSuccess`, `onFail` and `onComplete` functions.
+These callback functions will be executed as their names imply, by `middleware/apiMiddleware.jsx`.
 
-Below is an example of how an API action is called, note the use of the secondary *callback* argument.
-A more complete example of this can be found in *scenes/DeleteMe/CheckAPI.jsx*:
 ```jsx
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'helpers/stateHelpers';
-import appActions from 'modules/app/appActions';
-import appSelectors from 'modules/app/appSelectors';
+import React, { useEffect } from 'react';
 
 const YourComponent = props => {
-  const dispatch = useDispatch();
-
-  // Actions/Selectors
-  const sampleAPIResponse = useSelector(state => appSelectors.sampleAPIResponse(state));
-  const sampleAPICall = useCallback((payload, callback) => (
-    dispatch(appActions.sampleAPICall(payload, callback))
-  ), [dispatch]);
+  // These will come from your HOC Wrapper actions/selectors
+  const { sampleAPIResponse, sampleAPICall } = props;
 
   useEffect(() => {
     if (!sampleAPIResponse) {
       const payload = { myKey: "I'm sending this to the server." };
-      const callback = res => console.log("I'm running this on 200, OK!", res);
+      const callbacks = {
+        onSuccess: res => console.log("I'm running this on 200, OK!", res),
+        onFail: res => console.log("Call has failed."),
+        onComplete: res => console.log("Call is complete"),
+      };
 
-      sampleAPICall(payload, callback);
+      sampleAPICall(payload, callbacks);
     }
-  }, [sampleAPIResponse]);
+  }, []);
 
   return null;
 };
 
-export default YourComponent;
+export { YourComponent };
 ```
 
-The difference between a simple action call is that there is an additional *modules/app/appApi.jsx* file, imported as *api* in *modules/app/appActions.jsx*,
+The difference between a simple action call is that there is an additional *modules/auth/appApi.jsx* file, imported as *api* in *modules/auth/authActions.jsx*,
 that describes everything the middleware needs to make the call.  Anything you would normally write to make an API call is valid in this object: `headers: {}`,
 `body: JSON.stringify(payload)` etc.
 
 There are extra keys the middleware will use that you should be aware of:
   * **type**, this is the `action.type` dispatch will need.
-  * **onSuccess**, executes your callback only after 200 response.
-  * **onFail**, executes your callback for anything >= 400 response.
-  * **onComplete**, executes your callback after call is complete, regardless of response code.
+  * **callbacks**, this is the object containing your `onSuccess`, `onFail` and `onComplete` functions.
+    * **onSuccess**, executes your callback only after 200 response.
+    * **onFail**, executes your callback for anything >= 400 response.
+    * **onComplete**, executes your callback after call is complete, regardless of response code.
   * **meta**, passes additional data for use in the reducer &mdash; accessible in the reducer with `action.meta`.
 
 ```jsx
-// modules/app/appApi.jsx
+// modules/auth/authApi.jsx
 export const sampleAPICall = args => {
-  const { type, callback } = args;
+  const { type, payload, callbacks } = args;
 
  return {
     type,
     path: "/test",
     method: "GET",
-    onSuccess: res => callback?.(res),
-    onFail: res => callback?.(res),
-    onComplete: () => console.log("Call complete."),
     meta: null,
+    ...callbacks,
   };
 };
 ```
