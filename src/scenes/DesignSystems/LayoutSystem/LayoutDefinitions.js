@@ -30,13 +30,7 @@ const LayoutDefinitions = () => {
           You can use&nbsp;
           <Font weight='semiBold'>&lt;Layout center=&#123;true&#125; /&gt;</Font> if you need
           the layout element center justified in its parent.
-        </P>
-
-        <Spacer />
-
-        <P>
           This approach is the default alternative to a Grid system.
-          If you need a grid system, you can import solutions, such as TailWind CSS or Bootstrap.
         </P>
 
         <Spacer />
