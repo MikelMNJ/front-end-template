@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const { REACT_APP_NAME } = process.env;
+const { VITE_NAME } = process.env;
 
 const appConstants = {
   actions: {
@@ -32,7 +32,7 @@ const appConstants = {
     loading: 'loading',
   },
 
-  appName: _.camelCase(REACT_APP_NAME),
+  appName: _.camelCase(VITE_NAME),
   tokenKeyName: 'token',
   textWidth: 32,
   layoutWidth: 118,

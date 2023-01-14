@@ -12,7 +12,7 @@ const ColorSystem = props => {
         rightContent={(
           <>
             <P>
-              Customize in&nbsp;<Font weight='semiBold'>theme/theme.js</Font>
+              Customize in&nbsp;<Font weight='semiBold'>theme/theme.jsx</Font>
             </P>
 
             <P>

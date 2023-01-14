@@ -13,7 +13,7 @@ const LayoutDefinitions = () => {
         <P>
           The <Font weight='semiBold'>&lt;Layout /&gt;</Font> component limits child content
           to a max width defined as <Font weight='semiBold'>layoutWidth</Font> in&nbsp;
-          <Font weight='semiBold'>modules/app/appConstants.js</Font>.
+          <Font weight='semiBold'>modules/app/appConstants.jsx</Font>.
         </P>
 
         <Spacer />

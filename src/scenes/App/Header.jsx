@@ -71,9 +71,6 @@ const Header = props => {
             textColor={theme.colors.shades.white}
             callback={() => setShowBanner(false)}
           >
-            <i className={iconValid('fa-solid fa-face-grin-stars')} />
-            <Spacer size={1} across={true} />
-
             <Font weight='semibold'>
               {bannerContent}
             </Font>

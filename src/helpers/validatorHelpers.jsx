@@ -9,7 +9,7 @@ export const tokenValid = token => {
     expired = moment() > expires;
     return !expired;
   } catch (error) {
-    console.error(error.message);
+    console.log(error.message);
     return !expired;
   }
 };

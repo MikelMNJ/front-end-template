@@ -2,20 +2,19 @@
 
 **View app**: https://starterapp.netlify.app
 
-This project is created with create-react-app and heavily modified with
+This project is created with Vite and bolstered with
 features that enable you to quickly get up and running with a highly scalable, production-ready, web app.
-It is also made specifically for MongoDB and Netlify, with Netlify lambda functions and built on Node 16.x
 
 The app contains the following features to get you started:
 
 **Front-end**:<br />
 * Routing.
-* Global state management (equal to Redux).
+* Global state management (Redux).
 * Account creation, authentication and password reset flows with manual/auto log out.
 * Feature flags.
-* Front-end middleware/afterware support for global state updates.
-* Notification system &mdash; dispatch from front-end to send UI feedback or send from back-end to convey server feedback (see the **Back-end** section for details).
-* Style-sheet variable compatibility in JavaScript files.
+* Front-end middleware support for global state updates.
+* Notification system &mdash; dispatch from front-end to send UI feedback or send from your back-end to convey server feedback.
+* Styled-Components for clean, React compatible, component styling.
 
 Feel free to clone, modify and start your own projects with this template.
 
@@ -24,29 +23,23 @@ Feel free to clone, modify and start your own projects with this template.
 # Getting up and running
 
 > **NPM users**: You will need to remove *yarn.lock* and *.yarnrc.yml* and change the deploy script in *package.json* from:<br />
-> `"deploy": "yarn build && yarn build:server && netlify deploy --prod",`<br />
+> `"deploy": "yarn build && netlify deploy --prod",`<br />
 > to:<br />
-> `"deploy": "npm run build && npm run build:server && netlify deploy --prod",`
+> `"deploy": "npm run build && netlify deploy --prod",`
 
 
 1. Clone the repo.
 2. Add *.env* to the project root with the following variables:
     ```
-    REACT_APP_NAME=""
-    REACT_APP_BASE_URL=""
-    REACT_APP_API_V1="/.netlify/functions/server/v1/"
-    REACT_APP_MONGO_URI=""
-    REACT_APP_JWT_SECRET=""
-    REACT_APP_SENTRY_DSN=""
-    REACT_APP_EMAIL_API_KEY=""
-    REACT_APP_VERIFIED_SENDER_EMAIL=""
+    VITE_NAME=''
+    VITE_SENTRY_DSN=''
+    VITE_ANALYTICS_ID=''
+    VITE_API_URL='/[your server path]/api/v1'
     ```
-
-    **Important**: Make sure you have the slash included at the end of the path in *REACT_APP_API_V1*!
 
 3. In terminal, run `cd /path/to/project` then `yarn set version berry` (if not on a modern version of yarn already), followed by `yarn`.
 For NPM users, run `npm i` in the project directory.
-4. Finally, run `yarn start` and `yarn start:server` or `npm run start` and `npm run start:server`.
+4. Finally, run `yarn start` or `npm run start`.
 
 > You will need a valid SendGrid API Key and your SendGrid sender address must be verified with them.
 
@@ -54,7 +47,7 @@ See deployment section for additional steps to take before deployment to Netlify
 
 
 **Note about deployment services**: This has not been tested with other deployment services, like Heroku etc.  Any changes are likely to be in the
-use of a *[service].toml* file, modification of the *start:server*, *build:server* and *deploy* scripts in *package.json*. `REACT_APP_API_V1="/.netlify/functions/server/v1/"`
+use of a *[service].toml* file, modification of the *start:server*, *build:server* and *deploy* scripts in *package.json*. `VITE_API_V1="/.netlify/functions/server/v1/"`
 will need to be updated in *.env*.  Finally, you will likely need to make modifications to how the *functions*
 folder is handled by your service.
 
@@ -80,23 +73,23 @@ The structure of this template is as follows:
 # Testing
 
 Tests were set up as part of *create-react-app*.  The script command for testing, and others, can be found
-in *package.json*.  It uses *Jest* and only requires the name *[componentName].test.js* &mdash; see *scenes/DeleteMe/DeleteMe.test.js*.
+in *package.json*.  It uses *Jest* and only requires the name *[componentName].test.jsx* &mdash; see *scenes/DeleteMe/DeleteMe.test.jsx*.
 
 
 
 # Routing
 
-Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` tags in *index.js* and
-*App.js* makes use of the `<Routes />` tag to receive all rendered route components from the `makeRoutes()` function in the routes controller.
+Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` tags in *index.jsx* and
+*App.jsx* makes use of the `<Routes />` tag to receive all rendered route components from the `makeRoutes()` function in the routes controller.
 
 
 ### Adding or editing a route
-*controllers/routesController.js* defines all routes to be rendered along with
+*controllers/routesController.jsx* defines all routes to be rendered along with
 the appropriate component, and whether that route requires authentication.
 
 Routes are public by default.  If a route requires authentication for access, add **authenticate** to the route object:
 ```jsx
-// controllers/routesController.js
+// controllers/routesController.jsx
 const routes = [
   {
     // Private route example
@@ -110,13 +103,13 @@ const routes = [
 When you pass **authenticate**, the `makeRoutes()` function will require the JSON Web Token as the first argument or access to the route will be denied.
 In the event that denial &mdash; due to a missing authToken, or invalid authToken &mdash; occurs, the user will be redirect to "/login" by default.  If your authentication page is not "/login" a second path string can be passed to override the default redirect path: `makeRoutes(authToken, "/your-login-route")`.
 
-See the the full route controller and build function in *controllers/routesController.js*.
+See the the full route controller and build function in *controllers/routesController.jsx*.
 
 > *public/_redirects* forces the server to always return 200, OK so that *react-router-dom* can handle catching any 404 routes.
 
-The relevant routing code has been included in this example and full implementation can be found in *scenes/App/App.js*:
+The relevant routing code has been included in this example and full implementation can be found in *scenes/App/App.jsx*:
 ```jsx
-// scenes/App/App.js
+// scenes/App/App.jsx
 import makeRoutes from 'controllers/routesController';
 
 const App = props => {
@@ -141,10 +134,10 @@ const App = props => {
 
 
 # Feature Flags
-A basic feature flag object has been added in *featureFlags.js*.  You can expand this object or integrate it into your build pipeline,
+A basic feature flag object has been added in *featureFlags.jsx*.  You can expand this object or integrate it into your build pipeline,
 however you see fit, to control features for different environments or deployments.
 
-The following can be found in *flags.js*:
+The following can be found in *flags.jsx*:
 ```jsx
 const flags = {
   features: {
@@ -185,10 +178,10 @@ export default Component;
 
 # Monitoring
 
-Monitoring is handled with *Sentry* and is set up in *index.js*.  You will need your DSN, provided by Sentry.
-Your DSN should be stored as REACT_APP_SENTRY_DSN in *.env*
+Monitoring is handled with *Sentry* and is set up in *index.jsx*.  You will need your DSN, provided by Sentry.
+Your DSN should be stored as VITE_SENTRY_DSN in *.env*
 
-If you do not wish to use *Sentry*, remove the package along with the import and environment conditional in *index.js*.
+If you do not wish to use *Sentry*, remove the package along with the import and environment conditional in *index.jsx*.
 
 
 
@@ -196,7 +189,7 @@ If you do not wish to use *Sentry*, remove the package along with the import and
 
 Should the internet connection fail while the user is using your app, the application will alert the user that the internet connection has failed.
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
-app in *index.js*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
+app in *index.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
 
 
 
@@ -219,7 +212,7 @@ sudo gedit font_awesome_auth_token.sh
 ```
 
 3. `yarn add @fortawesome/fontawesome-pro`
-4. Change the import in *index.js* to `import '@fortawesome/fontawesome-pro/css/all.css';`
+4. Change the import in *index.jsx* to `import '@fortawesome/fontawesome-pro/css/all.css';`
 
 As a quick mention, the `.yarnrc.yml` file is already configured for pro licenses and responsible for pointing to the registry server so you don't get a package not found error:
 ```yml
@@ -245,7 +238,7 @@ Default styles for common elements, such as forms, links, headers etc. can be fo
 *theme/common.scss* also contains class names for quick styling, such as *center*, *inline*, or common colors used in feedback and notifications, like *red*, *green*,
 *yellow* or *blue*. Additional colors can be added and exported in *theme/colors.scss*.
 
-## Accessing SASS variables in .js files
+## Accessing SASS variables in .jsx files
 This is acheived with `yarn install sass` in *package.json* and **sass-loader: 7.2.0** or higher in *yarn.lock* (*package-lock.json* for npm).
 From there, *.scss* files can be used freely throughout the project.  With that set, please take a look at *theme/colors.scss*.
 A set of sass variables are defined in this style-sheet and exported using `:export {}`.  *colors.scss* is then called in *index.scss*
@@ -263,7 +256,7 @@ This has been set up in an similar way to *Redux*.
 
 ## About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
-other state helpers and custom hooks (like `useDispatch()` or `useSelector()`) in *helpers/stateHelpers.js*.
+other state helpers and custom hooks (like `useDispatch()` or `useSelector()`) in *helpers/stateHelpers.jsx*.
 The action creator passes an object with `{ type, payload }` to the reducer, where the reducer's *switch* statement
 reads the `action.type` and updates state accordingly.
 
@@ -272,7 +265,7 @@ I have made an npm package that handles state updates in an immutable manner, se
 details on how to use this. If you would rather use a library such as *immutableJS* you can swap `state-wrangler` out for that.
 
 
-The following can be found in *modules/appReducer.js*:
+The following can be found in *modules/appReducer.jsx*:
 ```jsx
 import StateManager from 'state-wrangler';
 import constants from './appConstants';
@@ -318,14 +311,14 @@ export default reducer;
 ```
 
 **Note**: It's recommended to create a new folder in *modules* for each section or page of your app. These other reducers, actions, selectors etc. will keep things scalable and manageable.
-Don't forget to add any new reducers in *store.js* &mdash; they should be added to `const reducers = {}`.
+Don't forget to add any new reducers in *store.jsx* &mdash; they should be added to `const reducers = {}`.
 
 
 
 ## About Actions and Selectors
-Actions and Selectors are defined in objects for their specific module &mdash; the following can be found in *modules/appConstants.js*, *modules/appActions.js* and *modules/appSelectors.js*:
+Actions and Selectors are defined in objects for their specific module &mdash; the following can be found in *modules/appConstants.jsx*, *modules/appActions.jsx* and *modules/appSelectors.jsx*:
 ```jsx
-// appConstants.js
+// appConstants.jsx
 const constants = {
   // Actions
   SAMPLE_ACTION: "modules/app/SAMPLE_ACTION",
@@ -345,7 +338,7 @@ const constants = {
 ```
 
 ```jsx
-// appActions.js
+// appActions.jsx
 const appActions = {
   // Simple actions, directly updates the reducer.
   sampleAction: payload => actionCreator(constants.SAMPLE_ACTION, payload),
@@ -367,9 +360,9 @@ const appActions = {
 ```
 
 ```jsx
-// appSelectors.js
+// appSelectors.jsx
 const appSelectors = {
-  // state.app with "app" being the reducer's imported name in store.js
+  // state.app with "app" being the reducer's imported name in store.jsx
   // This will need to be changed according to the reducer you are working with/targeting.
   sampleSelector: state => state.app[constants.STATE_KEY_SAMPLE_SELECTOR],
   notifications: state => state.app[constants.STATE_KEY_NOTIFICATIONS],
@@ -381,7 +374,7 @@ const appSelectors = {
 
 **Calling a simple action or reading a state selector from a component**<br />
 The process of using an action/selector to update or read from a targeted reducer is identical to *Redux*.
-A more complete example can be found in *scenes/DeleteMe/CheckState.js*:
+A more complete example can be found in *scenes/DeleteMe/CheckState.jsx*:
 ```jsx
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'helpers/stateHelpers';
@@ -415,7 +408,7 @@ API actions are called in the same way as above, but can be passed a callback fu
 will be executed after the server responds.
 
 Below is an example of how an API action is called, note the use of the secondary *callback* argument.
-A more complete example of this can be found in *scenes/DeleteMe/CheckAPI.js*:
+A more complete example of this can be found in *scenes/DeleteMe/CheckAPI.jsx*:
 ```jsx
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'helpers/stateHelpers';
@@ -446,7 +439,7 @@ const YourComponent = props => {
 export default YourComponent;
 ```
 
-The difference between a simple action call is that there is an additional *modules/app/appApi.js* file, imported as *api* in *modules/app/appActions.js*,
+The difference between a simple action call is that there is an additional *modules/app/appApi.jsx* file, imported as *api* in *modules/app/appActions.jsx*,
 that describes everything the middleware needs to make the call.  Anything you would normally write to make an API call is valid in this object: `headers: {}`,
 `body: JSON.stringify(payload)` etc.
 
@@ -458,7 +451,7 @@ There are extra keys the middleware will use that you should be aware of:
   * **meta**, passes additional data for use in the reducer &mdash; accessible in the reducer with `action.meta`.
 
 ```jsx
-// modules/app/appApi.js
+// modules/app/appApi.jsx
 export const sampleAPICall = args => {
   const { type, callback } = args;
 
@@ -478,9 +471,9 @@ export const sampleAPICall = args => {
 
 ## About Middleware and Afterware
 A middleware function is used to execute something prior to the reducer's state update.  Afterware is much the same, but runs after the state update has occured.
-Middleware and afterware can be added to the arrays of the same name in *store.js*, example: `const middlewares = [ apiMiddleware ];`
+Middleware and afterware can be added to the arrays of the same name in *store.jsx*, example: `const middlewares = [ apiMiddleware ];`
 
-An example of middleware that this app uses can be found when any API action is called. Please see *wares/apiMiddleware.js* for the full example, including the `apiRelay()` function:
+An example of middleware that this app uses can be found when any API action is called. Please see *wares/apiMiddleware.jsx* for the full example, including the `apiRelay()` function:
 ```jsx
 const apiMiddleware = (dispatch, action) => {
   if (action) {
@@ -496,7 +489,7 @@ const apiMiddleware = (dispatch, action) => {
 };
 ```
 
-A modified version of `useReducer()` is being used to handle the injection of these wares and can be found in *helpers/stateHelpers.js*:
+A modified version of `useReducer()` is being used to handle the injection of these wares and can be found in *helpers/stateHelpers.jsx*:
 ```jsx
 export const useReducerWithWares = args => {
   const { rootReducer, initialState, middlewares, afterwares } = args;
@@ -518,16 +511,16 @@ export const useReducerWithWares = args => {
 };
 ```
 
-Please see the **About store.js** section to see this implemented.
+Please see the **About store.jsx** section to see this implemented.
 
 
-## About store.js
+## About store.jsx
 Now that the reducer has been explored with constants/actions/selectors defined and used in components, let's take a look at the heart of it all &mdash; the store.
 
 In a nutshell:
 * Create state by creating *Context* for our app.
 * Set up the ability to use that context with a *useStore* variable.
-* Create `useSelector()` and `useDispatch()` hooks found in *helpers/stateHelpers.js* with *useStore*.
+* Create `useSelector()` and `useDispatch()` hooks found in *helpers/stateHelpers.jsx* with *useStore*.
 * Import all reducers from the *modules* folder and store in the `reducers = {}` object &mdash; think of this as an object containing all our modules.
 * Loop through all reducers asking for their initial state object.
 * Loop through all reducers and combine them, as functions, letting each manage their own "module" of state.
@@ -535,11 +528,11 @@ In a nutshell:
 * Call modified `useReducerWithWares()` to get the complete state object, execute wares as well as get the dispatch function.
 * Memoize the array to prevent every subscribed component from updating if it's "module" hasn't been updated.
 * Pass the final `{ state, dispatch }` object to the `<AppContext.Provider />`.
-* Wrap `<App />` in *index.js* with `<AppProvider />`
+* Wrap `<App />` in *index.jsx* with `<AppProvider />`
 
 And that completes the Redux-like global state management flow!
 
-The following can be found in *store.js*:
+The following can be found in *store.jsx*:
 ```jsx
 import React, { createContext, useContext, useMemo } from 'react';
 import { makeInitialState, combineReducers, useReducerWithWares } from 'helpers/stateHelpers';
@@ -560,7 +553,7 @@ const rootReducer = combineReducers(reducers);
 const middlewares = [ apiMiddleware ];
 const afterwares = [];
 
-// How to use: wrap <App /> in index.js with <AppProvider />
+// How to use: wrap <App /> in index.jsx with <AppProvider />
 // See 'modules' for reducer and associated state actions/selectors.
 // See 'helpers/stateHelpers' for custom hooks, action creator and StateManager methods.
 
@@ -582,7 +575,7 @@ export const AppProvider = ({ children }) => {
 
 # Adding a Site-Wide Banner Message
 
-A banner alert system is included by default in *scenes/App.js*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
+A banner alert system is included by default in *scenes/App.jsx*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
 
 ```jsx
 import React, { useState } from 'react';
@@ -652,6 +645,6 @@ if changes to main have been pushed etc.
 
 **Reminder**: Don't forget to change the publish directory in Netlify's deployment settings to match the *netlify.toml* file ("build").
 Also, add your environment variables in Netlify's *Site settings > Build  and deploy > Environment* section:
-* REACT_APP_NAME
-* REACT_APP_API_V1
-* REACT_APP_SENTRY_DSN
+* VITE_NAME
+* VITE_API_V1
+* VITE_SENTRY_DSN
