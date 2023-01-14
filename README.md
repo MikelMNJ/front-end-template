@@ -1,6 +1,6 @@
 # About
 
-**View app**: https://starterapp.netlify.app
+**View app**: https://front-end-template.netlify.app
 
 This project is created with Vite and bolstered with
 features that enable you to quickly get up and running with a highly scalable, production-ready, web app.
@@ -10,11 +10,15 @@ The app contains the following features to get you started:
 **Front-end**:<br />
 * Routing.
 * Global state management (Redux).
-* Account creation, authentication and password reset flows with manual/auto log out.
+* `mirage` for mocking back-end responses in development while the production endpoint is being developed.
+* Account creation, authentication and password reset routes, and forms, with manual/auto log out.
 * Feature flags.
 * Front-end middleware support for global state updates.
 * Notification system &mdash; dispatch from front-end to send UI feedback or send from your back-end to convey server feedback.
-* Styled-Components for clean, React compatible, component styling.
+* `styled-components` for clean, conflict-free, and dynamic component styling.
+* Preset ES Lint rules to keep the code-base standardized and free of tech debt.
+* `testing-library` with `jest` for unit testing.
+* Design systems and components for themes, typography and layout.
 
 Feel free to clone, modify and start your own projects with this template.
 
@@ -41,16 +45,6 @@ Feel free to clone, modify and start your own projects with this template.
 For NPM users, run `npm i` in the project directory.
 4. Finally, run `yarn start` or `npm run start`.
 
-> You will need a valid SendGrid API Key and your SendGrid sender address must be verified with them.
-
-See deployment section for additional steps to take before deployment to Netlify.
-
-
-**Note about deployment services**: This has not been tested with other deployment services, like Heroku etc.  Any changes are likely to be in the
-use of a *[service].toml* file, modification of the *start:server*, *build:server* and *deploy* scripts in *package.json*. `VITE_API_V1="/.netlify/functions/server/v1/"`
-will need to be updated in *.env*.  Finally, you will likely need to make modifications to how the *functions*
-folder is handled by your service.
-
 
 
 # Organization
@@ -58,28 +52,29 @@ folder is handled by your service.
 The structure of this template is as follows:
 * **components**: Reusable components.
 * **controllers**: Front-end controllers, i.e. front-end routing.
-* **errors**: Errors and debugging.
 * **helpers**: Utility related functions.
-* **modules**: Anything state related.
+* **middleware**: Front-end middleware.
+* **modules**: Anything Redux related.
 * **scenes**: Main route components.
-* **theme**: Anything theme related.
-* **wares**: Front-end middleware/afterware.
 * **static**: Custom SVG, fonts or image files.
+* **theme**: Theme related configuration files.
+* **utility**: Library functions to assist with app development (`mirage`, `featureFlags`, etc.)
 
-**Note**: Absolute pathing for JavaScript module imports has been added in *jsconfig.json*.
+**Note**: Absolute pathing for JavaScript module imports has been added with *jsconfig.json* and
+`plugins: [ ...plugins, jsconfigPaths() ]` in `vite.config.js`.
 
 
 
 # Testing
 
-Tests were set up as part of *create-react-app*.  The script command for testing, and others, can be found
-in *package.json*.  It uses *Jest* and only requires the name *[componentName].test.jsx* &mdash; see *scenes/DeleteMe/DeleteMe.test.jsx*.
+`npm run test` can be used to run all compatible test files.  *React Testing Library* and *Jest*
+are used, and only require the name *[componentName].test.jsx*.
 
 
 
 # Routing
 
-Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` tags in *index.jsx* and
+Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` tags in *main.jsx* and
 *App.jsx* makes use of the `<Routes />` tag to receive all rendered route components from the `makeRoutes()` function in the routes controller.
 
 
@@ -100,40 +95,38 @@ const routes = [
 ];
 ```
 
-When you pass **authenticate**, the `makeRoutes()` function will require the JSON Web Token as the first argument or access to the route will be denied.
+When you pass **authenticate**, the `makeRoutes()` function will require the JSON Web Token as the first argument, or access to the route will be denied.
 In the event that denial &mdash; due to a missing authToken, or invalid authToken &mdash; occurs, the user will be redirect to "/login" by default.  If your authentication page is not "/login" a second path string can be passed to override the default redirect path: `makeRoutes(authToken, "/your-login-route")`.
 
 See the the full route controller and build function in *controllers/routesController.jsx*.
 
-> *public/_redirects* forces the server to always return 200, OK so that *react-router-dom* can handle catching any 404 routes.
+> *[[redirects]]* in `netlify.toml` forces the server to always return 200, OK so that *react-router-dom* can handle catching any 404 routes.
 
 The relevant routing code has been included in this example and full implementation can be found in *scenes/App/App.jsx*:
 ```jsx
 // scenes/App/App.jsx
-import makeRoutes from 'controllers/routesController';
+import { makeRoutes } from 'helpers';
 
 const App = props => {
-  const renderApp = () => {
-    const authToken = null; // Your JWT from state...
-
+const renderApp = () => {
     return (
-      <Routes>
-        {makeRoutes(authToken)}
-      </Routes>
+      <MainContent>
+        <Routes>
+          {makeRoutes(token)}
+        </Routes>
+      </MainContent>
     );
   };
-
-  return (
-    <div id="app">
-      {renderApp()}
-    </div>
-  );
 };
 ```
 
 
 
-# Feature Flags
+
+
+# Utility and Integration
+
+## Feature Flags
 A basic feature flag object has been added in *featureFlags.jsx*.  You can expand this object or integrate it into your build pipeline,
 however you see fit, to control features for different environments or deployments.
 
@@ -150,7 +143,6 @@ export { flags };
 
 You can use the feature flags in the front-end by importing, declaring and conditionally rendering:
 ```jsx
-import React from 'react';
 import flags from 'featureFlags';
 
 const Component = props => {
@@ -176,24 +168,70 @@ export default Component;
 
 
 
-# Monitoring
+## Mirage
 
-Monitoring is handled with *Sentry* and is set up in *index.jsx*.  You will need your DSN, provided by Sentry.
+Mock back-end responses and data structure can be created with `mirage`.  This is set up for development environments only.
+
+You can configure the `mirage` server with any mock endpoints, passthroughs or namespaces etc. in *utility/mirage.jsx*.
+Please see [miragejs.com](https://miragejs.com) for more info.
+
+
+
+## Analytics
+
+Google Analytics is implemented and will automatically begin sending data to the Google Analytics service once a value has been provided for `VITE_ANALYTICS_ID=''`
+in `.env`.  Please see [React Google Analytics](https://github.com/react-ga/react-ga) for more info.
+
+
+
+## Monitoring
+
+Monitoring is handled with *Sentry* and is set up in *main.jsx*.  You will need your DSN, provided by Sentry.
 Your DSN should be stored as VITE_SENTRY_DSN in *.env*
 
-If you do not wish to use *Sentry*, remove the package along with the import and environment conditional in *index.jsx*.
+If you do not wish to use *Sentry*, remove the package along with the import and environment conditional and `startErrorMonitoring()` function and initialization call in *main.jsx*.
 
 
 
-# Heartbeat
+## Heartbeat
 
 Should the internet connection fail while the user is using your app, the application will alert the user that the internet connection has failed.
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
-app in *index.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
+app in *main.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
+
+**Note**: This component comes from `xerum` and has additional props.  Pleae see the [Xerum: Heartbeat](https://xerum.netlify.app/#heartbeat) for full usage.
+
+
+# Themes and Fonts
+## Themes
+
+This template was built with `styled-components`.  It maintains unique class names on all of your components for a conflict-free styling experience.
+Furthermore, it works with React's `props` to generate dynamic styles or to inject CSS mixins.
+
+Themes are defined, and can be configured, in *theme/theme.jsx*.  Here you will find an object of all colors used in the project, as well as configurations
+for light and dark themes.  The `theme` object is passed to the `<ThemeProvider theme={theme} />` component from `styled-components`, which wraps the main
+app in `main.jsx` &mdash; this makes the theme object available, via `props` to any component that is wrapped using `withTheme` from `styled-components`.
 
 
 
-# About Font Awesome
+## Custom Fonts
+
+By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; and additional folder for *secondary* fonts is
+provided if your project requires more than a primary font face.
+
+If you are adding a secondary font, or replacing the default font files -- you will also need to define those new font faces in `fontFaces.css`.  Additionally,
+you will need to add the font names, exactly, to `controllers/fontsController.jsx` -- now the `GlobalStyles` component in `scenes/App/styles.jsx` and all
+typography components in `components/Typography` will automatically read the new primary font files.
+
+If you need your headers, for example, to use the secondary font, open any `<H# />` component in `components/Typography` and change
+`fonts?.primary?.bold` to be `fonts?.secondary?.bold` -- or whatever your desired weight is.  You may also need to expand the
+`getFontFamily()` function in *fontHelpers.jsx* to account for secondary font cases.
+
+**Note**: The `getFontFamily()` function is used to dynamically use the desired font-face in the `<Font />` and other Typography components.
+
+
+
+## About Font Awesome
 By default, **@fortawesome/fontawesome-free** is used. If this is all you need, then there is nothing further for you to do.
 
 If you have a pro license, you'll need to do the following:
@@ -212,7 +250,7 @@ sudo gedit font_awesome_auth_token.sh
 ```
 
 3. `yarn add @fortawesome/fontawesome-pro`
-4. Change the import in *index.jsx* to `import '@fortawesome/fontawesome-pro/css/all.css';`
+4. Change the import in *main.jsx* to `import '@fortawesome/fontawesome-pro/css/all.css';`
 
 As a quick mention, the `.yarnrc.yml` file is already configured for pro licenses and responsible for pointing to the registry server so you don't get a package not found error:
 ```yml
@@ -232,27 +270,9 @@ npmScopes:
 
 
 
-# Default theme
-
-Default styles for common elements, such as forms, links, headers etc. can be found in *theme/common.scss* and *theme/forms.scss*.
-*theme/common.scss* also contains class names for quick styling, such as *center*, *inline*, or common colors used in feedback and notifications, like *red*, *green*,
-*yellow* or *blue*. Additional colors can be added and exported in *theme/colors.scss*.
-
-## Accessing SASS variables in .jsx files
-This is acheived with `yarn install sass` in *package.json* and **sass-loader: 7.2.0** or higher in *yarn.lock* (*package-lock.json* for npm).
-From there, *.scss* files can be used freely throughout the project.  With that set, please take a look at *theme/colors.scss*.
-A set of sass variables are defined in this style-sheet and exported using `:export {}`.  *colors.scss* is then called in *index.scss*
-using `@use 'theme/colors' as *`, making the scss variables available in *index.scss*.  More importantly, *theme/colors.scss* can now be
-imported in any JavaScript file with: `import colors from "theme/colors.scss"`, making color variables accessible with `colors.yourColor`.
-
-In this example, colors are being used, but any style-sheet with any sass variable can be used in this way.
-
-
-
 # State Management
 
-State is handled with React's `useContext()` and `useReducer()` hooks.  A custom `useStore()` hook is used to read from *Context* as well.
-This has been set up in an similar way to *Redux*.
+State is handled with Redux.
 
 ## About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
@@ -528,7 +548,7 @@ In a nutshell:
 * Call modified `useReducerWithWares()` to get the complete state object, execute wares as well as get the dispatch function.
 * Memoize the array to prevent every subscribed component from updating if it's "module" hasn't been updated.
 * Pass the final `{ state, dispatch }` object to the `<AppContext.Provider />`.
-* Wrap `<App />` in *index.jsx* with `<AppProvider />`
+* Wrap `<App />` in *main.jsx* with `<AppProvider />`
 
 And that completes the Redux-like global state management flow!
 
@@ -553,7 +573,7 @@ const rootReducer = combineReducers(reducers);
 const middlewares = [ apiMiddleware ];
 const afterwares = [];
 
-// How to use: wrap <App /> in index.jsx with <AppProvider />
+// How to use: wrap <App /> in main.jsx with <AppProvider />
 // See 'modules' for reducer and associated state actions/selectors.
 // See 'helpers/stateHelpers' for custom hooks, action creator and StateManager methods.
 
