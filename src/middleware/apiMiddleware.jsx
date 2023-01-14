@@ -40,7 +40,7 @@ const dispatchSuccessState = args => {
 };
 
 export const apiRelay = args => {
-  const { REACT_APP_API_URL: basePath } = process.env;
+  const { VITE_API_URL: basePath } = process.env;
   const { dispatch, next, ...action } = args;
   const { type, path, meta, onSuccess, onFail, onComplete, ...rest } = action;
   const url = `${basePath}${prepPath(path) || ''}`;

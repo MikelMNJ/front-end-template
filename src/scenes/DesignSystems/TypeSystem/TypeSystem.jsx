@@ -22,7 +22,7 @@ const TypeSystem = props => {
             </P>
 
             <P>
-              Add names to <Font weight='semiBold'>controllers/fontsController.js</Font>
+              Add names to <Font weight='semiBold'>controllers/fontsController.jsx</Font>
             </P>
           </>
         }

@@ -15,7 +15,7 @@ const tokenKeyName = appConstants.tokenKeyName;
 * TODO: Remove demoSite instances when app can authenticate users.
 * Disables production authentication for testing without auth requirement.
 * Placeholder authentication, via mirage, still enabled in development.
-* Also remove in routesController.js
+* Also remove in routesController.jsx
 */
 const demoSite = window.location.href.includes('netlify.app');
 

@@ -1,4 +1,9 @@
 [build]
 command = "npm run build"
 functions = "lambda"
-publish = "build"
+publish = "dist"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

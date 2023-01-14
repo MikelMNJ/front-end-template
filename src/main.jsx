@@ -2,9 +2,9 @@ import { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { BrowserTracing } from '@sentry/tracing';
-import { RouteChangeTracker } from 'components';
 import { ThemeProvider } from 'styled-components';
 import { Heartbeat } from 'xerum';
+import { RouteChangeTracker } from 'components';
 import { store } from 'store';
 import { theme } from 'theme';
 import { AppWrapper } from 'scenes';
@@ -19,13 +19,12 @@ import './fontFaces.css';
 
 const {
   NODE_ENV,
-  REACT_APP_SENTRY_DSN: sentryDSN,
-  REACT_APP_ANALYTICS_ID: analyticsID,
+  VITE_SENTRY_DSN: sentryDSN,
+  VITE_ANALYTICS_ID: analyticsID,
 } = process.env;
 
 const { name, version } = PackageJSON;
 const inProduction = NODE_ENV === 'production';
-
 
 const startApp = async () => {
   if (!inProduction) {
