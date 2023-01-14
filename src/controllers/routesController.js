@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/',
     element: <MainWrapper />,
-    authenticate: true,
+    authenticate: false,
   },
   {
     path: '/authenticated-route',
