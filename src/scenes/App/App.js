@@ -9,7 +9,7 @@ import { Font } from 'components';
 import { Notifications, Loading } from 'xerum';
 
 const appName = appConstants.appName;
-const tokenParam = appConstants.tokenParam;
+const tokenKeyName = appConstants.tokenKeyName;
 const authOverride = true;
 
 const App = props => {
@@ -23,7 +23,7 @@ const App = props => {
 
   useEffect(() => {
     const existingSettings = JSON.parse(localStorage.getItem(appName));
-    const existingToken = existingSettings?.[tokenParam];
+    const existingToken = existingSettings?.[tokenKeyName];
     const payload = { token: existingToken };
 
     if (existingToken && !authOverride) checkToken(payload);

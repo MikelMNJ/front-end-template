@@ -4,7 +4,7 @@ import { updateLocalStorage, request } from 'helpers';
 import StateManager from 'state-wrangler';
 
 const { actions, selectors } = authConstants;
-const { tokenParam } = appConstants;
+const { tokenKeyName } = appConstants;
 
 const initial = {};
 
@@ -23,11 +23,11 @@ const authReducer = (initialState = initial, action = {}) => {
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
     case request(actions.CREATE_USER).success:
-      if (payload) updateLocalStorage(tokenParam, payload.token);
+      if (payload) updateLocalStorage(tokenKeyName, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case request(actions.UPDATE_USER).success:
-      if (payload) updateLocalStorage(tokenParam, payload.token);
+      if (payload) updateLocalStorage(tokenKeyName, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case request(actions.DELETE_USER).success:
@@ -40,7 +40,7 @@ const authReducer = (initialState = initial, action = {}) => {
       return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
 
     case request(actions.LOG_IN).success:
-      if (payload) updateLocalStorage(tokenParam, payload.token);
+      if (payload) updateLocalStorage(tokenKeyName, payload.token);
       return state.update(selectors.STATE_KEY_USER_INFO, payload);
 
     case request(actions.LOG_IN).complete:

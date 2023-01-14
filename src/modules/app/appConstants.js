@@ -33,7 +33,7 @@ const appConstants = {
   },
 
   appName: _.camelCase(REACT_APP_NAME),
-  tokenParam: 'token',
+  tokenKeyName: 'token',
   textWidth: 32,
   layoutWidth: 118,
 };

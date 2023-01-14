@@ -10,7 +10,7 @@ import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 
 const dark = appConstants.themes.dark;
-const tokenParam = appConstants.tokenParam;
+const tokenKeyName = appConstants.tokenKeyName;
 const autoLogin = false;
 
 const defaultValues = {
@@ -33,7 +33,7 @@ const SetPassword = props => {
 
   const navigate = useNavigate();
   const token = userInfo?.token;
-  const resetToken = searchParams.get(tokenParam);
+  const resetToken = searchParams.get(tokenKeyName);
   const expired = resetToken && !tokenValid(resetToken);
   const darkTheme = rest.selectedTheme === dark;
 
@@ -47,7 +47,7 @@ const SetPassword = props => {
 
     const handleRedirect = res => {
       if (autoLogin) {
-        updateLocalStorage(tokenParam, res.token);
+        updateLocalStorage(tokenKeyName, res.token);
         navigate('/');
         return;
       }
@@ -64,7 +64,7 @@ const SetPassword = props => {
     const resetTokenParam = () => {
       const resetError = { message: 'Invalid reset token, send a new reset request.', type: 'error' };
 
-      searchParams.delete(tokenParam);
+      searchParams.delete(tokenKeyName);
       setSearchParams(searchParams);
       addNotification(resetError);
       navigate('/reset-password');

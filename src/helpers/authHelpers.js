@@ -5,11 +5,11 @@ export let sessionCheck;
 
 export const removeToken = () => {
   const appName = appConstants.appName;
-  const tokenParam = appConstants.tokenParam;
+  const tokenKeyName = appConstants.tokenKeyName;
   const existingSettings = JSON.parse(localStorage.getItem(appName));
 
   // eslint-disable-next-line no-unused-vars
-  const { [tokenParam]: token, ...withoutToken } = existingSettings;
+  const { [tokenKeyName]: token, ...withoutToken } = existingSettings;
 
   localStorage.setItem(appName, JSON.stringify(withoutToken));
 };
