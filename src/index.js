@@ -14,7 +14,6 @@ import PackageJSON from '../package.json';
 import * as Sentry from '@sentry/react';
 import _ from 'lodash';
 
-import './utility/mirage';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './fontFaces.css';
 
@@ -27,39 +26,51 @@ const {
 const { name, version } = PackageJSON;
 const inProduction = NODE_ENV === 'production';
 
-const startAnalytics = () => {
-  if (!_.isEmpty(analyticsID) && inProduction) {
-    ReactGA.initialize(analyticsID);
-    return <RouteChangeTracker />;
+
+const startApp = async () => {
+  if (!inProduction) {
+    await import ('./utility/mirage');
   }
+
+  const startAnalytics = () => {
+    if (!_.isEmpty(analyticsID) && inProduction) {
+      ReactGA.initialize(analyticsID);
+      return <RouteChangeTracker />;
+    }
+  };
+
+  const startErrorMonitoring = () => {
+    if (inProduction && !_.isEmpty(sentryDSN)) {
+      Sentry.init({
+        dsn: sentryDSN,
+        release: `${name}@${version}`,
+        integrations: [ new BrowserTracing() ],
+        tracesSampleRate: 1.0,
+      });
+    }
+  };
+
+  startAnalytics();
+  startErrorMonitoring();
+
+  const MyApp = (
+    <StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <Heartbeat disabled={!inProduction}>
+              <AppWrapper />
+            </Heartbeat>
+          </ThemeProvider>
+        </BrowserRouter>
+      </Provider>
+    </StrictMode>
+  );
+
+  const target = document.querySelector('#root');
+  const root = ReactDOM.createRoot(target);
+
+  root.render(MyApp);
 };
 
-if (inProduction && !_.isEmpty(sentryDSN)) {
-  Sentry.init({
-    dsn: sentryDSN,
-    release: `${name}@${version}`,
-    integrations: [ new BrowserTracing() ],
-    tracesSampleRate: 1.0,
-  });
-}
-
-const MyApp = (
-  <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Heartbeat disabled={!inProduction}>
-            <AppWrapper />
-          </Heartbeat>
-        </ThemeProvider>
-
-        {startAnalytics()}
-      </BrowserRouter>
-    </Provider>
-  </StrictMode>
-);
-
-const target = document.querySelector('#root');
-const root = ReactDOM.createRoot(target);
-
-root.render(MyApp);
+startApp();
