@@ -15,12 +15,20 @@ import {
   LayoutSystemWrapper,
 } from 'scenes';
 
+/*
+* TODO: Remove demoSite instances when app can authenticate users.
+* Disables production authentication for testing without auth requirement.
+* Placeholder authentication, via mirage, still enabled in development.
+* Also remove in App.js
+*/
+const demoSite = window.location.href.includes('netlify.app');
+
 const routes = [
   // Private routes
   {
     path: '/',
     element: <MainWrapper />,
-    authenticate: false,
+    authenticate: !demoSite,
   },
   {
     path: '/authenticated-route',

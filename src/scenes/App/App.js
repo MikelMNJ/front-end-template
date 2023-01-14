@@ -10,7 +10,14 @@ import { Notifications, Loading } from 'xerum';
 
 const appName = appConstants.appName;
 const tokenKeyName = appConstants.tokenKeyName;
-const authOverride = true;
+
+/*
+* TODO: Remove demoSite instances when app can authenticate users.
+* Disables production authentication for testing without auth requirement.
+* Placeholder authentication, via mirage, still enabled in development.
+* Also remove in routesController.js
+*/
+const demoSite = window.location.href.includes('netlify.app');
 
 const App = props => {
   const { userInfo, checkToken, logout, userInfoLoading, ...rest } = props;
@@ -26,7 +33,7 @@ const App = props => {
     const existingToken = existingSettings?.[tokenKeyName];
     const payload = { token: existingToken };
 
-    if (existingToken && !authOverride) checkToken(payload);
+    if (existingToken && !demoSite) checkToken(payload);
   }, [ checkToken ]);
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const App = props => {
   const renderApp = () => {
     return (
       <StyledApp>
-        {(token || authOverride) && <Header token={token || authOverride} logout={logout} {...rest} />}
+        {(token || demoSite) && <Header token={token || demoSite} logout={logout} {...rest} />}
 
         <MainContent>
           <Routes>
@@ -45,7 +52,7 @@ const App = props => {
           </Routes>
         </MainContent>
 
-        {(token || authOverride) && <Footer {...rest} />}
+        {(token || demoSite) && <Footer {...rest} />}
       </StyledApp>
     );
   };
