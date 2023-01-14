@@ -7,7 +7,7 @@ const Main = props => {
   const additionalText = () => (
     <P>
       Your app comes with design systems to help
-      make keep things tidy.  Check out the&nbsp;
+      keep things tidy.  Check out the&nbsp;
 
       <Link to='/color'>
         <Font weight='semiBold'>
