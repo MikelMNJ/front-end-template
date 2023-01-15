@@ -582,7 +582,7 @@ const YourComponent = props => {
 export { YourComponent };
 ```
 
-The difference between a API actions and simple action calls to the store, is an additional API file (see *modules/auth/appApi.jsx*),
+The difference between API actions and simple action calls to the store, is an additional API file (see *modules/auth/appApi.jsx*),
 imported as *api* (see *modules/auth/authActions.jsx*), that describes everything the middleware needs to make the call.
 Anything you would normally write to make an API call is valid in this object: `headers: {}`,
 `body: JSON.stringify(payload)` etc.
