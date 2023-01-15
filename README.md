@@ -552,7 +552,7 @@ export { AppWrapper };
 
 
 
-### Calling an API action
+### Calling an API Action
 API actions can be passed a `callbacks` function containing `onSuccess`, `onFail` and `onComplete` functions.
 These callback functions will be executed as their names imply, by `middleware/apiMiddleware.jsx`.
 
@@ -630,7 +630,7 @@ const apiMiddleware = ({ dispatch }) => next => async action => {
 };
 ```
 
-### About store.jsx
+### About *store.jsx*
 The store is reponsible for combining all reducers, injecting any middleware and initializing Redux dev. tools. It passes a final state object
 to the rest of the app by wrapping the app with `<Provider store={store} />` in **main.jsx**.
 
