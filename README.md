@@ -437,8 +437,8 @@ export { authReducer };
 
 You'll see the `requestHelper()` communicates with `apiMiddleware()` as each API call is made, and returns the status of the call along the way to the reducer.  This gives fine control
 over when to update the store and with what values, i.e. loading resource states, as shown above.  You must use the `request()` helper for API actions &mdash; this is by design.  The
-`apiMiddleware()` is looking for this to know how to direct it's response to the store &mdash; simple action calls to the store will fail.  This is also a clear way to distinguish simple
-store actions from API calls when glancing at the code.
+`apiMiddleware()` is looking for this to know how to direct it's response to the store &mdash; store actions that go through `apiMiddleware()` will fail if it is not passed through the
+`request()` helper.  This is also a clear way to distinguish simple store actions from API calls when glancing at the code.
 
 **Note**: It's recommended to create a new folder in *modules* for each section or page of your app. These other reducers, actions, selectors etc. will keep things scalable and manageable.
 Don't forget to add any new reducers in *reducersController.jsx*`. **Do not add them in store.jsx**
