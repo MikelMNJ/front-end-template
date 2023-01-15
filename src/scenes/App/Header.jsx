@@ -64,17 +64,17 @@ const Header = props => {
 
       {bannerContent && showBanner && (
         <Banner
-            theme={theme}
-            selectedTheme={selectedTheme}
-            center={true}
-            sharp={true}
-            textColor={theme.colors.shades.white}
-            callback={() => setShowBanner(false)}
-          >
-            <Font weight='semibold'>
-              {bannerContent}
-            </Font>
-          </Banner>
+          theme={theme}
+          selectedTheme={selectedTheme}
+          center={true}
+          sharp={true}
+          textColor={theme.colors.shades.white}
+          callback={() => setShowBanner(false)}
+        >
+          <Font weight='semibold'>
+            {bannerContent}
+          </Font>
+        </Banner>
       )}
     </header>
   );
