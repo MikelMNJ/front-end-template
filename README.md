@@ -195,7 +195,7 @@ If the internet connection fails while a user is using your app, the application
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
 app in *main.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
 
-**Note**: This component comes from `xerum` and has additional props.  Pleae see the [Xerum](https://xerum.netlify.app) for full usage.
+**Note**: This component comes from `xerum` and has additional props.  Pleae see [Xerum](https://xerum.netlify.app) for full usage.
 
 
 # Themes, Fonts and Layout
