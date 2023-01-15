@@ -214,14 +214,14 @@ Please see [Styled Components](https://styled-components.com/) for more info.
 
 ### Custom Fonts
 
-By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; there is also an additional folder for *secondary* fonts
+By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in *static/fonts/primary* &mdash; there is also an additional folder for *secondary* fonts
 if your project requires more than a primary font face.
 
-If you are adding a secondary font, or replacing the default font files &mdash; you will also need to define those new font faces in `fontFaces.css`.  Additionally,
-you will need to add the font names, exactly, to `controllers/fontsController.jsx` &mdash; now the `GlobalStyles` component in `scenes/App/styles.jsx` and all
-typography components in `components/Typography` will automatically read the new primary font files.
+If you are adding a secondary font, or replacing the default font files &mdash; you will also need to define those new font faces in *fontFaces.css*.  Additionally,
+you will need to add the font names, exactly, to *controllers/fontsController.jsx* &mdash; now the `GlobalStyles` component in *scenes/App/styles.jsx* and all
+typography components in *components/Typography* will automatically read the new primary font files.
 
-If you need your headers, for example, to use the secondary font, open any `<H# />` component in `components/Typography` and change
+If you need your headers, for example, to use the secondary font, open any `<H# />` component in *components/Typography* and change
 `fonts?.primary?.bold` to be `fonts?.secondary?.bold` &mdash; or whatever your desired weight is.  You may also need to expand the
 `getFontFamily()` function in *fontHelpers.jsx* to account for secondary font cases.
 
@@ -339,7 +339,7 @@ const YourComponent = props => {
 
 # State Management with Redux
 
-## About the Reducer
+### About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
 other state helpers, in *helpers/stateHelpers.jsx*.
 The action creator passes an object with `{ type, payload }` to the reducer, where the reducer's *switch* statement
