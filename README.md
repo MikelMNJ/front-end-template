@@ -186,16 +186,15 @@ in `.env`.  Please see [React Google Analytics](https://github.com/react-ga/reac
 
 ## Monitoring
 
-Monitoring is handled with *Sentry* and is set up in *main.jsx*.  You will need your DSN, provided by Sentry.
-Your DSN should be stored as VITE_SENTRY_DSN in *.env*
+Monitoring is handled with [Sentry](https://sentry.io) and is set up in *main.jsx*.  It is disabled for development, but will automatically beging monitoring for errors when a value is provided for `VITE_SENTRY_DSN=''` in *.env*
 
-If you do not wish to use *Sentry*, remove the package along with the import and environment conditional and `startErrorMonitoring()` function and initialization call in *main.jsx*.
+If you don't want to use *Sentry*, remove the package along with the import and environment conditional and `startErrorMonitoring()` function and initialization call in *main.jsx*.
 
 
 
 ## Heartbeat
 
-Should the internet connection fail while the user is using your app, the application will alert the user that the internet connection has failed.
+If the internet connection fails while a user is using your app, the application will alert the user that the internet connection has failed.
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
 app in *main.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
 
@@ -239,7 +238,7 @@ It can also use *Flexbox* to display it's children as inline elements, with even
 
 You can use `<Layout center={true} />` if you need the layout element center justified in its parent. This approach is the default alternative to a Grid system.
 
-Note: The custom `<P />` tag, `import { P } from 'components';`, has a max width built in to assist with blocks of text that may exceed the best practice of 9-12 words per line.
+**Note**: The custom `<P />` tag, `import { P } from 'components';`, has a max width built in to assist with blocks of text that may exceed the best practice of 9-12 words per line.
 
 
 
@@ -408,7 +407,6 @@ export { appSelectors };
 ```
 
 ## About Higher Order Component Wrappers
-
 > It is strongly recommended to not deviate from this pattern!  You will need to create a Wrapper component for every main
 > component that is returned from a route, or as needed.
 
@@ -457,7 +455,9 @@ const AppWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 export { AppWrapper };
 ```
 
-**Calling an API action**
+
+
+## Calling an API action
 API actions can be passed a callbacks function containing `onSuccess`, `onFail` and `onComplete` functions.
 These callback functions will be executed as their names imply, by `middleware/apiMiddleware.jsx`.
 
@@ -465,7 +465,7 @@ These callback functions will be executed as their names imply, by `middleware/a
 import React, { useEffect } from 'react';
 
 const YourComponent = props => {
-  // These will come from your HOC Wrapper actions/selectors
+  // These props should come from your HOC wrapper component.
   const { sampleAPIResponse, sampleAPICall } = props;
 
   useEffect(() => {
@@ -487,7 +487,7 @@ const YourComponent = props => {
 export { YourComponent };
 ```
 
-The difference between a simple action call is that there is an additional *modules/auth/appApi.jsx* file, imported as *api* in *modules/auth/authActions.jsx*,
+The difference between a simple action call is an additional api file (see *modules/auth/appApi.jsx*), imported as *api* (see *modules/auth/authActions.jsx*),
 that describes everything the middleware needs to make the call.  Anything you would normally write to make an API call is valid in this object: `headers: {}`,
 `body: JSON.stringify(payload)` etc.
 
@@ -514,108 +514,59 @@ export const sampleAPICall = args => {
 };
 ```
 
-
-
-## About Middleware and Afterware
+## About Middleware
 A middleware function is used to execute something prior to the reducer's state update.  Afterware is much the same, but runs after the state update has occured.
 Middleware and afterware can be added to the arrays of the same name in *store.jsx*, example: `const middlewares = [ apiMiddleware ];`
 
-An example of middleware that this app uses can be found when any API action is called. Please see *wares/apiMiddleware.jsx* for the full example, including the `apiRelay()` function:
+An example of middleware that this app uses can be found when any API action is called. Please see *middleware/apiMiddleware.jsx* for the full example, including the `apiRelay()` function:
 ```jsx
-const apiMiddleware = (dispatch, action) => {
-  if (action) {
-    const isAPIRequest = action.path || action.method;
+const apiMiddleware = ({ dispatch }) => next => async action => {
+  const isAPIRequest = action?.path || action?.method;
 
+  if (action.type) {
     if (isAPIRequest) {
-      apiRelay({ ...action, dispatch });
+      apiRelay({ ...action, dispatch, next });
       return;
     }
 
-    dispatch(action);
+    next(action);
   }
 };
 ```
 
-A modified version of `useReducer()` is being used to handle the injection of these wares and can be found in *helpers/stateHelpers.jsx*:
-```jsx
-export const useReducerWithWares = args => {
-  const { rootReducer, initialState, middlewares, afterwares } = args;
-  const [ state, dispatch ] = useReducer(rootReducer, initialState);
-  const actionRef = useRef();
-
-  const dispatchWithMiddleware = action => {
-    middlewares?.forEach(middleware => middleware(dispatch, action, state));
-    actionRef.current = action;
-  };
-
-  useEffect(() => {
-    if (!actionRef.current) return;
-    afterwares?.forEach(afterware => afterware(dispatch, actionRef.current, state));
-    actionRef.current = null;
-  }, [afterwares, state]);
-
-  return [ state, dispatchWithMiddleware ];
-};
-```
-
-Please see the **About store.jsx** section to see this implemented.
-
-
 ## About store.jsx
-Now that the reducer has been explored with constants/actions/selectors defined and used in components, let's take a look at the heart of it all &mdash; the store.
-
-In a nutshell:
-* Create state by creating *Context* for our app.
-* Set up the ability to use that context with a *useStore* variable.
-* Create `useSelector()` and `useDispatch()` hooks found in *helpers/stateHelpers.jsx* with *useStore*.
-* Import all reducers from the *modules* folder and store in the `reducers = {}` object &mdash; think of this as an object containing all our modules.
-* Loop through all reducers asking for their initial state object.
-* Loop through all reducers and combine them, as functions, letting each manage their own "module" of state.
-* Add any middleware/afterware to appropriate arrays.
-* Call modified `useReducerWithWares()` to get the complete state object, execute wares as well as get the dispatch function.
-* Memoize the array to prevent every subscribed component from updating if it's "module" hasn't been updated.
-* Pass the final `{ state, dispatch }` object to the `<AppContext.Provider />`.
-* Wrap `<App />` in *main.jsx* with `<AppProvider />`
-
-And that completes the Redux-like global state management flow!
+The store is reponsible for combining all reducers, injecting any middleware and initializing Redux dev. tools. It passes a final state object
+to the rest of the app by wrapping the app with `<Provider store={store} />` in **main.jsx**.
 
 The following can be found in *store.jsx*:
 ```jsx
-import React, { createContext, useContext, useMemo } from 'react';
-import { makeInitialState, combineReducers, useReducerWithWares } from 'helpers/stateHelpers';
-import app from 'modules/app/appReducer';
-import apiMiddleware from 'wares/apiMiddleware';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { reducers } from 'controllers';
+import { apiMiddleware } from 'middleware';
+import { rootReducer } from 'modules';
 
-export const AppContext = createContext();
-AppContext.displayName = "AppContext";
+// Do not add new module reducers to allReducers -- add them to controllers/reducersController.jsx
+const allReducers = { ...reducers, root: rootReducer };
+const mainReducer = combineReducers(allReducers);
+const middleware = [ apiMiddleware ];
 
-export const useStore = () => useContext(AppContext);
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const devTools = process.env.NODE_ENV !== 'production' && reduxDevTools;
 
-const reducers = {
-  app,
+const handleMiddleware = getDefaultMiddleWare => {
+  const options = { serializableCheck: false };
+  return getDefaultMiddleWare(options).concat(middleware);
 };
 
-const initialState = makeInitialState(reducers);
-const rootReducer = combineReducers(reducers);
-const middlewares = [ apiMiddleware ];
-const afterwares = [];
-
-// How to use: wrap <App /> in main.jsx with <AppProvider />
-// See 'modules' for reducer and associated state actions/selectors.
-// See 'helpers/stateHelpers' for custom hooks, action creator and StateManager methods.
-
-export const AppProvider = ({ children }) => {
-  const reducerArgs = { rootReducer, initialState, middlewares, afterwares };
-  const [ state, dispatch ] = useReducerWithWares(reducerArgs);
-  const memoized = useMemo(() => [ state, dispatch ], [state, dispatch]);
-  const store = { state: memoized[0], dispatch: memoized[1] };
-
-  return (
-    <AppContext.Provider value={store}>
-      {children}
-    </AppContext.Provider>
-  );
+const storeConfig = {
+  reducer: mainReducer,
+  devTools,
+  middleware: handleMiddleware,
 };
+
+const store = configureStore(storeConfig);
+
+export { store };
 ```
 
 
@@ -647,25 +598,52 @@ const App = props => {
 };
 ```
 
-To have the banner show, you will need to invoke the action from state in your component as follows:
+*scenes/App/Header.jsx* handles showing the banner and it's contents automoatically, there is nothing you need to do here.
+
 ```jsx
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'helpers/stateHelpers';
-import appActions from 'modules/app/appActions';
-import appSelectors from 'modules/app/appSelectors';
+import { Banner } from 'xerum';
 
 const YourComponent = props => {
-  const dispatch = useDispatch();
+  // These props should come from your HOC wrapper component.
+  const { theme, selectedTheme, bannerContent } = props;
+  const [ showBanner, setShowBanner ] = useState(true);
 
-  // Actions/Selectors
-  const globalBannerContent = useSelector(state => appSelectors.globalBannerContent(state));
-  const setGlobalBannerContent = payload => dispatch(appActions.setGlobalBannerContent(payload));
+  return (
+    <header>
+      {bannerContent && showBanner && (
+        <Banner
+          theme={theme}
+          selectedTheme={selectedTheme}
+          center={true}
+          sharp={true}
+          textColor={theme.colors.shades.white}
+          callback={() => setShowBanner(false)}
+        >
+          <Font weight='semibold'>
+            {bannerContent}
+          </Font>
+        </Banner>
+      )}
+    </header>
+  );
+};
+```
+
+To have the banner show, you will need to invoke the action from state in your component as follows:
+
+```jsx
+import React, { useEffect } from 'react';
+
+const YourComponent = props => {
+  // These props should come from your HOC wrapper component.
+  const { bannerContent, setBannerContent } = props;
 
   useEffect(() => {
     if (!globalBannerContent) {
-      setGlobalBannerContent("New site-wide banner alert message!");
+      setBannerContent("New site-wide banner alert message!");
     }
-  }, [globalBannerContent]);
+  }, [ globalBannerContent ]);
 
   return (
     <div>
@@ -674,24 +652,3 @@ const YourComponent = props => {
   );
 };
 ```
-
-
-
-# Deployment
-
-> **NPM users**: Make sure you've updated your *package.json* scripts to use `npm run ...` instead of `yarn ...`.  Also
-> update the *netlify.toml* build command from `command = "yarn build"` to `command = "npm run build"`.
-
-Continuous Integration/Deployment is handled with Netlify.  The script for this can be found in *package.json*
-and the command is `yarn deploy`.  You will need to have *netlify-cli* installed:
-`yarn add global netlify-cli` or `npm install netlify-cli -g`
-
-Once installed, make sure you are logged in with `netlify login` and perform a link to the netlify site with `netlify link`.
-Follow the instructions to link to your site ID.  You can set up web-hooks on Netlify/GitHub for auto deployment
-if changes to main have been pushed etc.
-
-**Reminder**: Don't forget to change the publish directory in Netlify's deployment settings to match the *netlify.toml* file ("build").
-Also, add your environment variables in Netlify's *Site settings > Build  and deploy > Environment* section:
-* VITE_NAME
-* VITE_API_V1
-* VITE_SENTRY_DSN
