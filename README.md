@@ -7,7 +7,6 @@ features that enable you to quickly get up and running with a highly scalable, p
 
 The app contains the following features to get you started:
 
-**Front-end**:<br />
 * Routing.
 * Global state management (Redux).
 * `mirage` for mocking back-end responses in development while the production endpoint is being developed.
@@ -74,7 +73,7 @@ are used, and only require the name *[componentName].test.jsx*.
 
 # Routing
 
-Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` tags in *main.jsx* and
+Routing is handled with *react-router-dom*.  The *App* is wrapped in `<BrowserRouter />` in *main.jsx* and
 *App.jsx* makes use of the `<Routes />` tag to receive all rendered route components from the `makeRoutes()` function in the routes controller.
 
 
@@ -180,15 +179,15 @@ Please see [miragejs.com](https://miragejs.com) for more info.
 ## Analytics
 
 Google Analytics is implemented and will automatically begin sending data to the Google Analytics service once a value has been provided for `VITE_ANALYTICS_ID=''`
-in `.env`.  Please see [React Google Analytics](https://github.com/react-ga/react-ga) for more info.
+in *.env* &mdash; please see [React Google Analytics](https://github.com/react-ga/react-ga) for more info.
 
 
 
 ## Monitoring
 
-Monitoring is handled with [Sentry](https://sentry.io) and is set up in *main.jsx*.  It is disabled for development, but will automatically beging monitoring for errors when a value is provided for `VITE_SENTRY_DSN=''` in *.env*
+Monitoring is handled with [Sentry](https://sentry.io) and is set up in *main.jsx*.  It is disabled for development, but will automatically begin monitoring for errors when a value is provided for `VITE_SENTRY_DSN=''` in *.env*
 
-If you don't want to use *Sentry*, remove the package along with the import and environment conditional and `startErrorMonitoring()` function and initialization call in *main.jsx*.
+If you don't want to use *Sentry*, remove the package along with the import and environment conditional and `startErrorMonitoring()` function + initialization call in *main.jsx*.
 
 
 
@@ -209,21 +208,23 @@ Furthermore, it works with React's `props` to generate dynamic styles or to inje
 
 Themes are defined, and can be configured, in *theme/theme.jsx*.  Here you will find an object of all colors used in the project, as well as configurations
 for light and dark themes.  The `theme` object is passed to the `<ThemeProvider theme={theme} />` component from `styled-components`, which wraps the main
-app in `main.jsx` &mdash; this makes the theme object available, via `props` to any component that is wrapped using `withTheme` from `styled-components`.
+app in *main.jsx* &mdash; this makes the theme object available, via `props` to any component that is wrapped using `withTheme` from `styled-components`.
+
+Please see [Styled Components](https://styled-components.com/) for more info.
 
 
 
 ## Custom Fonts
 
-By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; and additional folder for *secondary* fonts is
-provided if your project requires more than a primary font face.
+By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; there is also an additional folder for *secondary* fonts
+if your project requires more than a primary font face.
 
-If you are adding a secondary font, or replacing the default font files -- you will also need to define those new font faces in `fontFaces.css`.  Additionally,
-you will need to add the font names, exactly, to `controllers/fontsController.jsx` -- now the `GlobalStyles` component in `scenes/App/styles.jsx` and all
+If you are adding a secondary font, or replacing the default font files &mdash; you will also need to define those new font faces in `fontFaces.css`.  Additionally,
+you will need to add the font names, exactly, to `controllers/fontsController.jsx` &mdash; now the `GlobalStyles` component in `scenes/App/styles.jsx` and all
 typography components in `components/Typography` will automatically read the new primary font files.
 
 If you need your headers, for example, to use the secondary font, open any `<H# />` component in `components/Typography` and change
-`fonts?.primary?.bold` to be `fonts?.secondary?.bold` -- or whatever your desired weight is.  You may also need to expand the
+`fonts?.primary?.bold` to be `fonts?.secondary?.bold` &mdash; or whatever your desired weight is.  You may also need to expand the
 `getFontFamily()` function in *fontHelpers.jsx* to account for secondary font cases.
 
 **Note**: The `getFontFamily()` function is used to dynamically use the desired font-face in the `<Font />` and other Typography components.
@@ -232,13 +233,13 @@ If you need your headers, for example, to use the secondary font, open any `<H# 
 
 ## Layout
 
-The `<Layout />` component, `import { Layout } from 'components';`, limits child content to a max width defined as layoutWidth in *modules/app/appConstants.jsx*.
+The `<Layout />` component (`import { Layout } from 'components';`), limits child content to a max width defined as layoutWidth in *modules/app/appConstants.jsx*.
 
-It can also use *Flexbox* to display it's children as inline elements, with even spacing between each child element with `<Layout inline={true} />`.
+It can also use *Flexbox* to display it's children as inline elements, with even spacing between each child element using `<Layout inline={true} />`.
 
 You can use `<Layout center={true} />` if you need the layout element center justified in its parent. This approach is the default alternative to a Grid system.
 
-**Note**: The custom `<P />` tag, `import { P } from 'components';`, has a max width built in to assist with blocks of text that may exceed the best practice of 9-12 words per line.
+**Note**: The custom `<P />` tag (`import { P } from 'components';`), has a max width built in to assist with blocks of text that may exceed the best practice of 9-12 words per line.
 
 
 
@@ -281,9 +282,64 @@ npmScopes:
 
 
 
-# State Management
+# Adding a Site-Wide Banner Message
+A banner alert system is included by default in *scenes/App/Header.jsx*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
 
-State is handled with Redux.
+```jsx
+import React, { useEffect } from 'react';
+import { Banner } from 'xerum';
+
+const YourComponent = props => {
+  // These props should come from your HOC wrapper component.
+  const { theme, selectedTheme, bannerContent } = props;
+  const [ showBanner, setShowBanner ] = useState(true);
+
+  return (
+    <header>
+      {bannerContent && showBanner && (
+        <Banner
+          theme={theme}
+          selectedTheme={selectedTheme}
+          center={true}
+          sharp={true}
+          textColor={theme.colors.shades.white}
+          callback={() => setShowBanner(false)}
+        >
+          <Font weight='semibold'>
+            {bannerContent}
+          </Font>
+        </Banner>
+      )}
+    </header>
+  );
+};
+```
+
+To have the banner show, you will need to invoke the action from state in your component as follows:
+
+```jsx
+import React, { useEffect } from 'react';
+
+const YourComponent = props => {
+  // These props should come from your HOC wrapper component.
+  const { bannerContent, setBannerContent } = props;
+
+  useEffect(() => {
+    if (!globalBannerContent) {
+      setBannerContent("New site-wide banner alert message!");
+    }
+  }, [ globalBannerContent ]);
+
+  return (
+    <div>
+      Other component content...
+    </div>
+  );
+};
+```
+
+
+# State Management with Redux
 
 ## About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
@@ -344,6 +400,47 @@ const appReducer = (initialState = initial, action = {}) => {
 
 export { appReducer };
 ```
+
+The above reducer uses simple actions.  If you are making use of API calls, you must be explicit in updating store values at specific points in the API call.  Consider the following from
+*modules/auth/authReducer.jsx*:
+
+```jsx
+import { appConstants } from 'modules/app/appConstants';
+import { authConstants } from 'modules/auth/authConstants';
+import { updateLocalStorage, request } from 'helpers';
+import StateManager from 'state-wrangler';
+
+const { actions, selectors } = authConstants;
+const { tokenKeyName } = appConstants;
+
+const initial = {};
+
+const authReducer = (initialState = initial, action = {}) => {
+  const { payload } = action;
+  const state = new StateManager(initialState);
+
+  switch(action.type) {
+    case request(actions.CHECK_TOKEN).start:
+      return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
+
+    case request(actions.CHECK_TOKEN).success:
+      return state.update(selectors.STATE_KEY_USER_INFO, payload);
+
+    case request(actions.CHECK_TOKEN).complete:
+      return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
+
+    default:
+      return initialState;
+  }
+};
+
+export { authReducer };
+```
+
+You'll see the `requestHelper()` communicates with `apiMiddleware()` as each API call is made, and returns the status of the call along the way to the reducer.  This gives fine control
+over when to update the store and with what values, i.e. loading resource states, as shown above.  You must use the `request()` helper for API actions &mdash; this is by design.  The
+`apiMiddleware()` is looking for this to know how to direct it's response to the store &mdash; simple action calls to the store will fail.  This is also a clear way to distinguish simple
+store actions from API calls when glancing at the code.
 
 **Note**: It's recommended to create a new folder in *modules* for each section or page of your app. These other reducers, actions, selectors etc. will keep things scalable and manageable.
 Don't forget to add any new reducers in *reducersController.jsx*`. **Do not add them in store.jsx**
@@ -567,88 +664,4 @@ const storeConfig = {
 const store = configureStore(storeConfig);
 
 export { store };
-```
-
-
-
-# Adding a Site-Wide Banner Message
-
-A banner alert system is included by default in *scenes/App.jsx*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
-
-```jsx
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'helpers/stateHelpers';
-import appSelectors from 'modules/app/appSelectors';
-import Banner from 'components/Banner/Banner';
-
-const App = props => {
-  const [ showBanner, setShowBanner ] = useState(true);
-  const dispatch = useDispatch();
-
-  // Actions and Selectors
-  const globalBannerContent = useSelector(state => appSelectors.globalBannerContent(state));
-
-  return (
-    <div id="app">
-      {globalBannerContent && showBanner && (
-        <Banner center text={globalBannerContent} callback={() => setShowBanner(false)} />
-      )}
-    </div>
-  );
-};
-```
-
-*scenes/App/Header.jsx* handles showing the banner and it's contents automoatically, there is nothing you need to do here.
-
-```jsx
-import React, { useEffect } from 'react';
-import { Banner } from 'xerum';
-
-const YourComponent = props => {
-  // These props should come from your HOC wrapper component.
-  const { theme, selectedTheme, bannerContent } = props;
-  const [ showBanner, setShowBanner ] = useState(true);
-
-  return (
-    <header>
-      {bannerContent && showBanner && (
-        <Banner
-          theme={theme}
-          selectedTheme={selectedTheme}
-          center={true}
-          sharp={true}
-          textColor={theme.colors.shades.white}
-          callback={() => setShowBanner(false)}
-        >
-          <Font weight='semibold'>
-            {bannerContent}
-          </Font>
-        </Banner>
-      )}
-    </header>
-  );
-};
-```
-
-To have the banner show, you will need to invoke the action from state in your component as follows:
-
-```jsx
-import React, { useEffect } from 'react';
-
-const YourComponent = props => {
-  // These props should come from your HOC wrapper component.
-  const { bannerContent, setBannerContent } = props;
-
-  useEffect(() => {
-    if (!globalBannerContent) {
-      setBannerContent("New site-wide banner alert message!");
-    }
-  }, [ globalBannerContent ]);
-
-  return (
-    <div>
-      Other component content...
-    </div>
-  );
-};
 ```
