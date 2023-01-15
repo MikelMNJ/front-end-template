@@ -7,7 +7,6 @@ features that enable you to quickly get up and running with a highly scalable, p
 
 The app contains the following features to get you started:
 
-**Front-end**:<br />
 * Routing.
 * Global state management (Redux).
 * `mirage` for mocking back-end responses in development while the production endpoint is being developed.
@@ -281,9 +280,89 @@ npmScopes:
 
 
 
-# State Management
+# Adding a Site-Wide Banner Message
+A banner alert system is included by default in *scenes/App.jsx*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
 
-State is handled with Redux.
+```jsx
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'helpers/stateHelpers';
+import appSelectors from 'modules/app/appSelectors';
+import Banner from 'components/Banner/Banner';
+
+const App = props => {
+  const [ showBanner, setShowBanner ] = useState(true);
+  const dispatch = useDispatch();
+
+  // Actions and Selectors
+  const globalBannerContent = useSelector(state => appSelectors.globalBannerContent(state));
+
+  return (
+    <div id="app">
+      {globalBannerContent && showBanner && (
+        <Banner center text={globalBannerContent} callback={() => setShowBanner(false)} />
+      )}
+    </div>
+  );
+};
+```
+
+*scenes/App/Header.jsx* handles showing the banner and it's contents automoatically, there is nothing you need to do here.
+
+```jsx
+import React, { useEffect } from 'react';
+import { Banner } from 'xerum';
+
+const YourComponent = props => {
+  // These props should come from your HOC wrapper component.
+  const { theme, selectedTheme, bannerContent } = props;
+  const [ showBanner, setShowBanner ] = useState(true);
+
+  return (
+    <header>
+      {bannerContent && showBanner && (
+        <Banner
+          theme={theme}
+          selectedTheme={selectedTheme}
+          center={true}
+          sharp={true}
+          textColor={theme.colors.shades.white}
+          callback={() => setShowBanner(false)}
+        >
+          <Font weight='semibold'>
+            {bannerContent}
+          </Font>
+        </Banner>
+      )}
+    </header>
+  );
+};
+```
+
+To have the banner show, you will need to invoke the action from state in your component as follows:
+
+```jsx
+import React, { useEffect } from 'react';
+
+const YourComponent = props => {
+  // These props should come from your HOC wrapper component.
+  const { bannerContent, setBannerContent } = props;
+
+  useEffect(() => {
+    if (!globalBannerContent) {
+      setBannerContent("New site-wide banner alert message!");
+    }
+  }, [ globalBannerContent ]);
+
+  return (
+    <div>
+      Other component content...
+    </div>
+  );
+};
+```
+
+
+# State Management with Redux
 
 ## About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
@@ -344,6 +423,47 @@ const appReducer = (initialState = initial, action = {}) => {
 
 export { appReducer };
 ```
+
+The above reducer uses simple actions.  If you are making use of API calls, you must be explicit in updating store values at specific points in the API call.  Consider the following from
+*modules/auth/authReducer.jsx*:
+
+```jsx
+import { appConstants } from 'modules/app/appConstants';
+import { authConstants } from 'modules/auth/authConstants';
+import { updateLocalStorage, request } from 'helpers';
+import StateManager from 'state-wrangler';
+
+const { actions, selectors } = authConstants;
+const { tokenKeyName } = appConstants;
+
+const initial = {};
+
+const authReducer = (initialState = initial, action = {}) => {
+  const { payload } = action;
+  const state = new StateManager(initialState);
+
+  switch(action.type) {
+    case request(actions.CHECK_TOKEN).start:
+      return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
+
+    case request(actions.CHECK_TOKEN).success:
+      return state.update(selectors.STATE_KEY_USER_INFO, payload);
+
+    case request(actions.CHECK_TOKEN).complete:
+      return state.update(selectors.STATE_KEY_USER_INFO_LOADING, payload);
+
+    default:
+      return initialState;
+  }
+};
+
+export { authReducer };
+```
+
+You'll see the `requestHelper()` communicates with `apiMiddleware()` as each API call is made, and returns the status of the call along the way to the reducer.  This gives fine control
+over when to update the store and with what values, i.e. loading resource states, as shown above.  You must use the `request()` helper for API actions &mdash; this is by design.  The
+`apiMiddleware()` is looking for this to know how to direct it's response to the store &mdash; simple action calls to the store will fail.  This is also a clear way to distinguish simple
+store actions from API calls when glancing at the code.
 
 **Note**: It's recommended to create a new folder in *modules* for each section or page of your app. These other reducers, actions, selectors etc. will keep things scalable and manageable.
 Don't forget to add any new reducers in *reducersController.jsx*`. **Do not add them in store.jsx**
@@ -567,88 +687,4 @@ const storeConfig = {
 const store = configureStore(storeConfig);
 
 export { store };
-```
-
-
-
-# Adding a Site-Wide Banner Message
-
-A banner alert system is included by default in *scenes/App.jsx*.  There is nothing you need to do in this file, but here is the relevant setup, for reference:
-
-```jsx
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'helpers/stateHelpers';
-import appSelectors from 'modules/app/appSelectors';
-import Banner from 'components/Banner/Banner';
-
-const App = props => {
-  const [ showBanner, setShowBanner ] = useState(true);
-  const dispatch = useDispatch();
-
-  // Actions and Selectors
-  const globalBannerContent = useSelector(state => appSelectors.globalBannerContent(state));
-
-  return (
-    <div id="app">
-      {globalBannerContent && showBanner && (
-        <Banner center text={globalBannerContent} callback={() => setShowBanner(false)} />
-      )}
-    </div>
-  );
-};
-```
-
-*scenes/App/Header.jsx* handles showing the banner and it's contents automoatically, there is nothing you need to do here.
-
-```jsx
-import React, { useEffect } from 'react';
-import { Banner } from 'xerum';
-
-const YourComponent = props => {
-  // These props should come from your HOC wrapper component.
-  const { theme, selectedTheme, bannerContent } = props;
-  const [ showBanner, setShowBanner ] = useState(true);
-
-  return (
-    <header>
-      {bannerContent && showBanner && (
-        <Banner
-          theme={theme}
-          selectedTheme={selectedTheme}
-          center={true}
-          sharp={true}
-          textColor={theme.colors.shades.white}
-          callback={() => setShowBanner(false)}
-        >
-          <Font weight='semibold'>
-            {bannerContent}
-          </Font>
-        </Banner>
-      )}
-    </header>
-  );
-};
-```
-
-To have the banner show, you will need to invoke the action from state in your component as follows:
-
-```jsx
-import React, { useEffect } from 'react';
-
-const YourComponent = props => {
-  // These props should come from your HOC wrapper component.
-  const { bannerContent, setBannerContent } = props;
-
-  useEffect(() => {
-    if (!globalBannerContent) {
-      setBannerContent("New site-wide banner alert message!");
-    }
-  }, [ globalBannerContent ]);
-
-  return (
-    <div>
-      Other component content...
-    </div>
-  );
-};
 ```
