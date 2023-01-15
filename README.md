@@ -125,7 +125,7 @@ const renderApp = () => {
 
 # Utility and Integration
 
-## Feature Flags
+### Feature Flags
 A basic feature flag object has been added in *featureFlags.jsx*.  You can expand this object or integrate it into your build pipeline,
 however you see fit, to control features for different environments or deployments.
 
@@ -165,9 +165,7 @@ const Component = props => {
 export default Component;
 ```
 
-
-
-## Mirage
+### Mirage
 
 Mock back-end responses and data structure can be created with `mirage`.  This is set up for development environments only.
 
@@ -176,14 +174,14 @@ Please see [miragejs.com](https://miragejs.com) for more info.
 
 
 
-## Analytics
+### Analytics
 
 Google Analytics is implemented and will automatically begin sending data to the Google Analytics service once a value has been provided for `VITE_ANALYTICS_ID=''`
 in *.env* &mdash; please see [React Google Analytics](https://github.com/react-ga/react-ga) for more info.
 
 
 
-## Monitoring
+### Monitoring
 
 Monitoring is handled with [Sentry](https://sentry.io) and is set up in *main.jsx*.  It is disabled for development, but will automatically begin monitoring for errors when a value is provided for `VITE_SENTRY_DSN=''` in *.env*
 
@@ -191,7 +189,7 @@ If you don't want to use *Sentry*, remove the package along with the import and 
 
 
 
-## Heartbeat
+### Heartbeat
 
 If the internet connection fails while a user is using your app, the application will alert the user that the internet connection has failed.
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
@@ -201,7 +199,7 @@ app in *main.jsx*.  It is disabled in development and also takes a `time={}` pro
 
 
 # Themes, Fonts and Layout
-## Themes
+### Themes
 
 This template was built with `styled-components`.  It maintains unique class names on all of your components for a conflict-free styling experience.
 Furthermore, it works with React's `props` to generate dynamic styles or to inject CSS mixins.
@@ -214,7 +212,7 @@ Please see [Styled Components](https://styled-components.com/) for more info.
 
 
 
-## Custom Fonts
+### Custom Fonts
 
 By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; there is also an additional folder for *secondary* fonts
 if your project requires more than a primary font face.
@@ -231,7 +229,7 @@ If you need your headers, for example, to use the secondary font, open any `<H# 
 
 
 
-## Layout
+### Layout
 
 The `<Layout />` component (`import { Layout } from 'components';`), limits child content to a max width defined as layoutWidth in *modules/app/appConstants.jsx*.
 
@@ -243,7 +241,7 @@ You can use `<Layout center={true} />` if you need the layout element center jus
 
 
 
-## About Font Awesome
+### About Font Awesome
 By default, **@fortawesome/fontawesome-free** is used. If this is all you need, then there is nothing further for you to do.
 
 If you have a pro license, you'll need to do the following:
@@ -447,7 +445,7 @@ Don't forget to add any new reducers in *reducersController.jsx*`. **Do not add 
 
 
 
-## About Actions and Selectors
+### About Actions and Selectors
 Actions and Selectors are defined in objects for their specific module &mdash; the following can be found in *modules/appConstants.jsx*, *modules/appActions.jsx* and *modules/appSelectors.jsx*:
 ```jsx
 // appConstants.jsx
@@ -503,7 +501,7 @@ const appSelectors = {
 export { appSelectors };
 ```
 
-## About Higher Order Component Wrappers
+### About Higher Order Component Wrappers
 > It is strongly recommended to not deviate from this pattern!  You will need to create a Wrapper component for every main
 > component that is returned from a route, or as needed.
 
@@ -554,7 +552,7 @@ export { AppWrapper };
 
 
 
-## Calling an API action
+### Calling an API action
 API actions can be passed a callbacks function containing `onSuccess`, `onFail` and `onComplete` functions.
 These callback functions will be executed as their names imply, by `middleware/apiMiddleware.jsx`.
 
@@ -611,9 +609,9 @@ export const sampleAPICall = args => {
 };
 ```
 
-## About Middleware
-A middleware function is used to execute something prior to the reducer's state update.  Afterware is much the same, but runs after the state update has occured.
-Middleware and afterware can be added to the arrays of the same name in *store.jsx*, example: `const middlewares = [ apiMiddleware ];`
+### About Middleware
+A middleware function is used to execute something prior to the reducer's state update.
+Middleware can be added to the arrays of the same name in *store.jsx*, example: `const middleware = [ apiMiddleware ];`
 
 An example of middleware that this app uses can be found when any API action is called. Please see *middleware/apiMiddleware.jsx* for the full example, including the `apiRelay()` function:
 ```jsx
@@ -631,7 +629,7 @@ const apiMiddleware = ({ dispatch }) => next => async action => {
 };
 ```
 
-## About store.jsx
+### About store.jsx
 The store is reponsible for combining all reducers, injecting any middleware and initializing Redux dev. tools. It passes a final state object
 to the rest of the app by wrapping the app with `<Provider store={store} />` in **main.jsx**.
 
