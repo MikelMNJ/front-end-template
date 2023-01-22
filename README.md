@@ -34,9 +34,10 @@ Feel free to clone, modify and start your own projects with this template.
 1. Clone the repo.
 2. Add *.env* to the project root with the following variables:
     ```
-    VITE_NAME=''
+    VITE_APP_NAME=''
     VITE_SENTRY_DSN=''
-    VITE_ANALYTICS_ID=''
+    VITE_SENTRY_ORG=''
+    VITE_SENTRY_PROJECT=''
     VITE_API_URL='/[your server path]/api/v1'
     ```
 
