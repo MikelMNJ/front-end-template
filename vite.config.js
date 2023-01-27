@@ -7,11 +7,23 @@ import eslint from 'vite-plugin-eslint';
 const config = defineConfig(({ mode }) => {
   const env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   const sentryConfig = {
-    authToken: env.VITE_SENTRY_DSN,
+    authToken: env.VITE_SENTRY_AUTH_TOKEN,
     org: env.VITE_SENTRY_ORG,
     project: env.VITE_SENTRY_PROJECT,
     include: './dist',
   };
+
+  const hmrPatch = () => ({
+    name: 'singleHMR',
+    handleHotUpdate({ modules }) {
+      modules.map(module => {
+        module.importedModules = new Set();
+        module.importers = new Set();
+      });
+
+      return modules;
+    },
+  });
 
   return {
     define: { 'process.env': env },
@@ -20,6 +32,7 @@ const config = defineConfig(({ mode }) => {
       react(),
       jsconfigPaths(),
       eslint(),
+      hmrPatch(),
       sentryVitePlugin(sentryConfig),
     ],
   };
