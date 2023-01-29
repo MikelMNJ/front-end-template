@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
+import { hmrPatch } from './src/utility';
 import react from '@vitejs/plugin-react-swc';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import eslint from 'vite-plugin-eslint';
@@ -15,18 +16,6 @@ const config = defineConfig(({ mode }) => {
     release: `${name}@${version}`,
     include: './dist',
   };
-
-  const hmrPatch = () => ({
-    name: 'singleHMR',
-    handleHotUpdate({ modules }) {
-      modules.map(module => {
-        module.importedModules = new Set();
-        module.importers = new Set();
-      });
-
-      return modules;
-    },
-  });
 
   return {
     define: { 'process.env': env },
