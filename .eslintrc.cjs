@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     commonjs: true,
     es6: true,
-    jest: true,
+    jest: false,
     node: true,
   },
   parser: '@babel/eslint-parser',
@@ -12,7 +12,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
-    'plugin:jest/recommended',
     'plugin:testing-library/react',
   ],
   parserOptions: {
@@ -32,6 +31,7 @@ module.exports = {
     '@typescript-eslint',
     'eslint-plugin-no-inline-styles',
     'destructuring',
+    'vitest',
   ],
   root: true,
   rules: {
