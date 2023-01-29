@@ -16,7 +16,7 @@ The app contains the following features to get you started:
 * Notification system &mdash; dispatch from front-end to send UI feedback or send from your back-end to convey server feedback.
 * `styled-components` for clean, conflict-free, and dynamic component styling.
 * Preset ES Lint rules to keep the code-base standardized and free of tech debt.
-* `testing-library` with `jest` for unit testing.
+* `testing-library` with `vitest` for unit testing.
 * Design systems and components for themes, typography and layout.
 
 Feel free to clone, modify and start your own projects with this template.
@@ -34,10 +34,12 @@ Feel free to clone, modify and start your own projects with this template.
 1. Clone the repo.
 2. Add *.env* to the project root with the following variables:
     ```
-    VITE_APP_NAME=''
+    VITE_APP_NAME='Template'
     VITE_SENTRY_DSN=''
+    VITE_SENTRY_AUTH_TOKEN=''
     VITE_SENTRY_ORG=''
     VITE_SENTRY_PROJECT=''
+    VITE_ANALYTICS_ID=''
     VITE_API_URL='/[your server path]/api/v1'
     ```
 
@@ -67,8 +69,10 @@ The structure of this template is as follows:
 
 # Testing
 
-`npm run test` can be used to run all compatible test files.  *React Testing Library* and *Jest*
-are used, and only require the name *[componentName].test.jsx*.
+`npm run test` can be used to run all compatible test files.  *React Testing Library* and *Vitest*
+are used, and only require the name *[componentName].test.jsx*.  You can view your test coverage
+with `npm run test:coverage` &mdash; this will build a *Coverage* folder so you can view your project's
+test coverage results.
 
 
 
