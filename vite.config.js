@@ -6,7 +6,8 @@ import jsconfigPaths from 'vite-jsconfig-paths';
 import eslint from 'vite-plugin-eslint';
 import PackageJSON from './package.json';
 
-const config = defineConfig(({ mode }) => {
+const config = defineConfig(args => {
+  const { mode } = args;
   const { name, version } = PackageJSON;
   const env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   const sentryConfig = {
