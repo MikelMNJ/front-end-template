@@ -200,7 +200,7 @@ If the internet connection fails while a user is using your app, the application
 Once the connection is restored, the app will continue rendering normally.  This is handled with a custom `<Heartbeat />` component that wraps the main
 app in *main.jsx*.  It is disabled in development and also takes a `time={}` prop (in seconds) to control the interval it checks the connection in production.
 
-**Note**: This component comes from `xerum` and has additional props.  Pleae see the [Xerum](https://xerum.netlify.app) for full usage.
+**Note**: This component comes from `xerum` and has additional props.  Pleae see [Xerum](https://xerum.netlify.app) for full usage.
 
 
 # Themes, Fonts and Layout
@@ -219,14 +219,14 @@ Please see [Styled Components](https://styled-components.com/) for more info.
 
 ### Custom Fonts
 
-By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in `static/fonts/primary` &mdash; there is also an additional folder for *secondary* fonts
+By default, **Inter**, **Inter-SemiBold** and **Inter-Bold** are included in *static/fonts/primary* &mdash; there is also an additional folder for *secondary* fonts
 if your project requires more than a primary font face.
 
-If you are adding a secondary font, or replacing the default font files &mdash; you will also need to define those new font faces in `fontFaces.css`.  Additionally,
-you will need to add the font names, exactly, to `controllers/fontsController.jsx` &mdash; now the `GlobalStyles` component in `scenes/App/styles.jsx` and all
-typography components in `components/Typography` will automatically read the new primary font files.
+If you are adding a secondary font, or replacing the default font files &mdash; you will also need to define those new font faces in *fontFaces.css*.  Additionally,
+you will need to add the font names, exactly, to *controllers/fontsController.jsx* &mdash; now the `GlobalStyles` component in *scenes/App/styles.jsx* and all
+typography components in *components/Typography* will automatically read the new primary font files.
 
-If you need your headers, for example, to use the secondary font, open any `<H# />` component in `components/Typography` and change
+If you need your headers, for example, to use the secondary font, open any `<H# />` component in *components/Typography* and change
 `fonts?.primary?.bold` to be `fonts?.secondary?.bold` &mdash; or whatever your desired weight is.  You may also need to expand the
 `getFontFamily()` function in *fontHelpers.jsx* to account for secondary font cases.
 
@@ -344,7 +344,7 @@ const YourComponent = props => {
 
 # State Management with Redux
 
-## About the Reducer
+### About the Reducer
 The Reducer takes an initial state object and action.  You can find the `actionCreator()` function, along with
 other state helpers, in *helpers/stateHelpers.jsx*.
 The action creator passes an object with `{ type, payload }` to the reducer, where the reducer's *switch* statement
@@ -587,7 +587,7 @@ const YourComponent = props => {
 export { YourComponent };
 ```
 
-The difference between a API actions and simple action calls to the store, is an additional API file (see *modules/auth/appApi.jsx*),
+The difference between API actions and simple action calls to the store, is an additional API file (see *modules/auth/appApi.jsx*),
 imported as *api* (see *modules/auth/authActions.jsx*), that describes everything the middleware needs to make the call.
 Anything you would normally write to make an API call is valid in this object: `headers: {}`,
 `body: JSON.stringify(payload)` etc.
