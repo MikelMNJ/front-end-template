@@ -10,6 +10,7 @@ import { theme } from 'theme';
 import { AppWrapper } from 'scenes';
 import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga';
+import PackageJSON from '../package.json';
 import * as Sentry from '@sentry/react';
 import _ from 'lodash';
 
@@ -22,6 +23,7 @@ const {
   VITE_ANALYTICS_ID: analyticsID,
 } = process.env;
 
+const { name, version } = PackageJSON;
 const inProduction = NODE_ENV === 'production';
 
 const startApp = async () => {
@@ -40,6 +42,7 @@ const startApp = async () => {
     if (inProduction && !_.isEmpty(sentryDSN)) {
       Sentry.init({
         dsn: sentryDSN,
+        release: `${name}@${version}`,
         integrations: [ new BrowserTracing() ],
         tracesSampleRate: 1.0,
       });
