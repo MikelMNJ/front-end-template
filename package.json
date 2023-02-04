@@ -27,7 +27,7 @@
     "react-router-dom": "^6.6.1",
     "state-wrangler": "^0.2.2",
     "styled-components": "^5.3.6",
-    "xerum": "^0.6.10",
+    "xerum": "^0.6.11",
     "yup": "^0.32.11"
   },
   "devDependencies": {
