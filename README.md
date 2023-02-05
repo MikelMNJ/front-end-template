@@ -53,7 +53,7 @@ For NPM users, run `npm i` in the project directory.
 
 The structure of this template is as follows:
 * **components**: Reusable components.
-* **controllers**: Front-end controllers, i.e. front-end routing.
+* **controllers**: Front-end controllers, i.e. front-end routing, reducers, fonts, social networks etc.
 * **helpers**: Utility related functions.
 * **middleware**: Front-end middleware.
 * **modules**: Anything Redux related.

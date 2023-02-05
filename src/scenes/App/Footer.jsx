@@ -1,6 +1,8 @@
+/* eslint-disable */
 import { StyledFooter } from './styles';
 import { Font, Layout } from 'components';
-import { Copyright } from 'xerum';
+import { Copyright, Social, Spacer } from 'xerum';
+import { socialNetworks } from 'controllers';
 import PackageJSON from '../../../package.json';
 
 const { version } = PackageJSON;
@@ -19,7 +21,17 @@ const Footer = props => {
           />
         </Font>
 
+
         <Font weight='light' size={0.9}>
+          <Social
+            theme={theme}
+            selectedTheme={selectedTheme}
+            iconSize={1}
+            networks={socialNetworks}
+          />
+
+          <Spacer across={true} />
+
           v{version}
         </Font>
       </Layout>
