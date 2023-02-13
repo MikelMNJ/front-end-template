@@ -69,7 +69,7 @@ const modes = {
     white: colors.shades.white,
     lightGrey: colors.neutral.lightGrey,
     grey: colors.neutral.greyWeb,
-    darkGrey: colors.neutral.davysGrey,
+    darkGrey: colors.shades.black,
     black: colors.shades.black,
 
     success: colors.success.oceanGreen,
