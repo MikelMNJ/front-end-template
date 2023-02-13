@@ -36,7 +36,7 @@ const Header = props => {
               theme={theme}
               selectedTheme={selectedTheme}
               noText={true}
-              btnType='transparent'
+              buttonType='transparent'
               icon={selectedTheme === light ? 'fa-solid fa-sun' : 'fa-solid fa-moon'}
               color={theme.colors.neutral.lightGrey}
               hoverColor={theme.colors.shades.white}
@@ -50,7 +50,7 @@ const Header = props => {
                 theme={theme}
                 selectedTheme={selectedTheme}
                 noText={true}
-                btnType='transparent'
+                buttonType='transparent'
                 icon='fa-solid fa-right-from-bracket'
                 color={theme.colors.neutral.lightGrey}
                 hoverColor={theme.colors.shades.white}
