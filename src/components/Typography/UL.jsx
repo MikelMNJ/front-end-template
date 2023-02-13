@@ -1,8 +1,9 @@
+import { appConstants } from 'modules';
 import styled from 'styled-components';
 
 const StyledUL = styled('ul')`
-  max-width: 42rem;
   margin: 0;
+  max-width: ${appConstants.textWidth}rem;
 `;
 
 const UL = props => {
