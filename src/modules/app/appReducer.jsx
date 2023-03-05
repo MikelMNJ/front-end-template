@@ -8,7 +8,7 @@ const savedTheme = getLocalStorageSetting(selectors.STATE_KEY_SELECTED_THEME);
 const initial = {
   [selectors.STATE_KEY_SELECTED_THEME]: savedTheme || themes.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
-  [selectors.STATE_KEY_BANNER_CONTENT]: null,
+  [selectors.STATE_KEY_BANNER_CONTENT]: 'Welcome to your new app!',
 };
 
 const appReducer = (initialState = initial, action = {}) => {

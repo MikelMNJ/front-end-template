@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { P, Font, Layout } from 'components';
+import { Spacer } from 'xerum';
 import { Title } from '../Title';
 import { ContentArea } from '../styles';
 import { ColorDefinitions } from './ColorDefinitions';
@@ -8,7 +10,22 @@ const ColorSystem = props => {
     <div>
       <Title
         text='Color'
-        subText='Definitions and usage' {...props}
+        subText={
+          <div>
+            <Font weight='bold'>
+              Definitions and usage.
+            </Font>
+
+            <Spacer />
+
+            <P>
+              Also see:&nbsp;
+              <Link to='/typography'>Typography</Link>&nbsp;and&nbsp;
+              <Link to='/layout'>Layout</Link>
+            </P>
+          </div>
+        }
+        {...props}
         rightContent={(
           <>
             <P>

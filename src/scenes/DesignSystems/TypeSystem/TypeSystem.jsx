@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { H3, P, Font, Layout } from 'components';
 import { Spacer } from 'xerum';
 import { Title } from '../Title';
@@ -10,7 +11,21 @@ const TypeSystem = props => {
     <div>
       <Title
         text='Typography'
-        subText='Font faces, type sets and weights'
+        subText={
+          <div>
+            <Font weight='bold'>
+              Font faces, type sets, and weights.
+            </Font>
+
+            <Spacer />
+
+            <P>
+              Also see:&nbsp;
+              <Link to='/color'>Color</Link>&nbsp;and&nbsp;
+              <Link to='/layout'>Layout</Link>
+            </P>
+          </div>
+        }
         rightContent={
           <>
             <P>

@@ -10,6 +10,7 @@ export const LayoutWrapper = styled('div')`
   ${props => props.center && css`margin: 0 auto;`}
   ${props => props.inline && css`
     display: inline-flex;
+    gap: ${props.gap || 0}rem;
     flex-wrap: wrap;
     flex-grow: 1;
     flex-shrink: 1;

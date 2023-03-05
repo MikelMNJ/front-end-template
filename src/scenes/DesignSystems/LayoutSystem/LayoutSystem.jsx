@@ -1,4 +1,5 @@
-import { Font, Layout } from 'components';
+import { Link } from 'react-router-dom';
+import { P, Font, Layout } from 'components';
 import { Spacer } from 'xerum';
 import { Title } from '../Title';
 import { ElementSpacing } from './ElementSpacing';
@@ -10,7 +11,21 @@ const LayoutSystem = props => {
     <div>
       <Title
         text='Layout'
-        subText='Spacing and layout'
+        subText={
+          <div>
+            <Font weight='bold'>
+              Spacing and layout.
+            </Font>
+
+            <Spacer />
+
+            <P>
+              Also see:&nbsp;
+              <Link to='/color'>Color</Link>&nbsp;and&nbsp;
+              <Link to='/typography'>Typography</Link>
+            </P>
+          </div>
+        }
         rightContent={(
           <div>
             Import &#123; Layout &#125; from &apos;<Font weight='semiBold'>components</Font>&apos;;

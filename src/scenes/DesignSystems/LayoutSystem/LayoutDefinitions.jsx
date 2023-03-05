@@ -27,6 +27,14 @@ const LayoutDefinitions = () => {
         <Spacer />
 
         <P>
+          <Font weight='semiBold'>&lt;Layout gap=&#123;1&#125; /&gt;</Font> will
+          allow you to control the spacing between elements if&nbsp;
+          <Font weight='semiBold'>inline</Font> is used &mdash; this is a rem unit.
+        </P>
+
+        <Spacer />
+
+        <P>
           You can use&nbsp;
           <Font weight='semiBold'>&lt;Layout center=&#123;true&#125; /&gt;</Font> if you need
           the layout element center justified in its parent.
