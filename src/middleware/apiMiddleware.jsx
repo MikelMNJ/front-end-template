@@ -55,7 +55,7 @@ export const apiRelay = args => {
         const { error, errors, ...payload } = data;
         handleNotify(dispatch, data);
 
-        if (payload && (!error || !errors)) {
+        if (payload && (!error && !errors)) {
           dispatchSuccessState({ dispatch, type, payload, meta, success: true });
         }
       }

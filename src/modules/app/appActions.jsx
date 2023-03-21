@@ -7,7 +7,7 @@ const appActions = {
   addNotification: payload => actionCreator(appConstants.actions.ADD_NOTIFICATION, payload),
   removeNotification: payload => actionCreator(appConstants.actions.REMOVE_NOTIFICATION, payload),
   clearNotifications: () => actionCreator(appConstants.actions.CLEAR_NOTIFICATIONS),
-  setModalContent: payload => actionCreator(appConstants.actions.SET_MODAL_VISIBLE, payload),
+  setModalContent: payload => actionCreator(appConstants.actions.SET_MODAL_CONTENT, payload),
 };
 
 export { appActions };

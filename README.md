@@ -393,8 +393,8 @@ const appReducer = (initialState = initial, action = {}) => {
     case actions.CLEAR_NOTIFICATIONS:
       return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);
 
-    case actions.SET_MODAL_VISIBLE:
-      return state.update(selectors.STATE_KEY_MODAL_VISIBLE, payload);
+    case actions.SET_MODAL_CONTENT:
+      return state.update(selectors.STATE_KEY_MODAL_CONTENT, payload);
 
     default:
       return initialState;
@@ -461,14 +461,14 @@ const constants = {
     ADD_NOTIFICATION: 'modules/app/ADD_NOTIFICATION',
     REMOVE_NOTIFICATION: 'modules/app/REMOVE_NOTIFICATION',
     CLEAR_NOTIFICATIONS: 'modules/app/CLEAR_NOTIFICATIONS',
-    SET_MODAL_VISIBLE: 'modules/app/SET_MODAL_VISIBLE',
+    SET_MODAL_CONTENT: 'modules/app/SET_MODAL_CONTENT',
   },
 
   selectors: {
     STATE_KEY_SELECTED_THEME: 'selectedTheme',
     STATE_KEY_BANNER_CONTENT: 'bannerContent',
     STATE_KEY_NOTIFICATIONS: 'notifications',
-    STATE_KEY_MODAL_VISIBLE: 'modalContent',
+    STATE_KEY_MODAL_CONTENT: 'modalContent',
   },
 };
 ```
@@ -484,7 +484,7 @@ const appActions = {
   addNotification: payload => actionCreator(appConstants.actions.ADD_NOTIFICATION, payload),
   removeNotification: payload => actionCreator(appConstants.actions.REMOVE_NOTIFICATION, payload),
   clearNotifications: () => actionCreator(appConstants.actions.CLEAR_NOTIFICATIONS),
-  setModalContent: payload => actionCreator(appConstants.actions.SET_MODAL_VISIBLE, payload),
+  setModalContent: payload => actionCreator(appConstants.actions.SET_MODAL_CONTENT, payload),
 };
 
 export { appActions };
@@ -500,7 +500,7 @@ const appSelectors = {
   selectedTheme: state => state.app[selectors.STATE_KEY_SELECTED_THEME],
   bannerContent: state => state.app[selectors.STATE_KEY_BANNER_CONTENT],
   notifications: state => state.app[selectors.STATE_KEY_NOTIFICATIONS],
-  modalContent: state => state.app[selectors.STATE_KEY_MODAL_VISIBLE],
+  modalContent: state => state.app[selectors.STATE_KEY_MODAL_CONTENT],
 };
 
 export { appSelectors };

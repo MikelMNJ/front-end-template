@@ -9,6 +9,7 @@ const initial = {
   [selectors.STATE_KEY_SELECTED_THEME]: savedTheme || themes.light,
   [selectors.STATE_KEY_NOTIFICATIONS]: [],
   [selectors.STATE_KEY_BANNER_CONTENT]: 'Welcome to your new app!',
+  [selectors.STATE_KEY_MODAL_CONTENT]: null,
 };
 
 const appReducer = (initialState = initial, action = {}) => {
@@ -34,8 +35,8 @@ const appReducer = (initialState = initial, action = {}) => {
     case actions.CLEAR_NOTIFICATIONS:
       return state.update(selectors.STATE_KEY_NOTIFICATIONS, []);
 
-    case actions.SET_MODAL_VISIBLE:
-      return state.update(selectors.STATE_KEY_MODAL_VISIBLE, payload);
+    case actions.SET_MODAL_CONTENT:
+      return state.update(selectors.STATE_KEY_MODAL_CONTENT, payload);
 
     default:
       return initialState;
