@@ -21,7 +21,6 @@ const Footer = props => {
           />
         </Font>
 
-
         <Font weight='light' size={0.9}>
           <Social
             theme={theme}
