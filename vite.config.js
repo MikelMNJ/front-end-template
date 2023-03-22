@@ -25,7 +25,7 @@ const config = defineConfig(args => {
     test: {
       globals: true,
       environment: 'jsdom',
-      setupFiles: [ './test/setupTests.jsx' ],
+      setupFiles: [ './tests/setupTests.jsx' ],
     },
     plugins: [
       react(),
