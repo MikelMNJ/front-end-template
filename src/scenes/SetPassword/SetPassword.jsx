@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Font, H3 } from 'components';
@@ -23,7 +22,7 @@ const validationSchema = yup.object().shape({
 
   confirmNewPassword: yup.string()
     .required('Confirm new password is required.')
-    .oneOf([ yup.ref('password'), null ], 'Passwords must match'),
+    .oneOf([ yup.ref('password'), null ], 'Passwords must match.'),
 });
 
 const SetPassword = props => {
@@ -37,11 +36,12 @@ const SetPassword = props => {
   const expired = resetToken && !tokenValid(resetToken);
   const darkTheme = rest.selectedTheme === dark;
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    const { password, confirmPassword } = values;
+  const handleSubmit = (values, actions) => {
+    const { setSubmitting } = actions;
+    const { password, confirmNewPassword } = values;
     const payload = {
       password,
-      confirmPassword,
+      confirmNewPassword,
       token: resetToken,
     };
 
@@ -57,12 +57,15 @@ const SetPassword = props => {
 
     const callbacks = {
       onSuccess: handleRedirect,
-      onFail: () => console.log('failed'),
+      onFail: () => console.log('Failed to set password.'),
       onComplete: () => setSubmitting(false),
     };
 
     const resetTokenParam = () => {
-      const resetError = { message: 'Invalid reset token, send a new reset request.', type: 'error' };
+      const resetError = {
+        message: 'Invalid reset token, send a new reset request.',
+        type: 'error',
+      };
 
       searchParams.delete(tokenKeyName);
       setSearchParams(searchParams);

@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = props => {
-  const { login, addNotifcation, userInfo, ...rest } = props;
+  const { login, addNotification, userInfo, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Login = props => {
     const loginError = { message: 'Unable to log in.', type: 'error' };
 
     const callbacks = {
-      onFail: () => addNotifcation(loginError),
+      onFail: () => addNotification(loginError),
       onComplete: () => setSubmitting(false),
     };
 
@@ -116,7 +116,7 @@ const Login = props => {
 
               <Center>
                 <Link to='/create-account'>Create account</Link> or&nbsp;
-                <Link to='/reset-password'>Reset Password</Link>
+                <Link to='/reset-password'>Reset password</Link>
               </Center>
             </Form>
           )}

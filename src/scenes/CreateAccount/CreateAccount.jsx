@@ -186,11 +186,9 @@ const CreateAccount = props => {
     <StyledCreateAccount>
       {buildForm()}
 
-      {modalContent && (
-        <Modal onClose={() => setModalContent(null)} {...rest}>
-          {modalContent}
-        </Modal>
-      )}
+      <Modal visible={!_.isEmpty(modalContent)} onClose={() => setModalContent(null)} {...rest}>
+        {modalContent}
+      </Modal>
     </StyledCreateAccount>
   );
 };

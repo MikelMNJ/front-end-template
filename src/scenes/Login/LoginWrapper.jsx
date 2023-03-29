@@ -12,7 +12,7 @@ const mapSelectorsToProps = state => {
 
 const mapActionsToProps = dispatch => {
   return {
-    addNotifcation: payload => dispatch(appActions.addNotification(payload)),
+    addNotification: payload => dispatch(appActions.addNotification(payload)),
     login: (payload, callbacks) => dispatch(authActions.login(payload, callbacks)),
   };
 };
