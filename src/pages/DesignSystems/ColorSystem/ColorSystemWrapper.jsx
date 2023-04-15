@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
+import { ColorSystem } from 'pages';
 import { withTheme } from 'styled-components';
-import { TermsOfService } from 'scenes';
 import { appSelectors } from 'modules';
 
 const mapSelectorsToProps = state => {
@@ -10,12 +10,10 @@ const mapSelectorsToProps = state => {
 };
 
 const mapActionsToProps = () => {
-  return {
-
-  };
+  return {};
 };
 
-const Component = withTheme(TermsOfService);
-const TermsOfServiceWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(ColorSystem);
+const ColorSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { TermsOfServiceWrapper };
+export { ColorSystemWrapper };

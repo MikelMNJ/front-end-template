@@ -520,7 +520,7 @@ to the specified component for use in `props`. Here is the main `AppWrapper.jsx`
 ```jsx
 import { connect } from 'react-redux';
 import { withTheme } from 'styled-components';
-import { App } from 'scenes';
+import { App } from 'pages';
 import {
   appSelectors,
   appActions,

@@ -3,8 +3,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Font, H3 } from 'components';
 import { appConstants } from 'modules';
 import { tokenValid } from 'helpers';
-import { TermsOfService, PrivacyPolicy } from 'scenes';
-import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer, Modal } from 'xerum';
+import { TermsOfService, PrivacyPolicy } from 'pages';
+import { Field, FieldError, FieldReqs, Button, Checkbox, Spacer } from 'xerum';
 import { StyledCreateAccount, Center } from './styles';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -33,7 +33,7 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateAccount = props => {
-  const { modalContent, setModalContent, createUser, userInfo, ...rest } = props;
+  const { setModalContent, createUser, userInfo, ...rest } = props;
   const [ passwordVisible, setPasswordVisible ] = useState(false);
 
   const navigate = useNavigate();
@@ -185,10 +185,6 @@ const CreateAccount = props => {
   return (
     <StyledCreateAccount>
       {buildForm()}
-
-      <Modal visible={!_.isEmpty(modalContent)} onClose={() => setModalContent(null)} {...rest}>
-        {modalContent}
-      </Modal>
     </StyledCreateAccount>
   );
 };

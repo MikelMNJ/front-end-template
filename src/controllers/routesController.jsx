@@ -13,7 +13,7 @@ import {
   ColorSystemWrapper,
   TypeSystemWrapper,
   LayoutSystemWrapper,
-} from 'scenes';
+} from 'pages';
 
 /*
 * TODO: Remove demoSite instances when app can authenticate users.

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withTheme } from 'styled-components';
-import { PrivacyPolicy } from 'scenes';
+import { TermsOfService } from 'pages';
 import { appSelectors } from 'modules';
 
 const mapSelectorsToProps = state => {
@@ -15,7 +15,7 @@ const mapActionsToProps = () => {
   };
 };
 
-const Component = withTheme(PrivacyPolicy);
-const PrivacyPolicyWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(TermsOfService);
+const TermsOfServiceWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { PrivacyPolicyWrapper };
+export { TermsOfServiceWrapper };

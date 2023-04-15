@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { P, Layout } from 'components';
-import { Libraries } from 'scenes';
-import { Title } from 'scenes/DesignSystems/Title';
+import { Libraries } from 'pages';
+import { Title } from 'pages/DesignSystems/Title';
 import { StyledMain, ContentArea } from './styles';
 
 const Main = props => {

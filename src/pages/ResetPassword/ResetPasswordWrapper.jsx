@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ResetPassword } from 'scenes';
+import { ResetPassword } from 'pages';
 import { withTheme } from 'styled-components';
 import { appSelectors, authSelectors, authActions } from 'modules';
 

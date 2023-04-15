@@ -4,9 +4,10 @@ import { Routes } from 'react-router-dom';
 import { appConstants } from 'modules';
 import { makeRoutes, autoLogout, sessionCheck } from 'helpers';
 import { GlobalStyles, StyledApp, MainContent } from './styles';
-import { Header, Footer } from 'scenes';
+import { Header, Footer } from 'pages';
 import { Font } from 'components';
-import { Notifications, Loading } from 'xerum';
+import { Notifications, Loading, Modal } from 'xerum';
+import _ from 'lodash';
 
 const appName = appConstants.appName;
 const tokenKeyName = appConstants.tokenKeyName;
@@ -20,7 +21,7 @@ const tokenKeyName = appConstants.tokenKeyName;
 const demoSite = window.location.href.includes('netlify.app');
 
 const App = props => {
-  const { userInfo, checkToken, logout, userInfoLoading, ...rest } = props;
+  const { userInfo, checkToken, logout, userInfoLoading, modalContent, setModalContent, ...rest } = props;
   const lightTheme = props.selectedTheme === appConstants.themes.light;
   const token = userInfo?.token;
 
@@ -71,6 +72,13 @@ const App = props => {
         renderOnFail={true}
       >
         {renderApp()}
+
+        <Modal
+          visible={!_.isEmpty(modalContent)}
+          onClose={() => setModalContent(null)}
+        >
+          {modalContent}
+        </Modal>
       </Loading>
     </Fragment>
   );

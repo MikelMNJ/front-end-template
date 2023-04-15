@@ -35,7 +35,7 @@ const appConstants = {
   appName: _.camelCase(VITE_APP_NAME),
   tokenKeyName: 'token',
   textWidth: 32,
-  layoutWidth: 118,
+  layoutWidth: 112,
 };
 
 export { appConstants };

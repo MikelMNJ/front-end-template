@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Main } from 'scenes';
+import { Main } from 'pages';
 import { withTheme } from 'styled-components';
 import { appSelectors, appActions } from 'modules';
 

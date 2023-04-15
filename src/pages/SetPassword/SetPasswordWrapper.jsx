@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { Login } from 'scenes';
+import { SetPassword } from 'pages';
 import { withTheme } from 'styled-components';
-import { appSelectors, appActions, authSelectors, authActions } from 'modules';
+import { appActions, appSelectors, authActions, authSelectors } from 'modules';
 
 const mapSelectorsToProps = state => {
   return {
@@ -12,12 +12,12 @@ const mapSelectorsToProps = state => {
 
 const mapActionsToProps = dispatch => {
   return {
+    updateUser: (payload, callbacks) => dispatch(authActions.updateUser(payload, callbacks)),
     addNotification: payload => dispatch(appActions.addNotification(payload)),
-    login: (payload, callbacks) => dispatch(authActions.login(payload, callbacks)),
   };
 };
 
-const Component = withTheme(Login);
-const LoginWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(SetPassword);
+const SetPasswordWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { LoginWrapper };
+export { SetPasswordWrapper };

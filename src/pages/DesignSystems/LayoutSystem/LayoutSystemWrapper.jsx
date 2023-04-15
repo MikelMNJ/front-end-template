@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { ColorSystem } from 'scenes';
+import { LayoutSystem } from 'pages';
 import { withTheme } from 'styled-components';
 import { appSelectors } from 'modules';
 
@@ -13,7 +13,7 @@ const mapActionsToProps = () => {
   return {};
 };
 
-const Component = withTheme(ColorSystem);
-const ColorSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(LayoutSystem);
+const LayoutSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { ColorSystemWrapper };
+export { LayoutSystemWrapper };

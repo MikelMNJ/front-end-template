@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { LayoutSystem } from 'scenes';
 import { withTheme } from 'styled-components';
+import { PrivacyPolicy } from 'pages';
 import { appSelectors } from 'modules';
 
 const mapSelectorsToProps = state => {
@@ -10,10 +10,12 @@ const mapSelectorsToProps = state => {
 };
 
 const mapActionsToProps = () => {
-  return {};
+  return {
+
+  };
 };
 
-const Component = withTheme(LayoutSystem);
-const LayoutSystemWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
+const Component = withTheme(PrivacyPolicy);
+const PrivacyPolicyWrapper = connect(mapSelectorsToProps, mapActionsToProps)(Component);
 
-export { LayoutSystemWrapper };
+export { PrivacyPolicyWrapper };

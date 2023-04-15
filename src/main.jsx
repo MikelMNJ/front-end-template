@@ -7,7 +7,7 @@ import { Heartbeat } from 'xerum';
 import { RouteChangeTracker } from 'components';
 import { store } from 'store';
 import { theme } from 'theme';
-import { AppWrapper } from 'scenes';
+import { AppWrapper } from 'pages';
 import ReactDOM from 'react-dom/client';
 import ReactGA from 'react-ga';
 import PackageJSON from '../package.json';

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { CreateAccount } from 'scenes';
+import { CreateAccount } from 'pages';
 import { withTheme } from 'styled-components';
 import { appSelectors, appActions, authSelectors, authActions } from 'modules';
 
