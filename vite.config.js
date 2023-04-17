@@ -22,6 +22,15 @@ const config = defineConfig(args => {
   return {
     define: { 'process.env': env },
     build: { chunkSizeWarningLimit: 1600, sourcemap: true },
+    server: {
+      port: 3000,
+      proxy: {
+        [env.VITE_API_V1]: {
+          target: 'http://localhost:9999',
+          changeOrigin: true,
+        },
+      },
+    },
     test: {
       globals: true,
       environment: 'jsdom',
